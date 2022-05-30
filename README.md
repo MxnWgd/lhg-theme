@@ -1,1 +1,1 @@
-# lhg-theme
+# LHG-Theme
