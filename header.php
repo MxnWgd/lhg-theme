@@ -10,7 +10,7 @@
     <meta property="og:description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
     <meta property="og:image" content="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium') ?>">
 
-    <meta name="theme-color" content="">
+    <meta name="theme-color" content="#A4005A">
     <meta name="description" content="<?php echo get_the_excerpt(get_the_ID()); ?>">
 
     <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
@@ -22,13 +22,42 @@
 
     <style media="screen">
       :root {
-        --light-accent-color: #A4005A;
-        --dark-accent-color: #52002E;
+        <?php
+        switch (get_theme_mod('theme_color_option')) {
+          case 'magenta':
+            echo '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF;';
+            break;
+
+          case 'blau':
+            echo '--light-accent-color: #0071A4; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF;';
+            break;
+
+          case 'cyan':
+            echo '--light-accent-color: #00ABAE; --dark-accent-color: #003852; --element-accent-color: #00ABAE; --element-text-color: #FFFFFF;';
+            break;
+
+          case 'blau-magenta':
+            echo '--light-accent-color: #E5007D; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF;';
+            break;
+
+          case 'gelb*-pink':
+          case 'gelb-pink-dark':
+            echo '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #FFED00; --element-text-color: #232323;';
+            break;
+
+          case 'gelb-pink*':
+            echo '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #E5007D; --element-text-color: #FFFFFF;';
+            break;
+
+          default:
+            echo '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF;';
+            break;
+        } ?>
       }
     </style>
   </head>
 
-  <body>
+  <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
     <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?>">
       <div class="header-top-bar">
         <div class="header-top-branding">
@@ -68,16 +97,16 @@
         </div>
       </div>
 
+      <h1 class="header-title"><?php is_front_page() ? bloginfo('description') : wp_title(''); ?></h1>
+
       <?php if(is_front_page()) { ?>
         <div class="header-image-slider">
           <div class="header-image-slide" style="background-image: url(<?php header_image() ?>)">&nbsp;</div>
         </div>
-      <?php } else { ?>
-        <?php if (has_post_thumbnail()) { ?>
-          <div class="header-image-slider">
-            <div class="header-image-slide" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
-          </div>
-        <?php } ?>
+      <?php } else if (has_post_thumbnail()) { ?>
+        <div class="header-image-wrapper">
+          <div class="header-image-slide" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
+        </div>
       <?php } ?>
 
       <div class="header-horizontal-bar"></div>
