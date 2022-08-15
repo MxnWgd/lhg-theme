@@ -1,5 +1,36 @@
     <footer>
-      <?php if (!get_theme_mod('remove_footer_branding')) { ?><p class="made-by-branding">Theme made with 💛 by LHG</p><?php } ?>
+      <?php if (!get_theme_mod('remove_footer_branding')) {
+        ?><p class="made-by-branding">Theme made with <?php
+          switch (get_theme_mod('theme_color_option')) {
+            case 'magenta':
+              ?>❤️<?php
+              break;
+
+            case 'blau':
+              ?>💙<?php
+              break;
+
+            case 'türkis':
+              ?>🤍<?php
+              break;
+
+            case 'blau-magenta':
+              ?>❤️<?php
+              break;
+
+            case 'gelb*-pink':
+            case 'gelb-pink-dark':
+            case 'gelb-pink*':
+              ?>💛<?php
+              break;
+
+            default:
+              ?>💛<?php
+              break;
+          }
+         ?> by LHG</p><?php } ?>
+
+
       <div class="footer-sm-icons">
         <?php if (get_theme_mod('sm_facebook_url') != null) { ?>
           <a title="Facebook-Profil" class="sm-icon" target="_blank" href="<?php echo get_theme_mod('sm_facebook_url'); ?>" rel="noreferrer"><i class="fab fa-facebook"></i></a>
@@ -33,7 +64,7 @@
           <?php if (has_custom_logo()) {
             the_custom_logo();
            } else {
-            wp_title('');
+             ?><a href="<?php echo get_home_url(); ?>"><?php bloginfo('name'); ?></a><?php
           } ?>
         </div>
       </div>
