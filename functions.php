@@ -25,7 +25,12 @@
 
   function lhg_theme_setup() {
     add_theme_support('post-thumbnails');
-    add_theme_support('custom-logo');
+    add_theme_support('custom-logo', array(
+      'height' => 150,
+      'width' => 600,
+      'flex-height' => true,
+      'flex-width' => true,
+    ));
 
     register_nav_menu('primary', 'Hauptmenü');
     register_nav_menu('secondary', 'Kleines Zusatzmenü im Header und Footer');
@@ -241,7 +246,7 @@
       ));
 
       $wp_customize->add_setting('show_flyout', array(
-        'default' => 'true',
+        'default' => 'false',
         'capability' => 'edit_theme_options',
         'type' => 'theme_mod',
       ));

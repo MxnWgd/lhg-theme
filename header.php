@@ -10,43 +10,85 @@
     <meta property="og:description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
     <meta property="og:image" content="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium') ?>">
 
-    <meta name="theme-color" content="#A4005A">
     <meta name="description" content="<?php echo get_the_excerpt(get_the_ID()); ?>">
 
     <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
-    <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/<?php switch (get_theme_mod('theme_color_option')) {
+    <?php if (has_site_icon()) { ?>
+        <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/<?php echo get_site_icon_url(); ?>">
+        <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/<?php echo get_site_icon_url(); ?>">
+    <?php } else {
+      switch (get_theme_mod('theme_color_option')) {
         case 'magenta':
-          echo 'lhg-logo-magenta.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png"><?php
           break;
 
         case 'blau':
-          echo 'lhg-logo-blau.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-blau.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-blau.png"><?php
           break;
 
         case 'türkis':
-          echo 'lhg-logo-türkis.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-türkis.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-türkis.png"><?php
           break;
 
         case 'blau-magenta':
-          echo 'lhg-logo-magenta.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png"><?php
           break;
 
         case 'gelb*-pink':
         case 'gelb-pink-dark':
         case 'gelb-pink*':
-          echo 'lhg-logo-gelb.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png"><?php
           break;
 
         default:
-          echo 'lhg-logo-gelb.png';
+          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png">
+            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png"><?php
           break;
-      } ?>
-    ">
+      }
+    } ?>
+
+    <?php
+      switch (get_theme_mod('theme_color_option')) {
+        case 'magenta':
+          ?><meta name="theme-color" content="#52002E"/><?php
+          break;
+
+        case 'blau':
+          ?><meta name="theme-color" content="#003852"/><?php
+          break;
+
+        case 'türkis':
+          ?><meta name="theme-color" content="#00ABAE"/><?php
+          break;
+
+        case 'blau-magenta':
+          ?><meta name="theme-color" content="#003852"/><?php
+          break;
+
+        case 'gelb*-pink':
+        case 'gelb-pink-dark':
+          ?><meta name="theme-color" content="#FFED00"/><?php
+          break;
+
+        case 'gelb-pink*':
+          ?><meta name="theme-color" content="#E5007D"/><?php
+          break;
+
+        default:
+          ?><meta name="theme-color" content="#52002E"/><?php
+          break;
+    } ?>
+
+
     <?php wp_head(); ?>
 
     <style media="screen">
@@ -87,7 +129,7 @@
   </head>
 
   <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
-    <?php if (!$_COOKIE['cookies'] == 'accepted') { get_template_part('cookies'); } ?>
+    <?php if (!is_customize_preview() && !$_COOKIE['cookies'] == 'accepted') { get_template_part('cookies'); } ?>
     <?php if (get_theme_mod('show_flyout')) { get_template_part('flyout'); } ?>
     <div class="image-view">
       <img id="imageViewImg" src="">
@@ -100,7 +142,7 @@
           <?php if (has_custom_logo()) {
             the_custom_logo();
            } else {
-            wp_title('');
+            ?><a href="<?php echo get_home_url(); ?>"><?php bloginfo('name'); ?></a><?php
           } ?>
         </div>
         <div class="header-navigation-area">
@@ -168,7 +210,7 @@
 
               <div class="header-image-slider-control">
                 <?php for ($i = 0; $i < sizeof($ids); $i++) {
-                  ?><button class="header-image-slider-control-dot" id="<?php echo $i ?>">&nbsp;</button><?php
+                  ?><button class="header-image-slider-control-dot" title="Zu Slide <?php echo $i + 1; ?> springen" id="<?php echo $i; ?>" type="button">&nbsp;</button><?php
                 } ?>
               </div>
             </div><?php

@@ -1,5 +1,5 @@
 /*
-  Theme Name: LHG-Theme II
+  Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: The official theme for the Liberale Hochschulgruppen (LHG). Any other use than on the designated webpage requires prior approval by the author. For bugs or improvements refer to https://github.com/MxnWgd/Freisamkeit/issues.
   Version: 0.9
@@ -10,19 +10,20 @@
 
 @font-face {
 	font-family: 'Catamaran';
-	src: url('inc/fonts/Catamaran-VariableFont_wght.ttf');
+	src: url('inc/fonts/Catamaran-VariableFont_wght.ttf') format('truetype supports variable'),
+		url('inc/fonts/Catamaran-VariableFont_wght.woff') format('woff');
 	font-weight: 400 bold;
 	font-stretch: 100%;
 	font-style: normal;
-	font-synthesis: none;
+	font-display: fallback;
 }
 
 @font-face {
 	font-family: 'Passion One';
-	src: url('inc/fonts/PassionOne-Regular.ttf');
+	src: url('inc/fonts/PassionOne-Regular.ttf') format('truetype');
 	font-stretch: 100%;
 	font-style: normal;
-	font-synthesis: none;
+	font-display: fallback;
 }
 
 /*-----------------------------------------------
@@ -84,6 +85,7 @@ body {
 	font-size: 16px;
 	color: var(--dark-text-color);
 	background-color: #FFFFFF;
+	word-break: break-word;
 }
 
 body.dark-background {
@@ -97,7 +99,8 @@ h1 {
 	color: var(--dark-accent-color);
 	font-family: var(--display-font);
 	text-transform: uppercase;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
+	display: block;
 }
 
 .dark-background h1 {
@@ -109,7 +112,8 @@ h2 {
 	color: inherit;
 	font-family: var(--display-font);
 	text-transform: uppercase;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
+	display: block;
 }
 
 h3 {
@@ -118,31 +122,35 @@ h3 {
 	opacity: 0.8;
 	font-family: var(--display-font);
 	text-transform: uppercase;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
+	display: block;
 }
 
 h4 {
 	font-size: 1.6em;
 	color: inherit;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
 	font-weight: bold;
 	letter-spacing: normal;
+	display: block;
 }
 
 h5 {
 	font-size: 1.4em;
 	color: inherit;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
 	font-weight: bold;
 	letter-spacing: normal;
+	display: block;
 }
 
 h6 {
 	font-size: 1em;
 	color: inherit;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
 	font-weight: bold;
 	letter-spacing: normal;
+	display: block;
 }
 
 
@@ -313,6 +321,7 @@ object::-webkit-scrollbar-thumb {
 }
 
 
+button,
 .wp-block-button__link,
 .wp-block-file a.wp-block-file__button,
 .dark-background .wp-block-button__link,
@@ -335,6 +344,8 @@ object::-webkit-scrollbar-thumb {
 	margin: 10px;
 }
 
+button:hover,
+button:focus,
 .wp-block-button__link:hover,
 .wp-block-button__link:focus,
 .wp-block-file a.wp-block-file__button:hover,
@@ -570,7 +581,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 label {
-	margin: 5px 0;
+	margin: 10px 0;
 }
 
 label br {
@@ -611,7 +622,7 @@ option {
   Header
 -----------------------------------------------*/
 
-header {
+#header {
 	width: 100%;
 	height: 450px;
 	position: relative;
@@ -622,11 +633,15 @@ header {
 	transition: height 0.5s ease;
 }
 
-header.front-page {
+#header + * {
+  padding-top: 100px;
+}
+
+#header.front-page {
 	height: 600px;
 }
 
-header.no-image {
+#header.no-image {
 	height: 250px;
 }
 
@@ -644,8 +659,8 @@ header.no-image {
 	transition: height 0.5s;
 }
 
-header.collapsed .header-top-bar,
-header.collapsed-force .header-top-bar {
+#header.collapsed .header-top-bar,
+#header.collapsed-force .header-top-bar {
 	height: 100px;
 	background: linear-gradient(270deg, var(--light-accent-color), var(--dark-accent-color));
 	box-shadow: 0px 10px 40px #000000AA;
@@ -658,6 +673,16 @@ header.collapsed-force .header-top-bar {
 	display: flex;
 	align-items: center;
 	padding-left: 30px;
+	color: #FFFFFF;
+	font-family: var(--display-font);
+	font-size: 3em;
+	text-transform: uppercase;
+}
+
+.header-top-branding a {
+	color: #FFFFFF;
+	background-image: none;
+	transition: transform 0.3s ease;
 }
 
 .header-top-branding .custom-logo-link {
@@ -670,11 +695,10 @@ header.collapsed-force .header-top-bar {
 .header-top-branding img {
 	width: auto;
 	height: 100%;
-	transition: transform 0.3s ease;
 }
 
-.header-top-branding a:hover img,
-.header-top-branding a:focus img {
+.header-top-branding a:hover,
+.header-top-branding a:focus {
 	transform: scale(1.1);
 }
 
@@ -749,9 +773,16 @@ header.collapsed-force .header-top-bar {
 	background-color: #FFFFFF;
 	border-radius: 50%;
 	margin: 5px 15px;
+	padding: 0;
 	border: 5px solid transparent;
 	cursor: pointer;
 	transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.header-image-slider-control-dot:hover,
+.header-image-slider-control-dot:focus {
+	background-color: #FFFFFF;
+	border-radius: 50%;
 }
 
 .header-image-slider-control-dot.selected {
@@ -784,6 +815,10 @@ header.collapsed-force .header-top-bar {
 	position: fixed;
 }
 
+#header.no-image .header-image-wrapper {
+	height: 250px;
+}
+
 .header-navigation-area {
 	flex-grow: 1;
   display: flex;
@@ -798,6 +833,7 @@ header.collapsed-force .header-top-bar {
 	color: var(--bright-text-color);
 	font-size: 0.8em;
 	margin: 0 20px;
+	padding: 0;
 	cursor: pointer;
 	position: relative;
 }
@@ -894,6 +930,9 @@ header.collapsed-force .header-top-bar {
 	color: var(--bright-text-color);
 	text-align: right;
 	width: 100%;
+	display: flex;
+  align-content: center;
+  justify-content: flex-end;
 }
 
 .secondary-nav {
@@ -905,8 +944,8 @@ header.collapsed-force .header-top-bar {
 	margin: 15px 0;
 }
 
-header.collapsed .secondary-nav,
-header.collapsed-force .secondary-nav {
+#header.collapsed .secondary-nav,
+#header.collapsed-force .secondary-nav {
 	position: absolute;
 	top: -50px;
 }
@@ -955,14 +994,18 @@ header.collapsed-force .secondary-nav {
 	display: none;
 	position: absolute;
 	top: calc(100% + 15px);
-	left: calc(-100px + 50%);
+	left: calc(-150px + 50%);
 	background-color: #FFFFFF;
 	font-size: 0.8em;
 	text-align: left;
 	color: var(--dark-accent-color);
 	padding: 12px 20px;
-	width: 200px;
+	width: 300px;
 	box-shadow: 0px 10px 30px #000000AA;
+}
+
+.primary-nav ul li:last-of-type .sub-menu {
+	left: calc(-250px + 50%);
 }
 
 .primary-nav ul li:hover .sub-menu,
@@ -973,7 +1016,7 @@ header.collapsed-force .secondary-nav {
 .primary-nav ul li .sub-menu li {
 	display: block;
 	color: var(--dark-accent-color);
-	margin: 8px 0;
+	margin: 10px 0;
 }
 
 .primary-nav ul li .sub-menu li a {
@@ -990,6 +1033,11 @@ header.collapsed-force .secondary-nav {
 	top: -10px;
 	left: calc(50% - 10px);
 	transform: rotate(45deg);
+}
+
+.primary-nav ul li:last-of-type .sub-menu::before {
+	right: 24px;
+	left: auto;
 }
 
 .primary-nav ul li .sub-menu::after {
@@ -1011,6 +1059,11 @@ header.collapsed-force .secondary-nav {
 	background-color: transparent;
 	cursor: pointer;
 	padding: 10px 0;
+}
+
+.header-navigation-button:hover,
+.header-navigation-button:focus {
+	background-color: transparent;
 }
 
 .header-navigation-button-stroke {
@@ -1152,6 +1205,36 @@ header.collapsed-force .secondary-nav {
 .post-meta a:hover,
 .post-meta a:focus {
 	text-decoration: underline;
+}
+
+.post-tags a {
+	display: inline-block;
+	padding: 10px 15px;
+	font-family: var(--display-font);
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	background-image: none;
+	background-color: var(--dark-accent-color);
+	color: var(--bright-text-color);
+	cursor: pointer;
+	border-bottom: 0;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	width: auto;
+	min-width: auto;
+	text-transform: uppercase;
+	margin: 5px;
+}
+
+.post-tags a::before {
+	content: '#';
+}
+
+.post-tags a:hover,
+.post-tags a:focus {
+	content: '#';
+	background-color: var(--light-accent-color);
+	color: var(--light-accent-text-color);
+	border-radius: 0;
 }
 
 .page p,
@@ -1355,9 +1438,10 @@ header.collapsed-force .secondary-nav {
 
 .post-tile-title,
 .dark-background .post-tile-title {
-	font-size: 1.8em;
+	font-size: 1.5em;
 	color: var(--element-text-color);
 	margin: 0;
+	word-break: break-word;
 }
 
 .post-tile-date {
@@ -1672,20 +1756,29 @@ footer {
 .footer-branding {
 	height: 75px;
 	width: auto;
+	color: #FFFFFF;
+	font-family: var(--display-font);
+	font-size: 3em;
+	text-transform: uppercase;
+}
+
+.footer-branding a {
+	color: #FFFFFF;
+	background-image: none;
+	transition: transform 0.3s ease;
 }
 
 .footer-branding img {
 	width: auto;
 	height: 100%;
-	transition: transform 0.3s ease;
 }
 
 .footer-branding .custom-logo-link {
 	background: transparent;
 }
 
-.footer-branding a:hover img,
-.footer-branding a:focus img {
+.footer-branding a:hover,
+.footer-branding a:focus {
 	transform: scale(1.1);
 }
 
@@ -1876,7 +1969,9 @@ footer {
 	z-index: -1;
 }
 
-.flyout-tooltip {
+.flyout-tooltip,
+.flyout-tooltip:hover,
+.flyout-tooltip:focus {
 	background-color: var(--dark-accent-color);
 	color: var(--bright-text-color);
 	font-family: var(--display-font);
@@ -1889,6 +1984,8 @@ footer {
 	width: 100px;
 	height: 128px;
 	text-align: left;
+	margin: 0;
+	cursor: default;
 }
 
 .flyout-button-area {
@@ -1944,7 +2041,7 @@ footer {
 	top: 0;
 	left: 0;
 	width: 100%;
-	-webkit-backdrop-filter: blur(0px) brightness(0);
+	-webkit-backdrop-filter: blur(0px) brightness(1);
 	backdrop-filter: blur(0px) brightness(1);
 	height: 0;
 	visibility: hidden;
@@ -2004,17 +2101,19 @@ footer {
 		font-size: 14px;
 	}
 
-	header {
+	#header,
+	.header-image-wrapper {
 		height: 400px;
 	}
 
-	header.front-page,
+	#header.front-page,
 	.header-image-slider,
 	.header-image-wrapper {
 		height: 500px;
 	}
 
-	header.no-image {
+	#header.no-image,
+	#header.no-image .header-image-wrapper {
 		height: 200px;
 	}
 
@@ -2288,17 +2387,19 @@ footer {
 	  line-height: 136%;
 	}
 
-	header {
+	#header,
+	.header-image-wrapper {
 		height: 250px;
 	}
 
-	header.front-page,
+	#header.front-page,
 	.header-image-slider,
 	.header-image-wrapper {
 		height: 300px;
 	}
 
-	header.no-image {
+	#header.no-image,
+	#header.no-image .header-image-wrapper {
 		height: 150px;
 	}
 
@@ -2308,13 +2409,14 @@ footer {
 	}
 
 	.header-top-bar,
-	header.collapsed .header-top-bar,
-	header.collapsed-force .header-top-bar {
+	#header.collapsed .header-top-bar,
+	#header.collapsed-force .header-top-bar {
 		height: 80px;
 	}
 
 	.header-top-branding {
 		padding-left: 20px;
+		font-size: 2.3em;
 	}
 
 	.header-navigation-area {
@@ -2394,6 +2496,30 @@ footer {
     width: 90%;
 	}
 
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1.8em;
+	}
+
+	h3 {
+		font-size: 1.6em;
+	}
+
+	h4 {
+		font-size: 1.4em;
+	}
+
+	h5 {
+		font-size: 1.2em;
+	}
+
+	h6 {
+		font-size: 1em;
+	}
+
 	footer {
 		padding: 30px;
 		min-height: 150px;
@@ -2449,6 +2575,11 @@ footer {
 }
 
 @media only screen and (max-width: 500px) {
+	.header-title {
+		font-size: 2.2em;
+		top: 30%;
+	}
+
 	.front-page-content-area {
 		padding: 0;
 		min-height: 0px;
