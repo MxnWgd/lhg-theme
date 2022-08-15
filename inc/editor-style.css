@@ -1,0 +1,258 @@
+/*----------------------------------------------\
+|  EDITOR STYLES                                |
+\----------------------------------------------*/
+
+@font-face {
+	font-family: 'Catamaran';
+	src: url('inc/fonts/Catamaran-VariableFont_wght.ttf');
+	font-weight: 400 bold;
+	font-stretch: 100%;
+	font-style: normal;
+	font-synthesis: none;
+}
+
+@font-face {
+	font-family: 'Passion One';
+	src: url('inc/fonts/PassionOne-Regular.ttf');
+	font-stretch: 100%;
+	font-style: normal;
+	font-synthesis: none;
+}
+
+/*-----------------------------------------------
+  Variables
+-----------------------------------------------*/
+
+:root {
+	--primary-font: 'Catamaran', sans-serif;
+	--display-font: 'Passion One', sans-serif;
+
+	--bright-text-color: #FFFFFF;
+	--dark-text-color: #232323;
+
+  --light-accent-color: #A4005A;
+  --dark-accent-color: #52002E;
+}
+
+/*-----------------------------------------------
+  General stuff
+-----------------------------------------------*/
+
+.editor-styles-wrapper {
+	font-family: var(--primary-font);
+	font-size: 16px;
+	color: var(--dark-text-color);
+  font-synthesis: style;
+}
+
+.editor-styles-wrapper,
+.editor-styles-wrapper p {
+	font-family: var(--primary-font);
+	color: var(--dark-text-color);
+}
+
+.editor-styles-wrapper h1 {
+	font-size: 3em;
+	color: var(--dark-accent-color);
+	font-family: var(--display-font);
+	text-transform: uppercase;
+	margin: 10px 0;
+  font-weight: normal;
+}
+
+.editor-styles-wrapper h2 {
+	font-size: 2.5em;
+	color: inherit;
+	font-family: var(--display-font);
+	text-transform: uppercase;
+	margin: 10px 0;
+  font-weight: normal;
+}
+
+.editor-styles-wrapper h3 {
+	font-size: 2em;
+	color: inherit;
+	opacity: 0.8;
+	font-family: var(--display-font);
+	text-transform: uppercase;
+	margin: 10px 0;
+  font-weight: normal;
+}
+
+.editor-styles-wrapper h4 {
+	font-size: 1.6em;
+	color: inherit;
+	margin: 10px 0;
+	font-weight: bold;
+	letter-spacing: normal;
+}
+
+.editor-styles-wrapper h5 {
+	font-size: 1.4em;
+	color: inherit;
+	margin: 10px 0;
+	font-weight: bold;
+	letter-spacing: normal;
+}
+
+.editor-styles-wrapper h6 {
+	font-size: 1em;
+	color: inherit;
+	margin: 10px 0;
+	font-weight: bold;
+	letter-spacing: normal;
+}
+
+
+.editor-styles-wrapper a {
+	color: var(--dark-accent-color);
+	text-decoration: none;
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  cursor: pointer;
+	transition: background-size 0.3s ease, color 0.3s ease;
+}
+
+.editor-styles-wrapper a:hover,
+.editor-styles-wrapper a:focus {
+	color: var(--bright-text-color);
+	background-size: 2px 100%;
+}
+
+
+.editor-styles-wrapper ul {
+	list-style-position: inside;
+  font-family: var(--primary-font);
+  color: var(--dark-text-color);
+}
+
+
+.editor-styles-wrapper figcaption {
+	opacity: 0.8;
+	text-align: center;
+	font-size: 0.9em;
+  font-family: var(--primary-font);
+  color: var(--dark-text-color);
+}
+
+.editor-styles-wrapper blockquote {
+	text-align: center;
+	margin: 30px auto;
+  border: 0;
+}
+
+.editor-styles-wrapper blockquote p {
+	font-family: var(--display-font);
+	font-size: 2em;
+	color: var(--dark-accent-color);
+	text-transform: uppercase;
+}
+
+.editor-styles-wrapper blockquote cite {
+	font-size: 1.2em;
+	opacity: 0.8;
+  font-family: var(--primary-font);
+	color: var(--dark-text-color);
+  text-transform: none;
+}
+
+.editor-styles-wrapper .wp-block-pullquote {
+  border: 0;
+}
+
+.editor-styles-wrapper .wp-block-pullquote blockquote {
+	display: block;
+	height: auto;
+	line-height: 130%;
+	color: var(--bright-text-color);
+	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
+	position: relative;
+	padding: 30px 30px 30px 70px;
+	text-align: left;
+	box-shadow: 0px 0px 40px #000000AA;
+}
+
+.editor-styles-wrapper .wp-block-pullquote blockquote p {
+	margin-top: 0;
+	color: var(--bright-text-color);
+}
+
+.editor-styles-wrapper .wp-block-pullquote blockquote::before {
+	content: '\0022';
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: -10px;
+	left: -50px;
+	border-radius: 50%;
+	color: var(--light-accent-text-color);
+	background-color: var(--light-accent-color);
+	font-family: var(--display-font);
+	font-size: 5em;
+  line-height: 158%;
+	box-shadow: 0px 0px 40px #000000AA;
+	text-align: center;
+}
+
+
+.editor-styles-wrapper strong {
+	font-weight: bold;
+}
+
+.editor-styles-wrapper em {
+	font-style: italic;
+}
+
+
+.editor-styles-wrapper table td {
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+}
+
+
+.editor-styles-wrapper iframe,
+.editor-styles-wrapper object,
+.editor-styles-wrapper figure {
+	margin: 30px auto;
+	display: block;
+}
+
+
+.editor-styles-wrapper .wp-block-button__link,
+.editor-styles-wrapper .wp-block-file .wp-block-file__button {
+	display: inline-block;
+	padding: 10px 15px;
+	font-family: var(--display-font);
+	font-size: 1.6em;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	background-image: none;
+	background-color: var(--dark-accent-color);
+	color: var(--bright-text-color);
+	cursor: pointer;
+	border-bottom: 0;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	width: auto;
+	min-width: auto;
+	text-transform: uppercase;
+	margin: 10px;
+}
+
+.editor-styles-wrapper .wp-block-button__link:hover,
+.editor-styles-wrapper .wp-block-button__link:focus,
+.editor-styles-wrapper .wp-block-file .wp-block-file__button:hover,
+.editor-styles-wrapper .wp-block-file .wp-block-file__button:focus {
+	background-color: var(--light-accent-color);
+	color: var(--bright-text-color);
+	border-radius: 0;
+}
+
+.editor-styles-wrapper hr,
+.editor-styles-wrapper .wp-block-separator {
+	border: 0;
+	border-top: 5px solid var(--dark-accent-color);
+	margin: 30px auto;
+  width: 100% !important;
+}
