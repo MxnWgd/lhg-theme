@@ -113,4 +113,57 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   showSlide(slide);
+
+
+
+  // Scroll fade-in
+  var boxes = [];
+  jQuery.each(jQuery('.content-wrapper').children(), function(key, value) {
+    boxes.push(jQuery(value));
+  });
+
+  boxes.push(jQuery('footer'));
+  console.log(boxes);
+  var initoffset = jQuery(window).height() + jQuery(document).scrollTop();
+  console.log(initoffset);
+
+  for (var i = 0; i < boxes.length; i++) {
+    var current = boxes[i];
+
+    console.log(i + ': ' + jQuery(current).offset().top);
+
+    if (jQuery(current).offset().top > initoffset) {
+      jQuery(current).addClass('invisible');
+    }
+  }
+
+  jQuery(window).scroll(function(){
+      var scrolldistance = jQuery(document).scrollTop();
+      var scrolldistancebottom = scrolldistance + jQuery(window).height();
+
+      // make boxes visible again
+      for (var i = 0; i < boxes.length; i++) {
+        var current = boxes[i];
+
+        if (jQuery(current).offset().top < scrolldistancebottom) {
+          jQuery(current).removeClass('invisible');
+          boxes.splice(i, 1);
+        }
+      }
+  });
+
+  jQuery(window).resize(function(){
+      var scrolldistance = jQuery(document).scrollTop();
+      var scrolldistancebottom = scrolldistance + jQuery(window).height();
+
+      // make boxes visible again
+      for (var i = 0; i < boxes.length; i++) {
+        var current = boxes[i];
+
+        if (jQuery(current).offset().top < scrolldistancebottom) {
+          jQuery(current).removeClass('invisible');
+          boxes.splice(i, 1);
+        }
+      }
+  });
 });

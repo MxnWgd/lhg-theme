@@ -28,7 +28,7 @@
               ?>💛<?php
               break;
           }
-         ?> by LHG</p><?php } ?>
+      ?> by LHG</p><?php } ?>
 
 
       <div class="footer-sm-icons">
@@ -68,7 +68,7 @@
           } ?>
         </div>
       </div>
-      <?php wp_footer(); ?>
     </footer>
+    <?php wp_footer(); ?>
   </body>
 </html>
