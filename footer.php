@@ -1,3 +1,5 @@
+<?php if (get_theme_mod('show_flyout')) { get_template_part('flyout'); } ?>
+
     <footer>
       <?php if (!get_theme_mod('remove_footer_branding')) {
         ?><p class="made-by-branding">Theme made with <?php

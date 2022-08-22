@@ -121,16 +121,15 @@ document.addEventListener('DOMContentLoaded', function() {
   jQuery.each(jQuery('.content-wrapper').children(), function(key, value) {
     boxes.push(jQuery(value));
   });
-
   boxes.push(jQuery('footer'));
-  console.log(boxes);
+  if (jQuery(window).width() <= 750) {
+    boxes.push(jQuery('.flyout'));
+  }
+
   var initoffset = jQuery(window).height() + jQuery(document).scrollTop();
-  console.log(initoffset);
 
   for (var i = 0; i < boxes.length; i++) {
     var current = boxes[i];
-
-    console.log(i + ': ' + jQuery(current).offset().top);
 
     if (jQuery(current).offset().top > initoffset) {
       jQuery(current).addClass('invisible');

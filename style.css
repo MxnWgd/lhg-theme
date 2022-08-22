@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: The official theme for the Liberale Hochschulgruppen (LHG). Any other use than on the designated webpage requires prior approval by the author. For bugs or improvements refer to https://github.com/MxnWgd/Freisamkeit/issues.
-  Version: 0.9.6
+  Version: 0.9.7
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -373,27 +373,30 @@ hr,
 -----------------------------------------------*/
 
 input {
-	background: transparent;
-	border-bottom: 2px solid var(--dark-accent-color);
 	border-radius: 0;
 	color: var(--dark-text-color);
 	font-family: var(--primary-font);
 	min-width: 150px;
 	width: 100%;
+	padding-bottom: 5px;
 	-webkit-appearance: none;
-	transition: border-bottom 0.3s ease;
+	background: transparent;
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+	transition: background-size 0.3s ease;
 }
 
 .dark-background input {
 	color: var(--bright-text-color);
-	border-bottom-color: var(--light-accent-color);
+	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
 }
 
 input:focus,
 input:focus-within {
-	border-bottom-width: 4px;
+	background-size: 2px 5px;
 	outline: none;
-	transition: border-bottom 0.3s ease;
 }
 
 input::placeholder {
@@ -411,7 +414,7 @@ input[type="submit"] {
 	background-color: var(--dark-accent-color);
 	color: var(--bright-text-color);
 	cursor: pointer;
-	border-bottom: 0;
+	background-image: none;
 	transition: background-color 0.3s ease, color 0.3s ease;
 	width: auto;
 	min-width: auto;
@@ -541,7 +544,6 @@ input[type="radio"]:checked ~ span.radio::after {
 
 textarea {
 	background: transparent;
-	border-bottom: 2px solid var(--dark-accent-color);
 	color: var(--dark-text-color);
 	font-family: var(--primary-font);
 	min-width: 150px;
@@ -551,19 +553,22 @@ textarea {
 	-webkit-appearance: none;
 	border-radius: 0;
 	-webkit-border-radius: 0;
-	transition: border-bottom 0.3s ease;
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+	transition: background-size 0.3s ease;
 }
 
 .dark-background textarea {
-	border-bottom-color: var(--light-accent-color);
+	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
 	color: var(--bright-text-color);
 }
 
 textarea:focus,
 textarea:focus-within {
-	border-bottom-width: 4px;
+	background-size: 2px 5px;
 	outline: none;
-	transition: border-bottom 0.3s ease;
 }
 
 textarea::-webkit-scrollbar {
@@ -592,25 +597,27 @@ label br {
 select {
 	background: transparent;
 	border: 0;
-	border-bottom: 2px solid var(--dark-accent-color);
 	color: var(--dark-text-color);
 	font-family: var(--primary-font);
 	font-size: inherit;
 	min-width: 150px;
 	width: 100%;
-	transition: border-bottom 0.3s ease;
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+	transition: background-size 0.3s ease;
 }
 
 .dark-background select {
-	border-bottom-color: var(--light-accent-color);
+	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
 	color: var(--bright-text-color);
 }
 
 select:focus,
 select:focus-within {
-	border-bottom-width: 4px;
+	background-size: 2px 5px;
 	outline: none;
-	transition: border-bottom 0.3s ease;
 }
 
 option {
@@ -634,9 +641,9 @@ option {
 	transition: height 0.5s ease;
 }
 
-#header + * {
+/* #header + * {
   padding-top: 100px;
-}
+} */
 
 #header.front-page {
 	height: 600px;
@@ -656,7 +663,7 @@ option {
 	right: 0;
 	display: flex;
 	flex-wrap: nowrap;
-	z-index: 103;
+	z-index: 105;
 	transition: height 0.5s;
 }
 
@@ -720,12 +727,12 @@ option {
 .header-image-slider {
 	width: 100%;
 	height: 600px;
-	clip-path: polygon(
+	/* clip-path: polygon(
 		0% 0%,
 		100% 0%,
 		100% 100%,
 		0% calc(100% - 60px)
-		);
+		); */
 	position: fixed;
 	transition: height 0.5s ease;
 }
@@ -758,7 +765,7 @@ option {
 
 .header-image-slider-control {
 	position: absolute;
-	bottom: 90px;
+	bottom: 60px;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -894,31 +901,35 @@ option {
 	flex-shrink: 1;
 	outline: 0;
 	color: var(--dark-text-color);
-	border-bottom: 2px solid var(--dark-accent-color);
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
 }
 
 .dark-background .nav-search-field #searchform input[type="search"]::placeholder {
 	color: var(--dark-accent-color);
 }
 
-.nav-search-field #searchform input[type="search"]:focus,
-.nav-search-field #searchform input[type="search"]:focus-within,
 .nav-search-field #searchform input[type="search"]:focus ~ input[type="submit"],
 .nav-search-field #searchform input[type="search"]:focus-within ~ input[type="submit"] {
-	border-bottom-width: 2px;
+	background-size: 2px 5px;
+	/* border-bottom-width: 2px; */
 }
 
 .nav-search-field #searchform input[type="submit"],
 .dark-background .nav-search-field #searchform input[type="submit"] {
-	padding: 3px 8px;
+	padding: 3px 8px 8px 8px;
 	font-size: inherit;
 	background-color: transparent;
 	color: var(--dark-accent-color);
-	border-bottom: 2px solid var(--dark-accent-color);
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	transition: background-size 0.3s ease;
 }
 
 .nav-search-field #searchform input[type="submit"]:hover,
-.nav-search-field #searchform input[type="submit"]:focus,
+.nav-search-field #searchform input[type="submit"]:focus {
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+	color: var(--bright-text-color);
+}
+
 .dark-background .nav-search-field #searchform input[type="submit"]:hover,
 .dark-background .nav-search-field #searchform input[type="submit"]:focus {
 	background-color: var(--dark-accent-color);
@@ -1045,10 +1056,10 @@ option {
 	content: '';
 	display: block;
 	width: 100%;
-	height: 30px;
+	height: 20px;
 	background-color: transparent;
 	position: absolute;
-	top: -30px;
+	top: -20px;
 	left: 0;
 }
 
@@ -1131,7 +1142,7 @@ option {
 	width: 100%;
   height: 120px;
   position: absolute;
-  bottom: -30px;
+  bottom: -60px;
   left: 0;
   z-index: 102;
 	filter: drop-shadow(0px 10px 40px #000000AA);
@@ -1159,17 +1170,17 @@ option {
 -----------------------------------------------*/
 
 .content-wrapper {
-	margin: -60px 0 0 0;
-	padding: 100px 0;
+	margin: 0 0 0 0;
+	padding: 50px 0 100px 0;
 	background-color: #FFFFFF;
 	z-index: 101;
 	position: relative;
-	clip-path: polygon(
+	/* clip-path: polygon(
 		0% 0%,
 		100% calc(0% + 60px),
 		100% 100%,
 		0% 100%
-	);
+	); */
 }
 
 .dark-background .content-wrapper {
@@ -1582,19 +1593,20 @@ option {
 
 #searchform input[type="search"]:focus ~ input[type="submit"],
 #searchform input[type="search"]:focus-within ~ input[type="submit"] {
-	border-bottom-width: 4px;
+  background-size: 2px 5px;
+	/* border-bottom-width: 4px; */
 }
 
 #searchform input[type="submit"] {
 	background-color: transparent;
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
 	color: var(--dark-accent-color);
-	border-bottom: 2px solid var(--dark-accent-color);
-	transition: border-bottom 0.3s ease;
+	transition: background-size 0.3s ease;
 }
 
 .dark-background #searchform input[type="submit"] {
 	color: var(--light-accent-color);
-	border-bottom: 2px solid var(--light-accent-color);
+	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
 }
 
 #searchform input[type="submit"]:hover,
@@ -1653,6 +1665,7 @@ option {
 	min-height: 500px;
 	color: var(--bright-text-color);
 	padding: 50px;
+	background-color: var(--light-accent-color);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -1711,6 +1724,7 @@ footer {
 	box-shadow: 0px -10px 40px #000000AA;
 	padding: 50px 150px;
 	position: relative;
+	z-index: 104;
 }
 
 .made-by-branding {
@@ -1943,7 +1957,7 @@ footer {
 	bottom: 100px;
 	left: -360px;
 	padding: 30px 50px 30px 30px;
-	z-index: 103;
+	z-index: 105;
 	filter: drop-shadow(0px 0px 30px #000000AA);
 	transition: left 0.5s ease;
 	animation: slide-in-flyout 0.5s 1s backwards ease;
@@ -1953,6 +1967,15 @@ footer {
 .flyout:focus,
 .flyout:focus-within {
 	left: 0;
+}
+
+.flyout.invisible {
+	opacity: 0;
+}
+
+.flyout:not(.invisible) {
+	opacity: 1;
+	animation: fade-in 1s 0.1s ease backwards;
 }
 
 .flyout-background {
@@ -2014,6 +2037,7 @@ footer {
 	min-width: auto;
 	text-transform: uppercase;
 	margin: 5px auto;
+	text-align: center;
 }
 
 .flyout-button:hover,
@@ -2258,7 +2282,8 @@ footer:not(.invisible) {
 	.nav-search-field #searchform input[type="search"],
 	.dark-background .nav-search-field #searchform input[type="search"] {
 		color: inherit;
-		border-bottom-color: var(--bright-text-color);
+		background-color: transparent;
+		background-image: linear-gradient(#FFFFFF 0%, #FFFFFF 100%);
 	}
 
 	.nav-search-field #searchform input[type="search"]::placeholder,
@@ -2269,7 +2294,7 @@ footer:not(.invisible) {
 	.nav-search-field #searchform input[type="submit"],
 	.dark-background .nav-search-field #searchform input[type="submit"] {
 		color: var(--bright-text-color);
-		border-bottom-color: var(--bright-text-color);
+		background-image: linear-gradient(#FFFFFF 0%, #FFFFFF 100%);
 	}
 
 	.nav-search-field #searchform input[type="submit"]:hover,
@@ -2277,6 +2302,7 @@ footer:not(.invisible) {
 	.dark-background .nav-search-field #searchform input[type="submit"]:hover,
 	.dark-background .nav-search-field #searchform input[type="submit"]:focus {
 		background-color: var(--bright-text-color);
+		background-image: linear-gradient(#FFFFFF 0%, #FFFFFF 100%);
 		color: var(--dark-accent-color);
 	}
 
@@ -2442,7 +2468,7 @@ footer:not(.invisible) {
 	}
 
 	.header-image-slider-control {
-		bottom: 65px;
+		bottom: 35px;
 	}
 
 	.header-image-slider-control-dot {
@@ -2460,7 +2486,7 @@ footer:not(.invisible) {
 
 	.header-horizontal-bar {
 		height: 70px;
-		bottom: -5px;
+		bottom: -30px;
 	}
 
 	.header-horizontal-bar::before {
@@ -2503,7 +2529,7 @@ footer:not(.invisible) {
 	}
 
 	.content-wrapper {
-		padding-top: 60px;
+		padding-top: 30px;
 	}
 
 	.page, .post {
@@ -2580,7 +2606,28 @@ footer:not(.invisible) {
 	}
 
 	.flyout {
-		display: none;
+		width: 100%;
+		height: auto;
+		min-height: 50px;
+		overflow: visible;
+		position: relative;
+    top: 0;
+    left: 0;
+		animation: none;
+		padding: 50px 20px;
+		z-index: 103;
+	}
+
+	.flyout-background {
+		clip-path: none;
+	}
+
+	.flyout-tooltip {
+		top: -25px;
+		right: calc(50% - 90px);
+		text-align: center;
+		width: 180px;
+    height: 50px;
 	}
 
 	.image-view {
