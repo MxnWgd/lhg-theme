@@ -1,3 +1,5 @@
+<?php if (get_theme_mod('show_flyout')) { get_template_part('flyout'); } ?>
+
     <footer>
       <?php if (!get_theme_mod('remove_footer_branding')) {
         ?><p class="made-by-branding">Theme made with <?php
@@ -28,7 +30,7 @@
               ?>💛<?php
               break;
           }
-         ?> by LHG</p><?php } ?>
+      ?> by LHG</p><?php } ?>
 
 
       <div class="footer-sm-icons">
@@ -68,7 +70,7 @@
           } ?>
         </div>
       </div>
-      <?php wp_footer(); ?>
     </footer>
+    <?php wp_footer(); ?>
   </body>
 </html>

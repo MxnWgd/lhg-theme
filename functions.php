@@ -141,7 +141,7 @@
         'settings' => 'front_page_additional_area_page',
         'section' => 'front_page_options',
         'label' => 'Seite für zusätzlichen Contentbereich',
-        'description' => 'Lege fest, welche Seite für den zusätzlichen Inhaltsbereich auf der Startseite verwendet werden soll. Denke daran, dass diese Seite nicht zu viel Inhalt enthalten sollte.',
+        'description' => 'Lege fest, welche Seite für den zusätzlichen Inhaltsbereich auf der Startseite verwendet werden soll. Denke daran, dass diese Seite nicht zu viel Inhalt enthalten sollte. Als Hintergrund wird das Beitragsbild der Seite verwendet.',
         'type' => 'select',
         'choices' => $page_choices
       ));
