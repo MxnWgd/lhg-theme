@@ -1840,6 +1840,62 @@ footer {
 }
 
 
+/*-----------------------------------------------
+  Custom Post Types
+-----------------------------------------------*/
+
+.persons-wrapper {
+	display: block;
+	width: calc(100% - 100px);
+	height: 200px;
+	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
+	color: #FFFFFF;
+	padding: 20px 50px 20px 170px;
+	margin: 30px 0 30px 100px;
+	position: relative;
+	box-shadow: 0px 0px 40px #000000AA;
+}
+
+.persons-wrapper-title {
+	color: var(--bright-text-color);
+	font-size: 2.5em;
+	margin: 0;
+}
+
+p.persons-wrapper-position {
+	color: var(--bright-text-color);
+	font-size: 1.3em;
+	margin: 0;
+}
+
+p.persons-wrapper-subtitle {
+	color: var(--bright-text-color);
+	font-size: 1em;
+	margin: 0;
+	position: absolute;
+	bottom: 20px;
+	left: 170px;
+}
+
+.persons-wrapper-thumbnail {
+	position: absolute;
+	left: -120px;
+	top: -20px;
+	width: 240px;
+	height: 240px;
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: var(--light-accent-color);
+	background-image: url('img/lhg-logo-weiß.png');
+	border-radius: 50%;
+	box-shadow: 0px 0px 40px #000000AA;
+}
+
+.dark-background .persons-wrapper-thumbnail {
+	background-image: url('img/lhg-logo-grau.png');
+}
+
 
 /*-----------------------------------------------
   Miscellaneous
