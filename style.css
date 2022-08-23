@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: The official theme for the Liberale Hochschulgruppen (LHG). Any other use than on the designated webpage requires prior approval by the author. For bugs or improvements refer to https://github.com/MxnWgd/Freisamkeit/issues.
-  Version: 0.9.7
+  Version: 1.0
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -2306,6 +2306,20 @@ footer:not(.invisible) {
 		color: var(--dark-accent-color);
 	}
 
+	.header-horizontal-bar {
+		height: 85px;
+		bottom: -40px;
+	}
+
+	.header-horizontal-bar::before {
+		clip-path: polygon(
+			0% 0%,
+			100% calc(0% + 40px),
+			100% 100%,
+			0% calc(100% - 40px)
+		);
+	}
+
 	.front-page-content-area-box {
 		width: 600px;
 		padding: 20px 90px 40px 90px;
@@ -2639,6 +2653,20 @@ footer:not(.invisible) {
 	.header-title {
 		font-size: 2.2em;
 		top: 30%;
+	}
+
+	.header-horizontal-bar {
+		height: 45px;
+		bottom: -15px;
+	}
+
+	.header-horizontal-bar::before {
+		clip-path: polygon(
+			0% 0%,
+			100% calc(0% + 15px),
+			100% 100%,
+			0% calc(100% - 15px)
+		);
 	}
 
 	.front-page-content-area {
