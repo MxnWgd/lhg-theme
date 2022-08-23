@@ -130,7 +130,6 @@
 
   <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
     <?php if (!is_customize_preview() && !$_COOKIE['cookies'] == 'accepted') { get_template_part('cookies'); } ?>
-    <?php if (get_theme_mod('show_flyout')) { get_template_part('flyout'); } ?>
     <div class="image-view">
       <img id="imageViewImg" src="">
       <p class="image-view-subtitle"></p>
