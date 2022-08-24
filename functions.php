@@ -75,16 +75,16 @@
       <textarea rows="8" id="metaInputPersonDescription" name="description"><?php echo isset($post_meta['description'][0]) ? $post_meta['description'][0] : ''; ?></textarea>
 
       <label for="metaInputPersonMail" style="width: 100%; margin: 10px 5px;"><strong>E-Mail-Adresse</strong></label>
-      <input type="text" id="metaInputPersonMail" name="mail" value="<?php echo isset($post_meta['mail'][0]) ? $post_meta['mail'][0] : ''; ?>"/>
+      <input type="email" id="metaInputPersonMail" name="mail" value="<?php echo isset($post_meta['mail'][0]) ? $post_meta['mail'][0] : ''; ?>"/>
 
       <label for="metaInputPersonFacebook" style="width: 100%; margin: 10px 5px;"><strong>Facebook-Profil</strong></label>
-      <input type="text" id="metaInputPersonFacebook" name="facebook" value="<?php echo isset($post_meta['facebook'][0]) ? $post_meta['facebook'][0] : ''; ?>"/>
+      <input type="url" id="metaInputPersonFacebook" name="facebook" value="<?php echo isset($post_meta['facebook'][0]) ? $post_meta['facebook'][0] : ''; ?>"/>
 
       <label for="metaInputPersonInstagram" style="width: 100%; margin: 10px 5px;"><strong>Instagram-Account</strong></label>
-      <input type="text" id="metaInputPersonInstagram" name="instagram" value="<?php echo isset($post_meta['instagram'][0]) ? $post_meta['instagram'][0] : ''; ?>"/>
+      <input type="url" id="metaInputPersonInstagram" name="instagram" value="<?php echo isset($post_meta['instagram'][0]) ? $post_meta['instagram'][0] : ''; ?>"/>
 
       <label for="metaInputPersonTwitter" style="width: 100%; margin: 10px 5px;"><strong>Twitter-Account</strong></label>
-      <input type="text" id="metaInputPersonTwitter" name="twitter" value="<?php echo isset($post_meta['twitter'][0]) ? $post_meta['twitter'][0] : ''; ?>"/>
+      <input type="url" id="metaInputPersonTwitter" name="twitter" value="<?php echo isset($post_meta['twitter'][0]) ? $post_meta['twitter'][0] : ''; ?>"/>
     </div>
     <?php
   }
@@ -104,26 +104,13 @@
   add_action('add_meta_boxes_' . 'persons', 'adding_person_meta_boxes');
   add_action('save_post', 'save_metabox' , 10, 2);
 
+
   function persons_shorttag_func($prop) {
-    $args = array(
-       'post_type'      => 'persons',
-       'posts_per_page' => '1',
-       'publish_status' => 'published',
-       'id'             => $prop['id'],
-    );
+    global $post;
 
-   $query = new WP_Query($args);
-
-   if($query->have_posts()){
-     while($query->have_posts()) {
-       $query->the_post();
-
-       ob_start();
-       get_template_part('content-persons');
-     }
-     wp_reset_postdata();
-   }
-   return ob_get_clean();
+    $person = get_post($prop['id']);
+    include('inc/post_templates/content-persons.php');
+    return $result;
   }
   add_shortcode('person', 'persons_shorttag_func');
 
@@ -131,9 +118,24 @@
   /* Events */
   // TODO
 
+  function events_page_placeholder() {
+    add_menu_page('Veranstaltungen', 'Veranstaltungen', 'manage_options', 'events', 'placeholder_page', 'dashicons-calendar-alt', 26);
+  }
+  add_action('admin_menu', 'events_page_placeholder');
+
 
   /* Resolutions */
   // TODO
+
+  function resolution_page_placeholder() {
+    add_menu_page('Beschlüsse', 'Beschlüsse', 'manage_options', 'resolutions', 'placeholder_page', 'dashicons-text-page', 27);
+  }
+  add_action('admin_menu', 'resolution_page_placeholder' );
+
+
+  function placeholder_page() {
+    ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwicklet und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
+  }
 
 
   /*---------------------------------------------
