@@ -14,9 +14,129 @@
   add_action('wp_enqueue_scripts', 'lhg_script_enqueue');
 
 
-  add_action( 'enqueue_block_editor_assets', function() {
-    wp_enqueue_style( 'twentytwenty-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
+  add_action('enqueue_block_editor_assets', function() {
+    wp_enqueue_style('twentytwenty-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
   });
+
+
+
+  /*-----------------------------------------------
+    Additional post types
+  -----------------------------------------------*/
+
+  /* Persons */
+
+  function post_type_persons() {
+    register_post_type('persons', array(
+      'labels' => array(
+        'name' => 'Personen',
+        'singular_name' => 'Person',
+      ),
+      'public' => true,
+      'exclude_from_search' => true,
+      'menu_icon' => 'dashicons-groups',
+      'has_archive' => false,
+      'supports' => array('title', 'thumbnail'),
+    ));
+  }
+  add_action('init', 'post_type_persons');
+
+  function adding_person_meta_boxes(){
+    add_meta_box(
+        'person_data',
+        'Daten',
+        'person_form_render',
+        'persons',
+        'normal',
+        'high'
+    );
+    add_meta_box(
+        'person_id',
+        'Shortcode',
+        'person_shortcode_render',
+        'persons',
+        'side'
+    );
+  }
+  function person_form_render() {
+    global $post;
+
+    $post_meta = get_post_meta($post->ID);
+
+    ?>
+    <div style="display: grid; grid-template-columns: 150px auto; grid-gap: 10px;">
+      <label for="metaInputPersonPositon" style="width: 100%; margin: 10px 5px;"><strong>Funktion/Position</strong></label>
+      <input type="text" id="metaInputPersonPositon" name="position" value="<?php echo isset($post_meta['position'][0]) ? $post_meta['position'][0] : ''; ?>"/>
+
+      <label for="metaInputPersonSubtitle" style="width: 100%; margin: 10px 5px;"><strong>Untertitel</strong></label>
+      <input type="text" id="metaInputPersonSubtitle" name="subtitle" value="<?php echo isset($post_meta['subtitle'][0]) ? $post_meta['subtitle'][0] : ''; ?>"/>
+
+      <label for="metaInputPersonDescription" style="width: 100%; margin: 10px 5px;"><strong>Beschreibung</strong></label>
+      <textarea rows="8" id="metaInputPersonDescription" name="description"><?php echo isset($post_meta['description'][0]) ? $post_meta['description'][0] : ''; ?></textarea>
+
+      <label for="metaInputPersonMail" style="width: 100%; margin: 10px 5px;"><strong>E-Mail-Adresse</strong></label>
+      <input type="email" id="metaInputPersonMail" name="mail" value="<?php echo isset($post_meta['mail'][0]) ? $post_meta['mail'][0] : ''; ?>"/>
+
+      <label for="metaInputPersonFacebook" style="width: 100%; margin: 10px 5px;"><strong>Facebook-Profil</strong></label>
+      <input type="url" id="metaInputPersonFacebook" name="facebook" value="<?php echo isset($post_meta['facebook'][0]) ? $post_meta['facebook'][0] : ''; ?>"/>
+
+      <label for="metaInputPersonInstagram" style="width: 100%; margin: 10px 5px;"><strong>Instagram-Account</strong></label>
+      <input type="url" id="metaInputPersonInstagram" name="instagram" value="<?php echo isset($post_meta['instagram'][0]) ? $post_meta['instagram'][0] : ''; ?>"/>
+
+      <label for="metaInputPersonTwitter" style="width: 100%; margin: 10px 5px;"><strong>Twitter-Account</strong></label>
+      <input type="url" id="metaInputPersonTwitter" name="twitter" value="<?php echo isset($post_meta['twitter'][0]) ? $post_meta['twitter'][0] : ''; ?>"/>
+    </div>
+    <?php
+  }
+  function person_shortcode_render() {
+    global $post;
+
+    ?>
+    <h3>ID: <?php echo get_post()->ID; ?></h3>
+    <p>Verwende den folgenden Shortcode, um die Person auf einer beliebigen Seite anzuzeigen:</p>
+    <code>[person id="<?php echo get_post()->ID; ?>"]</code>
+    <?php
+  }
+  function save_metabox($post_id, $post){
+    foreach ($_POST as $key=>$value) {
+      update_post_meta($post_id, $key, $value);
+    }
+  }
+  add_action('add_meta_boxes_' . 'persons', 'adding_person_meta_boxes');
+  add_action('save_post', 'save_metabox' , 10, 2);
+
+
+  function persons_shorttag_func($prop) {
+    global $post;
+
+    $person = get_post($prop['id']);
+    include('inc/post_templates/content-persons.php');
+    return $result;
+  }
+  add_shortcode('person', 'persons_shorttag_func');
+
+
+  /* Events */
+  // TODO
+
+  function events_page_placeholder() {
+    add_menu_page('Veranstaltungen', 'Veranstaltungen', 'manage_options', 'events', 'placeholder_page', 'dashicons-calendar-alt', 26);
+  }
+  add_action('admin_menu', 'events_page_placeholder');
+
+
+  /* Resolutions */
+  // TODO
+
+  function resolution_page_placeholder() {
+    add_menu_page('Beschlüsse', 'Beschlüsse', 'manage_options', 'resolutions', 'placeholder_page', 'dashicons-text-page', 27);
+  }
+  add_action('admin_menu', 'resolution_page_placeholder' );
+
+
+  function placeholder_page() {
+    ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwicklet und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
+  }
 
 
   /*---------------------------------------------
@@ -34,8 +154,6 @@
 
     register_nav_menu('primary', 'Hauptmenü');
     register_nav_menu('secondary', 'Kleines Zusatzmenü im Header und Footer');
-
-
   }
 
   add_action('after_setup_theme', 'lhg_theme_setup');
@@ -114,7 +232,7 @@
         'settings' => 'front_page_news_title',
         'section' => 'front_page_options',
         'label' => 'Neuigkeiten',
-        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Neugikeiten benannt wird.',
+        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Neuigkeiten lauten wird.',
       ));
 
       $wp_customize->add_setting('front_page_news_category', array(
@@ -161,6 +279,45 @@
           'left' => 'Links',
           'right' => 'Rechts',
         )
+      ));
+
+      $wp_customize->add_setting('front_page_board_list', array(
+        'default' => '',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_list_control', array(
+        'settings' => 'front_page_board_list',
+        'section' => 'front_page_options',
+        'label' => 'Personenansicht',
+        'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_title', array(
+        'default' => 'Vorstand',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_title_control', array(
+        'settings' => 'front_page_board_title',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Personen lauten soll.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_page', array(
+        'default' => '0',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_page_control', array(
+        'settings' => 'front_page_board_page',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, auf welche Seite der Link zum Kompletten Vorstand unterhalb der Personenliste verlinken soll.',
+        'type' => 'select',
+        'choices' => $page_choices
       ));
 
       $wp_customize->add_setting('front_page_events', array(
@@ -482,13 +639,5 @@
       <?php
     }
   }
-
-
-
-  /*-----------------------------------------------
-    Additional post types (?)
-  -----------------------------------------------*/
-
-  //To-do
 
 ?>
