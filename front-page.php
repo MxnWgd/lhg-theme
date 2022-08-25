@@ -4,7 +4,7 @@
   <div class="front-page-news-wrapper">
     <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title'); ?></h1>
 
-    <div class="front-page-news-list">
+    <div class="front-page-list">
       <?php
       foreach (get_posts(array(
           'numberposts' => 8,
@@ -13,10 +13,10 @@
         	?>
           <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
             <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
-                <div class="post-tile-info">
-                  <span class="post-tile-date"><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
-                  <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
-                </div>
+              <div class="post-tile-info">
+                <span class="post-tile-date"><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
+                <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
+              </div>
             </article>
           </a>
         <?php } ?>
@@ -32,6 +32,33 @@
         <h1 class="front-page-content-area-title"><?php echo $content_area_page->post_title; ?></h1>
         <?php echo $content_area_page->post_content; ?>
       </div>
+    </div>
+  <?php } ?>
+
+  <?php if (get_theme_mod('front_page_board_list') != '') { ?>
+    <div class="front-page-persons-wrapper">
+      <h1 class="front-page-title"><?php echo get_theme_mod('front_page_board_title'); ?></h1>
+
+      <div class="front-page-list">
+        <?php $persons = explode(',', get_theme_mod('front_page_board_list'));
+        foreach ($persons as $key => $id) {
+          $p = get_post($id);
+          if ($p->post_type != 'persons') { continue; }?>
+
+          <a class="post-tile-link" href="" rel="bookmark" title="<?php echo $p->post_title; ?>">
+            <article class="post-tile" <?php if (!empty(get_the_post_thumbnail_url($p->ID, 'large'))) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($p->ID, 'large') ?>)" <?php } ?>>
+              <div class="post-tile-info">
+                <span class="post-tile-date"><?php echo get_post_meta($p->ID, 'position', true); ?></span>
+                <h1 class="post-tile-title"><?php echo $p->post_title; ?></h1>
+              </div>
+            </article>
+          </a>
+        <?php } ?>
+      </div>
+
+      <?php if (get_theme_mod('front_page_board_page') != '0') { ?>
+        <a href="<?php echo get_page_link(get_theme_mod('front_page_board_page')) ?>" title="Kompletter Vorstand" class="front-page-large-link">Kompletter Vorstand &gt;</a>
+      <?php } ?>
     </div>
   <?php } ?>
 </div>

@@ -5,6 +5,7 @@
     $result .= ' class="persons-wrapper-thumbnail"></div>';
 
     $result .= '<div class="persons-wrapper-background">';
+    $result .= '<div class="persons-wrapper-floater"></div>';
       $result .= '<h1 class="persons-wrapper-title">' . $person->post_title . '</h1>';
       $result .= '<p class="persons-wrapper-position">' . get_post_meta($person->ID, 'position', true) . '</p>';
       $result .= '<p class="persons-wrapper-subtitle">' . get_post_meta($person->ID, 'subtitle', true) . '</p>';

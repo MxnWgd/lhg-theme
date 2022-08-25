@@ -814,12 +814,12 @@ option {
 .header-image-wrapper {
 	width: 100%;
 	height: 450px;
-	clip-path: polygon(
+	/* clip-path: polygon(
 		0% 0%,
 		100% 0%,
 		100% 100%,
 		0% calc(100% - 60px)
-		);
+		); */
 	position: fixed;
 }
 
@@ -1419,6 +1419,11 @@ option {
 	transform: scale(1.1);
 }
 
+.front-page-persons-wrapper .post-tile-link {
+	cursor: default;
+	pointer-events: none;
+}
+
 .post-tile {
 	background-color: var(--element-accent-color);
 	background-position: center;
@@ -1486,7 +1491,7 @@ option {
 }
 
 .related-posts-list,
-.front-page-news-list {
+.front-page-list {
 	min-width: 100%;
 	overflow-x: auto;
 	overflow-y: hidden;
@@ -1499,30 +1504,30 @@ option {
 }
 
 .related-posts-list::-webkit-scrollbar,
-.front-page-news-list::-webkit-scrollbar {
+.front-page-list::-webkit-scrollbar {
   height: 10px;
 	background-color: transparent;
 }
 
 .related-posts-list::-webkit-scrollbar-thumb,
-.front-page-news-list::-webkit-scrollbar-thumb,
-.dark-background .front-page-news-list::-webkit-scrollbar-thumb {
+.front-page-list::-webkit-scrollbar-thumb,
+.dark-background .front-page-list::-webkit-scrollbar-thumb {
 	background-color: #FFFFFF00;
 	border-radius: 5px;
 	transition: background-color 0.3s ease;
 }
 
-.front-page-news-list:hover::-webkit-scrollbar-thumb,
-.front-page-news-list:focus::-webkit-scrollbar-thumb,
-.front-page-news-list:focus-within::-webkit-scrollbar-thumb {
+.front-page-list:hover::-webkit-scrollbar-thumb,
+.front-page-list:focus::-webkit-scrollbar-thumb,
+.front-page-list:focus-within::-webkit-scrollbar-thumb {
 	background-color: #00000099;
 }
 .related-posts-list:hover::-webkit-scrollbar-thumb,
 .related-posts-list:focus::-webkit-scrollbar-thumb,
 .related-posts-list:focus-within::-webkit-scrollbar-thumb,
-.dark-background .front-page-news-list:hover::-webkit-scrollbar-thumb,
-.dark-background .front-page-news-list:focus::-webkit-scrollbar-thumb,
-.dark-background .front-page-news-list:focus-within::-webkit-scrollbar-thumb {
+.dark-background .front-page-list:hover::-webkit-scrollbar-thumb,
+.dark-background .front-page-list:focus::-webkit-scrollbar-thumb,
+.dark-background .front-page-list:focus-within::-webkit-scrollbar-thumb {
 	background-color: #FFFFFF99;
 }
 
@@ -1625,7 +1630,8 @@ option {
   Front page
 -----------------------------------------------*/
 
-.front-page-news-wrapper {
+.front-page-news-wrapper,
+.front-page-persons-wrapper {
 	width: 100%;
 	text-align: center;
 }
@@ -1870,6 +1876,10 @@ footer {
 		);
 	padding: 20px 100px 20px 140px;
 	z-index: -1;
+}
+
+.persons-wrapper-floater {
+	display: none;
 }
 
 .persons-wrapper-title {
@@ -2785,14 +2795,14 @@ footer:not(.invisible) {
 	}
 
 	.persons-wrapper {
-		min-height: 130px;
-		width: calc(100% - 20px);
+		min-height: 150px;
+		width: calc(100% - 25px);
 		margin: 50px 0 50px 50px;
 	}
 
 	.persons-wrapper-background {
-		height: 130px;
-		padding: 10px 100px 10px 90px;
+		height: 150px;
+		padding: 10px 100px 10px 110px;
 		clip-path: polygon(
 			0% 0%,
 			calc(100% - 40px) 0%,
@@ -2804,8 +2814,8 @@ footer:not(.invisible) {
 	.persons-wrapper-thumbnail {
 		left: -75px;
 		top: -10px;
-		width: 150px;
-		height: 150px;
+		width: 170px;
+		height: 170px;
 	}
 
 	.persons-wrapper-title {
@@ -2832,11 +2842,11 @@ footer:not(.invisible) {
 	}
 
 	.person-wrapper-description {
-		top: 150px;
+		top: 120px;
 	}
 
 	.person-wrapper-description[open] {
-		padding-bottom: 180px;
+		padding-bottom: 150px;
 	}
 
 	footer {
@@ -2948,6 +2958,68 @@ footer:not(.invisible) {
 		padding: 50px 20px;
 		clip-path: none;
 		background-color: #000000AA;
+	}
+
+	.persons-wrapper {
+		min-height: 200px;
+		width: calc(100% - 15px);
+		margin: 50px 0 50px 20px;
+	}
+
+	.persons-wrapper-background {
+		height: 200px;
+		padding: 10px 80px 10px 20px;
+		clip-path: polygon(
+	   0% 0%,
+	   calc(100% - 25px) 0%,
+	   calc(100% - 60px) 100%,
+	   0% 100%
+	  );
+	}
+
+	.persons-wrapper-thumbnail {
+		left: -30px;
+		top: -10px;
+		width: 100px;
+		height: 100px;
+	}
+
+	.persons-wrapper-floater {
+		display: block;
+		float: left;
+		height: 80px;
+    width: 60px;
+		margin: 0;
+	}
+
+	.persons-wrapper-title {
+		font-size: 1.8em;
+	}
+
+	.persons-wrapper-sm {
+		height: 210px;
+		right: -15px;
+		padding: 0;
+		transform: rotate(11deg);
+	}
+
+	.persons-wrapper-sm-icon {
+		transform: rotate(-11deg);
+		margin: 10px;
+	}
+
+	.person-wrapper-description {
+		top: 170px;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.person-wrapper-description summary {
+		margin-bottom: 30px;
+	}
+
+	.person-wrapper-description[open] {
+		padding-bottom: 170px;
 	}
 }
 

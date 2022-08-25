@@ -92,6 +92,7 @@
     global $post;
 
     ?>
+    <h3>ID: <?php echo get_post()->ID; ?></h3>
     <p>Verwende den folgenden Shortcode, um die Person auf einer beliebigen Seite anzuzeigen:</p>
     <code>[person id="<?php echo get_post()->ID; ?>"]</code>
     <?php
@@ -231,7 +232,7 @@
         'settings' => 'front_page_news_title',
         'section' => 'front_page_options',
         'label' => 'Neuigkeiten',
-        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Neugikeiten benannt wird.',
+        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Neuigkeiten lauten wird.',
       ));
 
       $wp_customize->add_setting('front_page_news_category', array(
@@ -278,6 +279,45 @@
           'left' => 'Links',
           'right' => 'Rechts',
         )
+      ));
+
+      $wp_customize->add_setting('front_page_board_list', array(
+        'default' => '',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_list_control', array(
+        'settings' => 'front_page_board_list',
+        'section' => 'front_page_options',
+        'label' => 'Personenansicht',
+        'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_title', array(
+        'default' => 'Vorstand',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_title_control', array(
+        'settings' => 'front_page_board_title',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Personen lauten soll.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_page', array(
+        'default' => '0',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_page_control', array(
+        'settings' => 'front_page_board_page',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, auf welche Seite der Link zum Kompletten Vorstand unterhalb der Personenliste verlinken soll.',
+        'type' => 'select',
+        'choices' => $page_choices
       ));
 
       $wp_customize->add_setting('front_page_events', array(
