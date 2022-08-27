@@ -15,9 +15,9 @@
 
   <h1 class="cookie-banner-title">Cookies are delicous...</h1>
   <p>...und deswegen geben wir auch gerne etwas davon ab :)</p>
-  <p>Spaß beiseite: Diese Website verwendet Cookies, um korrekt zu funktionieren. Wenn du diesen Hinweis schließt und unsere Website verwendest, erklärst du dich damit einverstanden.</p>
-  <button id="cookieBannerCloseButton" type="button" name="Verstanden!" class="cookie-banner-close-button">Klar doch!</button>
-  <p class="cookie-banner-footer">Weitere Informationen zur Datenverarbeitung findest du in unserer Datenschutzerklärung.</p>
+  <p>Spaß beiseite: Diese Website benötigt aus technischen Gründen Cookies, um korrekt zu funktionieren. Wenn du diesen Hinweis schließt und unsere Website verwendest, erklärst du dich damit einverstanden, dass wir Cookies setzen. Die Daten werden gemäß unserer Datenschutzerklärung verarbeitet, jedoch keinesfalls für personalisierte Werbung unsererseits verwendet.</p>
+  <button id="cookieBannerCloseButton" type="button" name="Verstanden!" class="cookie-banner-close-button">Ok, einverstanden!</button>
+  <p class="cookie-banner-footer">Weitere Informationen zur Datenverarbeitung und wofür diese Seite Cookies verwendet, findest du in unserer <?php if (get_theme_mod('data_protection_page') !== '0') { ?><a href="<?php echo get_page_link(get_theme_mod('data_protection_page')) ?>" title="Datenschutzerklärung">Datenschutzerklärung.</a><?php } else { ?>Datenschutzerklärung <?php } ?></p>
 </div>
 
 <script type="text/javascript">
