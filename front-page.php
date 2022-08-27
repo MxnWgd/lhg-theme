@@ -57,11 +57,7 @@
       </div>
 
       <?php if (get_theme_mod('front_page_board_page') != '0') { ?>
-<<<<<<< HEAD
         <a href="<?php echo get_page_link(get_theme_mod('front_page_board_page')) ?>" title="<?php echo get_theme_mod('front_page_board_page_link_title'); ?>" class="front-page-large-link">Kompletter Vorstand &gt;</a>
-=======
-        <a href="<?php echo get_page_link(get_theme_mod('front_page_board_page')) ?>" title="Kompletter Vorstand" class="front-page-large-link">Kompletter Vorstand &gt;</a>
->>>>>>> 047c490d4f23edc505932b7a286ea74eb857cd60
       <?php } ?>
     </div>
   <?php } ?>
