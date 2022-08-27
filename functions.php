@@ -13,6 +13,10 @@
   }
   add_action('wp_enqueue_scripts', 'lhg_script_enqueue');
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 047c490d4f23edc505932b7a286ea74eb857cd60
   add_action('enqueue_block_editor_assets', function() {
     wp_enqueue_style('twentytwenty-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
   });
@@ -130,6 +134,7 @@
   function resolution_page_placeholder() {
     add_menu_page('Beschlüsse', 'Beschlüsse', 'manage_options', 'resolutions', 'placeholder_page', 'dashicons-text-page', 27);
   }
+<<<<<<< HEAD
   add_action('admin_menu', 'resolution_page_placeholder');
 
 
@@ -168,6 +173,16 @@
   }
   add_action('admin_menu', 'help_page_menu');
 
+=======
+  add_action('admin_menu', 'resolution_page_placeholder' );
+
+
+  function placeholder_page() {
+    ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwicklet und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
+  }
+
+
+>>>>>>> 047c490d4f23edc505932b7a286ea74eb857cd60
   /*---------------------------------------------
     Theme support
   ---------------------------------------------*/
@@ -364,6 +379,45 @@
         'section' => 'front_page_options',
         'description' => 'Titel des Links:',
         'active_callback' => function() { return '0' !== get_theme_mod('front_page_board_page'); },
+      ));
+
+      $wp_customize->add_setting('front_page_board_list', array(
+        'default' => '',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_list_control', array(
+        'settings' => 'front_page_board_list',
+        'section' => 'front_page_options',
+        'label' => 'Personenansicht',
+        'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_title', array(
+        'default' => 'Vorstand',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_title_control', array(
+        'settings' => 'front_page_board_title',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, wie der Titel des Abschnitts mit den Personen lauten soll.',
+      ));
+
+      $wp_customize->add_setting('front_page_board_page', array(
+        'default' => '0',
+        'capability' => 'edit_theme_options',
+        'type' => 'theme_mod',
+      ));
+
+      $wp_customize->add_control('front_page_board_page_control', array(
+        'settings' => 'front_page_board_page',
+        'section' => 'front_page_options',
+        'description' => 'Lege fest, auf welche Seite der Link zum Kompletten Vorstand unterhalb der Personenliste verlinken soll.',
+        'type' => 'select',
+        'choices' => $page_choices
       ));
 
       $wp_customize->add_setting('front_page_events', array(
@@ -724,5 +778,8 @@
     }
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 047c490d4f23edc505932b7a286ea74eb857cd60
 ?>
