@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 1.1.1
+  Version: 1.1.2
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -217,6 +217,11 @@ blockquote cite {
 	opacity: 0.8;
 }
 
+.wp-block-pullquote {
+	padding: 0;
+	margin: 30px;
+}
+
 .wp-block-pullquote blockquote {
 	display: block;
 	height: auto;
@@ -304,7 +309,9 @@ html::-webkit-scrollbar-thumb {
 
 iframe,
 object,
-figure {
+figure,
+.wp-block-image,
+.wp-block-pullquote {
 	margin: 30px auto;
 	display: block;
 }
@@ -1203,6 +1210,10 @@ option {
 	text-decoration: underline;
 }
 
+.post-tags {
+	margin-top: 30px;
+}
+
 .post-tags a {
 	display: inline-block;
 	padding: 10px 15px;
@@ -1236,6 +1247,7 @@ option {
 .page p,
 .post p {
 	margin: 10px 0;
+	font-size: 1.1em;
 }
 
 
@@ -1353,6 +1365,65 @@ option {
 	float: left;
 }
 
+
+.compact-image-wrapper-link {
+	display: block;
+	transition: transform 0.5s ease;
+}
+
+.compact-image-wrapper-link:hover,
+.compact-image-wrapper-link:focus {
+	transform: scale(1.1);
+}
+
+.compact-image-wrapper {
+	display: block;
+	width: 100%;
+	min-height: 500px;
+	background: var(--element-accent-color);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-origin: content-box;
+	color: #FFFFFF;
+	padding-bottom: 100px;
+	margin: 50px 0;
+	position: relative;
+	box-shadow: 0px 0px 40px #000000AA;
+}
+
+.compact-image-wrapper-info {
+	position: absolute;
+	width: 100%;
+	min-height: 100px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--element-accent-color);
+	padding: 20px 30px;
+}
+
+.compact-image-wrapper-title {
+	font-size: 2em;
+  color: var(--element-text-color);
+  margin: 0;
+  word-break: break-word;
+}
+
+.compact-image-wrapper-excerpt {
+	max-height: 0;
+	height: auto;
+	overflow: hidden;
+	transition: max-height 0.7s ease;
+}
+
+.compact-image-wrapper-link:hover .compact-image-wrapper-excerpt,
+.compact-image-wrapper-link:focus .compact-image-wrapper-excerpt {
+	max-height: 500px;
+	transition: max-height 0.7s ease;
+}
+
+
 .pagination-nav {
 	margin-top: 40px;
 	display: flex;
@@ -1413,6 +1484,8 @@ option {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-origin: content-box;
+	padding-bottom: 100px;
 	clip-path: polygon(
 		15% 0%,
 		100% 0%,
@@ -1855,7 +1928,7 @@ footer {
 	color: #FFFFFF;
 	margin: 70px 0 70px 100px;
 	position: relative;
-	filter: drop-shadow(0 0 20px #000000CC);
+	filter: drop-shadow(0 0 20px #00000066);
 }
 
 .persons-wrapper-background {
@@ -2292,15 +2365,22 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	transition: opacity 0.3s 1s ease;
 }
 
-.content-wrapper > *.invisible,
+.content-wrapper > *.invisible {
+	opacity: 0;
+}
+
+.content-wrapper > *:not(.invisible) {
+	opacity: 1;
+	animation: fade-in 1s 0.1s ease backwards;
+}
+
 footer.invisible {
 	opacity: 0;
 }
 
-.content-wrapper > *:not(.invisible),
 footer:not(.invisible) {
 	opacity: 1;
-	animation: fade-in 1s 0.1s ease backwards;
+	animation: slide-up-footer 0.5s 0.1s ease backwards;
 }
 
 .expand-icon-ud {
@@ -2804,6 +2884,21 @@ footer:not(.invisible) {
 		font-size: 1em;
 	}
 
+	.compact-wrapper .post-title,
+	.compact-circle-wrapper .post-title,
+	.compact-image-wrapper-title {
+    font-size: 1.6em;
+	}
+
+	.compact-image-wrapper {
+		min-height: 400px;
+	}
+
+	.compact-image-wrapper-link:hover .compact-image-wrapper-excerpt,
+	.compact-image-wrapper-link:focus .compact-image-wrapper-excerpt {
+		max-height: 0;
+	}
+
 	.persons-wrapper {
 		min-height: 150px;
 		width: calc(100% - 25px);
@@ -2829,7 +2924,7 @@ footer:not(.invisible) {
 	}
 
 	.persons-wrapper-title {
-		font-size: 1.8em;
+		font-size: 1.6em;
 	}
 
 	p.persons-wrapper-position {
@@ -2969,6 +3064,10 @@ footer:not(.invisible) {
 		background-color: #000000AA;
 	}
 
+	.compact-image-wrapper-title {
+    font-size: 1.4em;
+	}
+
 	.persons-wrapper {
 		min-height: 200px;
 		width: calc(100% - 15px);
@@ -3072,4 +3171,9 @@ footer:not(.invisible) {
 @keyframes fade-in {
 	0% { opacity: 0; }
 	100% { opacity: 1; }
+}
+
+@keyframes slide-up-footer {
+	0% { opacity: 0; transform: translateY(100px); }
+	100% { opacity: 1; transform: translateY(0); }
 }
