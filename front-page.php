@@ -27,7 +27,7 @@
 
   <?php if (get_theme_mod('front_page_additional_area_page') != 0) {
     $content_area_page = get_post(get_theme_mod('front_page_additional_area_page')); ?>
-    <div class="front-page-content-area" style="background-image: url(<?php echo has_post_thumbnail($content_area_page->ID) ? get_the_post_thumbnail_url($content_area_page->ID, 'large') : (get_theme_mod('header_slider_mode') === '2' ? wp_get_attachment_image_src(explode(',', get_theme_mod('header_slider_carousel'))[0], 'full')[0] : wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]); ?>);">
+    <div class="front-page-content-area" style="background-image: url(<?php echo has_post_thumbnail($content_area_page->ID) ? get_the_post_thumbnail_url($content_area_page->ID, 'original') : (get_theme_mod('header_slider_mode') === '2' ? wp_get_attachment_image_src(explode(',', get_theme_mod('header_slider_carousel'))[0], 'full')[0] : wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]); ?>);">
       <div class="front-page-content-area-box <?php echo get_theme_mod('front_page_additional_area_page_lr') !== '' ? get_theme_mod('front_page_additional_area_page_lr') : 'left'; ?>">
         <h1 class="front-page-content-area-title"><?php echo $content_area_page->post_title; ?></h1>
         <?php echo $content_area_page->post_content; ?>

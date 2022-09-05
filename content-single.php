@@ -1,6 +1,6 @@
 <article class="single-wrapper">
     <p class="post-meta">
-      <?php the_date('d.m.Y'); ?>&nbsp;|&nbsp;<?php the_category(',&nbsp;'); ?>
+      <?php the_date('d.m.Y'); ?> <?php if (the_category(',&nbsp;') != '') { ?>&nbsp;|&nbsp;<?php the_category(',&nbsp;'); }?>
     </p>
 
     <h1 class="post-title"><?php the_title(); ?></h1>

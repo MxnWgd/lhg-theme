@@ -449,7 +449,7 @@
       ));
 
       $wp_customize->add_setting('show_flyout', array(
-        'default' => 'false',
+        'default' => false,
         'capability' => 'edit_theme_options',
         'type' => 'theme_mod',
       ));
