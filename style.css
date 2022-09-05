@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 1.1.2
+  Version: 1.1.3
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -10,12 +10,16 @@
 
 @font-face {
 	font-family: 'Catamaran';
-	src: url('inc/fonts/Catamaran-VariableFont_wght.ttf') format('truetype supports variable'),
-		url('inc/fonts/Catamaran-VariableFont_wght.woff') format('woff');
-	font-weight: 400 bold;
-	font-stretch: 100%;
+	src: url('inc/fonts/Catamaran-Regular.ttf') format('truetype');
+	font-weight: normal;
 	font-style: normal;
-	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'Catamaran';
+	src: url('inc/fonts/Catamaran-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
@@ -87,6 +91,7 @@ body {
 	color: var(--dark-text-color);
 	background-color: #FFFFFF;
 	word-break: break-word;
+	-webkit-font-smoothing: antialiased;
 }
 
 body.dark-background {
@@ -187,6 +192,7 @@ a:focus {
 
 ul {
 	list-style-position: inside;
+	list-style-type: disc;
 }
 
 
@@ -201,7 +207,9 @@ blockquote {
 	margin: 30px auto;
 }
 
-blockquote p {
+blockquote p,
+.page blockquote p,
+.post blockquote p {
 	font-family: var(--display-font);
 	font-size: 2em;
 	color: var(--dark-accent-color);
@@ -266,7 +274,8 @@ strong {
 	font-weight: bold;
 }
 
-em {
+em,
+i {
 	font-style: italic;
 }
 
@@ -740,6 +749,8 @@ option {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-origin: content-box;
+  padding-top: 100px;
 	filter: brightness(0.7);
 }
 
@@ -1691,6 +1702,12 @@ option {
 .front-page-persons-wrapper {
 	width: 100%;
 	text-align: center;
+	margin: 80px 0;
+}
+
+.front-page-news-wrapper:first-child,
+.front-page-persons-wrapper:first-child {
+	margin-top: 0;
 }
 
 .front-page-title {
@@ -1732,7 +1749,7 @@ option {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	margin: 80px 0;
+	margin: 40px 0;
 	box-shadow: 0px 0px 40px #000000AA;
 }
 
@@ -2228,7 +2245,6 @@ details.person-wrapper-description summary::-webkit-details-marker {
 
 .flyout:not(.invisible) {
 	opacity: 1;
-	animation: fade-in 1s 0.1s ease backwards;
 }
 
 .flyout-background {
@@ -2247,9 +2263,7 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	z-index: -1;
 }
 
-.flyout-tooltip,
-.flyout-tooltip:hover,
-.flyout-tooltip:focus {
+.flyout-tooltip {
 	background-color: var(--dark-accent-color);
 	color: var(--bright-text-color);
 	font-family: var(--display-font);
@@ -2264,6 +2278,13 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	text-align: left;
 	margin: 0;
 	cursor: default;
+}
+
+.flyout-tooltip,
+.flyout-tooltip:hover,
+.flyout-tooltip:focus {
+	background-color: var(--dark-accent-color);
+	color: var(--bright-text-color);
 }
 
 .flyout-button-area {
@@ -2420,6 +2441,10 @@ footer:not(.invisible) {
 	.header-image-slider,
 	.header-image-wrapper {
 		height: 500px;
+	}
+
+	.header-image-slide {
+		padding-top: 0;
 	}
 
 	#header.no-image,
@@ -3009,6 +3034,11 @@ footer:not(.invisible) {
 		animation: none;
 		padding: 50px 20px;
 		z-index: 103;
+	}
+
+	.flyout:not(.invisible) {
+		opacity: 1;
+		animation: fade-in 1s 0.1s ease backwards;
 	}
 
 	.flyout-background {
