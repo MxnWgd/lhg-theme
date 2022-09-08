@@ -2,7 +2,7 @@
 
 <div class="content-wrapper">
   <div class="front-page-news-wrapper">
-    <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title'); ?></h1>
+    <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title') != null ? get_theme_mod('front_page_news_title') : 'Neuigkeiten'; ?></h1>
 
     <div class="front-page-list">
       <?php
@@ -37,7 +37,7 @@
 
   <?php if (get_theme_mod('front_page_board_list') != '') { ?>
     <div class="front-page-persons-wrapper">
-      <h1 class="front-page-title"><?php echo get_theme_mod('front_page_board_title'); ?></h1>
+      <h1 class="front-page-title"><?php echo get_theme_mod('front_page_board_title') != null ? get_theme_mod('front_page_board_title') : 'Vorstand'; ?></h1>
 
       <div class="front-page-list">
         <?php $persons = explode(',', get_theme_mod('front_page_board_list'));
@@ -57,7 +57,7 @@
       </div>
 
       <?php if (get_theme_mod('front_page_board_page') != '0') { ?>
-        <a href="<?php echo get_page_link(get_theme_mod('front_page_board_page')) ?>" title="<?php echo get_theme_mod('front_page_board_page_link_title'); ?>" class="front-page-large-link">Kompletter Vorstand &gt;</a>
+        <a href="<?php echo get_page_link(get_theme_mod('front_page_board_page')) ?>" title="<?php echo get_theme_mod('front_page_board_page_link_title') != null ? get_theme_mod('front_page_board_page_link_title') : 'Kompletter Vorstand'; ?>" class="front-page-large-link"><?php echo get_theme_mod('front_page_board_page_link_title') != null ? get_theme_mod('front_page_board_page_link_title') : 'Kompletter Vorstand'; ?> &gt;</a>
       <?php } ?>
     </div>
   <?php } ?>

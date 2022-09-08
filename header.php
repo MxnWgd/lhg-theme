@@ -130,11 +130,8 @@
 
   <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
     <?php if (!is_customize_preview() && !$_COOKIE['cookies'] == 'accepted' && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
-    <div class="image-view">
-      <img id="imageViewImg" src="">
-      <p class="image-view-subtitle"></p>
-    </div>
-    
+    <?php get_template_part('image-view'); ?>
+
     <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) ? 'no-image' : '' ?>">
       <div class="header-top-bar" id="headerTopBar">
         <div class="header-top-branding">

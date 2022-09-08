@@ -113,56 +113,60 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   showSlide(slide);
+});
 
 
-
+jQuery(window).on("load", function (e) {
   // Scroll fade-in
   var boxes = [];
   jQuery.each(jQuery('.content-wrapper').children(), function(key, value) {
     boxes.push(jQuery(value));
   });
   boxes.push(jQuery('footer'));
-  if (jQuery(window).width() <= 750) {
+  if (jQuery(window).width() <= 750 && jQuery('.flyout').length > 0) {
     boxes.push(jQuery('.flyout'));
   }
 
   var initoffset = jQuery(window).height() + jQuery(document).scrollTop();
 
-  for (var i = 0; i < boxes.length; i++) {
-    var current = boxes[i];
+  setTimeout(() => {
+    for (var i = 0; i < boxes.length; i++) {
+      var current = boxes[i];
 
-    if (jQuery(current).offset().top > initoffset) {
-      jQuery(current).addClass('invisible');
+      if (jQuery(current).offset().top > initoffset) {
+        jQuery(current).addClass('invisible');
+      }
     }
-  }
+  }, 250); // delay to ensure DOM load
 
   jQuery(window).scroll(function(){
-      var scrolldistance = jQuery(document).scrollTop();
-      var scrolldistancebottom = scrolldistance + jQuery(window).height();
+    var scrolldistance = jQuery(document).scrollTop();
+    var scrolldistancebottom = scrolldistance + jQuery(window).height();
 
-      // make boxes visible again
-      for (var i = 0; i < boxes.length; i++) {
-        var current = boxes[i];
+    // make boxes visible again
+    for (var i = 0; i < boxes.length; i++) {
+      var current = boxes[i];
 
-        if (jQuery(current).offset().top < scrolldistancebottom) {
-          jQuery(current).removeClass('invisible');
-          boxes.splice(i, 1);
-        }
+      if (jQuery(current).offset().top < scrolldistancebottom) {
+        jQuery(current).removeClass('invisible');
+        boxes.splice(i, 1);
       }
+    }
   });
 
   jQuery(window).resize(function(){
-      var scrolldistance = jQuery(document).scrollTop();
-      var scrolldistancebottom = scrolldistance + jQuery(window).height();
+    var scrolldistance = jQuery(document).scrollTop();
+    var scrolldistancebottom = scrolldistance + jQuery(window).height();
 
-      // make boxes visible again
-      for (var i = 0; i < boxes.length; i++) {
-        var current = boxes[i];
+    // make boxes visible again
+    for (var i = 0; i < boxes.length; i++) {
+      var current = boxes[i];
 
-        if (jQuery(current).offset().top < scrolldistancebottom) {
-          jQuery(current).removeClass('invisible');
-          boxes.splice(i, 1);
-        }
+      if (jQuery(current).offset().top < scrolldistancebottom) {
+        jQuery(current).removeClass('invisible');
+        boxes.splice(i, 1);
       }
+    }
   });
-});
+
+})

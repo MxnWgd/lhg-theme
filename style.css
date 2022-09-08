@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 1.1.4
+  Version: 1.1.5
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -1171,18 +1171,25 @@ option {
   Content
 -----------------------------------------------*/
 
+#header + * {
+	background-color: #FFFFFF;
+}
+
+.dark-background #header + * {
+	background-color: var(--dark-background-color);
+}
+
 .content-wrapper {
 	margin: 0 0 0 0;
 	padding: 50px 0 100px 0;
 	background-color: #FFFFFF;
 	z-index: 101;
 	position: relative;
-	/* clip-path: polygon(
-		0% 0%,
-		100% calc(0% + 60px),
-		100% 100%,
-		0% 100%
-	); */
+	min-height: calc(100vh - 450px - 300px); /* viewport height minus header and footer height */
+}
+
+#header.no-image + .content-wrapper {
+	min-height: calc(100vh - 250px - 300px); /* viewport height minus header and footer height */
 }
 
 .dark-background .content-wrapper {
@@ -1861,6 +1868,9 @@ footer {
 .footer-branding a {
 	color: #FFFFFF;
 	background-image: none;
+	display: block;
+  height: 100%;
+  width: auto;
 	transition: transform 0.3s ease;
 }
 
@@ -2334,9 +2344,6 @@ details.person-wrapper-description summary::-webkit-details-marker {
 
 .image-view {
 	position: fixed;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	z-index: 999;
 	top: 0;
 	left: 0;
@@ -2357,6 +2364,14 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	transition: visibility 0s 0s ease, backdrop-filter 0.3s 0s ease, -webkit-backdrop-filter 0.3s 0s ease, height 0s 0s ease;
 }
 
+.image-view-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: calc(100% - 50px);
+	width: 100%;
+}
+
 #imageViewImg {
 	width: auto;
 	height: auto;
@@ -2373,7 +2388,7 @@ details.person-wrapper-description summary::-webkit-details-marker {
 }
 
 .image-view-subtitle {
-	font-size: 2em;
+	font-size: 1.8em;
 	color: var(--bright-text-color);
 	text-align: center;
 	margin-top: 20px;
@@ -2454,6 +2469,14 @@ footer:not(.invisible) {
 
 	.header-top-bar {
 		height: 150px;
+	}
+
+	.content-wrapper {
+		min-height: calc(100vh - 400px - 300px); /* viewport height minus header and footer height */
+	}
+
+	#header.no-image + .content-wrapper {
+		min-height: calc(100vh - 200px - 300px); /* viewport height minus header and footer height */
 	}
 
 	.page,
@@ -2862,6 +2885,11 @@ footer:not(.invisible) {
 	.front-page-content-area {
 		padding: 50px 20px;
 		min-height: 400px;
+	}
+
+	.content-wrapper,
+	#header.no-image + .content-wrapper {
+		min-height: 0;
 	}
 
 	.page-title-heading {
