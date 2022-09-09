@@ -78,6 +78,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  jQuery(document).on('keydown', function(event) {
+    if(event.key == "Escape") {
+      jQuery('.image-view').removeClass('visible');
+      jQuery('#imageViewImg').attr('src', '');
+      jQuery('.image-view-subtitle').text('');
+    }
+  });
+
   jQuery(document).click(function() {
     jQuery('.image-view').removeClass('visible');
     jQuery('#imageViewImg').attr('src', '');

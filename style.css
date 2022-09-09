@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 1.1.5
+  Version: 1.1.6
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -370,6 +370,7 @@ button:focus,
 	background-color: var(--light-accent-color);
 	color: var(--light-accent-text-color);
 	border-radius: 0;
+	opacity: 1;
 }
 
 hr,
@@ -732,6 +733,7 @@ option {
 	text-align: center;
 	z-index: 99;
 	font-size: 4.5em;
+	padding: 0 20px;
 	pointer-events: none;
 	text-shadow: 0px 0px 40px #000000AA;
 }
@@ -1528,6 +1530,12 @@ option {
 	padding: 10px 20% 20px 10%;
 }
 
+.post-tile-sticky {
+  font-size: 0.8em;
+	margin-right: 8px;
+	display: inline-block;
+}
+
 .post-tile-title,
 .dark-background .post-tile-title {
 	font-size: 1.5em;
@@ -1798,6 +1806,76 @@ option {
 	margin-top: 0;
 	text-align: left;
 	color: var(--element-text-color);
+}
+
+.front-page-content-area-box h1,
+.front-page-content-area-box h2,
+.front-page-content-area-box h3,
+.front-page-content-area-box h4,
+.front-page-content-area-box h5,
+.front-page-content-area-box h6,
+.front-page-content-area-box blockquote p {
+	color: var(--element-text-color);
+}
+
+.front-page-content-area-box figure:not(.wp-block-pullquote),
+.front-page-content-area-box iframe,
+.front-page-content-area-box object {
+	display: none;
+}
+
+.front-page-content-area-box .wp-block-pullquote blockquote {
+	background-color: transparent;
+	background-image: none;
+	padding: 10px 0 10px 50px;
+	box-shadow: none;
+}
+
+.front-page-content-area-box .wp-block-pullquote blockquote::before {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.front-page-content-area-box a {
+	color: var(--element-text-color);
+	background-image: linear-gradient(var(--element-text-color) 0%, var(--element-text-color) 100%);
+}
+
+.front-page-content-area-box a:hover,
+.front-page-content-area-box a:focus {
+	color: var(--element-accent-color);
+}
+
+.front-page-content-area button,
+.front-page-content-area .wp-block-button__link,
+.front-page-content-area .wp-block-file a.wp-block-file__button,
+.dark-background .front-page-content-area .wp-block-button__link,
+.dark-background .front-page-content-area .wp-block-file a.wp-block-file__button {
+	color: var(--element-accent-color);
+	background-color: var(--element-text-color);
+	background-image: none;
+	transition: transform 0.3s ease;
+}
+
+.front-page-content-area button:hover,
+.front-page-content-area button:focus,
+.front-page-content-area .wp-block-button__link:hover,
+.front-page-content-area .wp-block-button__link:focus,
+.front-page-content-area .wp-block-file a.wp-block-file__button:hover,
+.front-page-content-area .wp-block-file a.wp-block-file__button:focus,
+.dark-background .front-page-content-area .wp-block-button__link:hover,
+.dark-background .front-page-content-area .wp-block-button__link:focus,
+.dark-background .front-page-content-area .wp-block-file a.wp-block-file__button:hover,
+.dark-background .front-page-content-area .wp-block-file a.wp-block-file__button:focus {
+	color: var(--element-accent-color);
+	background-color: var(--element-text-color);
+	background-image: none;
+	transform: scale(1.1);
+}
+
+.front-page-content-area hr,
+.front-page-content-area .wp-block-separator {
+	border-top-color: var(--element-text-color);
 }
 
 /*-----------------------------------------------
