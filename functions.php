@@ -126,21 +126,116 @@
   add_action('admin_menu', 'events_page_placeholder');
 
 
-  /* Resolutions */
-  // TODO
-
-  function resolution_page_placeholder() {
-    add_menu_page('Beschlüsse', 'Beschlüsse', 'manage_options', 'resolutions', 'placeholder_page', 'dashicons-text-page', 27);
-  }
-  add_action('admin_menu', 'resolution_page_placeholder');
-
-
-
-
 
   function placeholder_page() {
     ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwickelt und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
   }
+
+
+  /* Resolutions */
+
+  function post_type_resolutions() {
+    register_post_type('resolutions', array(
+      'labels' => array(
+        'name' => 'Beschlüsse',
+        'singular_name' => 'Beschluss',
+        'menu_name' => 'Alle Beschlüsse',
+        'parent_item_colon' => 'Übergeordneter Beschluss',
+        'all_items' => 'Alle Beschlüsse',
+        'view_item' => 'Beschluss anzeigen',
+        'add_new_item' => 'Beschluss erstellen',
+        'add_new' => 'Erstellen',
+        'edit_item' => 'Beschluss bearbeiten',
+        'update_item' => 'Beschluss aktualisieren',
+        'search_items' => 'Beschluss suchen',
+        'not_found' => 'Keine Beschlüsse gefunden.',
+        'not_found_in_trash' => 'Keine Beschlüsse im Papierkorb gefunden',
+      ),
+      'public' => true,
+      'exclude_from_search' => true,
+      'menu_icon' => 'dashicons-text-page',
+      'has_archive' => false,
+      'taxonomies' => array('applicants', 'assembly', 'resolutiontags'),
+      'supports' => array('title', 'editor'),
+    ));
+  }
+  add_action('init', 'post_type_resolutions');
+
+  function register_taxonomy_applicants() {
+    $labels = array(
+      'name'              => 'Antragsteller',
+      'singular_name'     => 'Antragsteller',
+      'search_items'      => 'Antragsteller suchen',
+      'all_items'         => 'Alle Antragsteller',
+      'edit_item'         => 'Antragsteller bearbeiten',
+      'update_item'       => 'Antragsteller aktualisieren',
+      'add_new_item'      => 'Antragsteller hinzufügen',
+      'new_item_name'     => 'Antragsteller',
+      'separate_items_with_commas' => 'Antragsteller mit Kommas trennen',
+      'choose_from_most_used' => 'Meist verwendete Antragsteller',
+      'menu_name'         => 'Antragsteller',
+    );
+    $args   = array(
+      'hierarchical'      => false,
+      'labels'            => $labels,
+      'show_ui'           => true,
+      'show_admin_column' => true,
+      'query_var'         => true,
+      'rewrite'           => ['slug' => 'applicants'],
+    );
+    register_taxonomy('applicants', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_applicants');
+
+  function register_taxonomy_assembly() {
+  	 $labels = array(
+  		 'name'              => 'Versammlungen',
+  		 'singular_name'     => 'Versammlung',
+  		 'search_items'      => 'Versammlung suchen',
+  		 'all_items'         => 'Alle Versammlungen',
+  		 'edit_item'         => 'Versammlung bearbeiten',
+  		 'update_item'       => 'Versammlung aktualisieren',
+  		 'add_new_item'      => 'Versammlung hinzufügen',
+  		 'new_item_name'     => 'Versammlungsname',
+  		 'menu_name'         => 'Versammlungen',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => true,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'assembly'],
+  	 );
+  	 register_taxonomy('assembly', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_assembly');
+
+  function register_taxonomy_resolutiontags() {
+  	 $labels = array(
+  		 'name'              => 'Schlagworte',
+  		 'singular_name'     => 'Schlagwort',
+  		 'search_items'      => 'Schlagwort suchen',
+  		 'all_items'         => 'Alle Schlagworte',
+  		 'edit_item'         => 'Schlagwort bearbeiten',
+  		 'update_item'       => 'Schlagwort aktualisieren',
+  		 'add_new_item'      => 'Schlagwort hinzufügen',
+  		 'new_item_name'     => 'Schlagwort',
+  		 'menu_name'         => 'Schlagworte',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => true,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'resolutiontags'],
+  	 );
+  	 register_taxonomy('resolutiontags', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_resolutiontags');
+
+
 
 
   /* Help page */
