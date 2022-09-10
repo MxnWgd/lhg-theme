@@ -1571,6 +1571,7 @@ option {
 	color: var(--bright-text-color);
 	margin-bottom: 30px;
 	text-align: center;
+	font-size: 3em;
 }
 
 .related-posts-list,
@@ -2186,6 +2187,54 @@ details.person-wrapper-description summary::-webkit-details-marker {
 }
 
 
+.resolutions-meta {
+	font-size: 1.2em;
+	color: var(--dark-text-color);
+	margin: 30px 0;
+}
+
+.dark-background .resolutions-meta {
+	color: var(--bright-text-color);
+}
+
+.resolutions-date {
+	opacity: 0.7;
+	display: block;
+	text-align: right;
+}
+
+.resolutions-title {
+	margin: 10px 0;
+}
+
+.resolutions-subtitle {
+	margin: 10px 0;
+	font-size: 1.5em;
+}
+
+.resolutions-subtitle a {
+	color: var(--dark-text-color);
+	background-image: none;
+}
+
+.dark-background .resolutions-subtitle a {
+	color: var(--bright-text-color);
+}
+
+.resolutions-subtitle a:hover,
+.resolutions-subtitle a:focus {
+	text-decoration: underline;
+}
+
+.resolutions-tile-info .post-tile-subtitle {
+	color: var(--dark-accent-color);
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.dark-background .resolutions-tile-info .post-tile-subtitle {
+	color: var(--bright-text-color);
+}
 
 /*-----------------------------------------------
   Miscellaneous

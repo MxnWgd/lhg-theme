@@ -35,6 +35,7 @@
       'exclude_from_search' => true,
       'menu_icon' => 'dashicons-groups',
       'has_archive' => false,
+      'show_in_nav_menus' => false,
       'supports' => array('title', 'thumbnail'),
     ));
   }
@@ -139,7 +140,7 @@
       'labels' => array(
         'name' => 'Beschlüsse',
         'singular_name' => 'Beschluss',
-        'menu_name' => 'Alle Beschlüsse',
+        'menu_name' => 'Beschlüsse',
         'parent_item_colon' => 'Übergeordneter Beschluss',
         'all_items' => 'Alle Beschlüsse',
         'view_item' => 'Beschluss anzeigen',
@@ -154,7 +155,8 @@
       'public' => true,
       'exclude_from_search' => true,
       'menu_icon' => 'dashicons-text-page',
-      'has_archive' => false,
+      'has_archive' => true,
+      'show_in_nav_menus' => true,
       'taxonomies' => array('applicants', 'assembly', 'resolutiontags'),
       'supports' => array('title', 'editor'),
     ));
@@ -211,6 +213,8 @@
   }
   add_action('init', 'register_taxonomy_assembly');
 
+
+
   function register_taxonomy_resolutiontags() {
   	 $labels = array(
   		 'name'              => 'Schlagworte',
@@ -224,7 +228,7 @@
   		 'menu_name'         => 'Schlagworte',
   	 );
   	 $args   = array(
-  		 'hierarchical'      => true,
+  		 'hierarchical'      => false,
   		 'labels'            => $labels,
   		 'show_ui'           => true,
   		 'show_admin_column' => true,
@@ -234,6 +238,8 @@
   	 register_taxonomy('resolutiontags', ['resolutions'], $args);
   }
   add_action('init', 'register_taxonomy_resolutiontags');
+
+
 
 
 
@@ -268,6 +274,12 @@
   }
   add_action('admin_menu', 'help_page_menu');
 
+
+  function ensure_metaboxes_visible($user_id) {
+    $hidden_metaboxes = array();
+    update_user_option($user_id, 'metaboxhidden_nav-menus', $hidden_metaboxes);
+  }
+  add_action('admin_init', 'ensure_metaboxes_visible', 10, 1);
 
 
   /*---------------------------------------------
