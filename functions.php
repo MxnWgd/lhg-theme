@@ -213,8 +213,6 @@
   }
   add_action('init', 'register_taxonomy_assembly');
 
-
-
   function register_taxonomy_resolutiontags() {
   	 $labels = array(
   		 'name'              => 'Schlagworte',
@@ -238,6 +236,62 @@
   	 register_taxonomy('resolutiontags', ['resolutions'], $args);
   }
   add_action('init', 'register_taxonomy_resolutiontags');
+
+  function resolution_filter(){
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => array('resolutions'),
+      'posts_per_page' => -1,
+    );
+
+    $args['tax_query'] = array('relation' => 'AND');
+
+    if (isset($_POST['applicants']) && $_POST['applicants'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'applicants',
+          'field' => 'id',
+          'terms' => $_POST['applicants']
+        )
+      ));
+    }
+
+    if (isset($_POST['assembly']) && $_POST['assembly'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'assembly',
+          'field' => 'id',
+          'terms' => $_POST['assembly']
+        )
+      ));
+    }
+
+    if (isset($_POST['tags']) && $_POST['tags'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'resolutiontags',
+          'field' => 'id',
+          'terms' => $_POST['tags']
+        )
+      ));
+    }
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+      while ($query->have_posts()) {
+        $query->the_post();
+
+        get_template_part('inc/post_templates/content-resolutions');
+      }
+    } else {
+      ?><h2>Keine Beiträge gefunden.</h2><?php
+    }
+
+    die();
+  }
+  add_action('wp_ajax_resolutionfilter', 'resolution_filter');
+  add_action('wp_ajax_nopriv_resolutionfilter', 'resolution_filter');
 
 
 

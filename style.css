@@ -1275,7 +1275,8 @@ option {
 	margin-top: 30px;
 }
 
-.compact-wrapper-link {
+.compact-wrapper-link,
+.dark-background .compact-wrapper-link {
 	transition: transform 0.5s;
 	clip-path: polygon(
 		calc(0% + 40px) 0%,
@@ -2236,6 +2237,45 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	color: var(--bright-text-color);
 }
 
+.resolution-search-form {
+	display: flex;
+	flex-direction: row;
+}
+
+.resolution-search-select,
+.dark-background .resolution-search-select {
+	background-image: none;
+	color: inherit;
+	opacity: 0.8;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.resolution-search-select:not(:last-of-type) {
+	margin-right: 20px;
+}
+
+.resolution-search-button {
+	background-color: transparent;
+	font-size: inherit;
+	color: inherit;
+	font-family: var(--primary-font);
+	text-transform: none;
+	font-weight: bold;
+	opacity: 0.8;
+	flex-shrink: 0;
+	padding: 0;
+}
+
+.resolution-search-button:hover,
+.resolution-search-button:focus {
+	text-decoration: underline;
+	background-color: transparent;
+	color: inherit;
+	opacity: 0.8;
+}
+
+
 /*-----------------------------------------------
   Miscellaneous
 -----------------------------------------------*/
@@ -2906,6 +2946,15 @@ footer:not(.invisible) {
 	.person-wrapper-description[open] {
 		padding-bottom: 180px;
 	}
+
+	.resolution-search-form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.resolution-search-select:not(:last-of-type) {
+		margin-right: 0;
+	}
 }
 
 @media only screen and (max-width: 750px) {
@@ -3251,6 +3300,10 @@ footer:not(.invisible) {
 
 	.compact-image-wrapper-title {
     font-size: 1.4em;
+	}
+
+	.compact-wrapper .post-excerpt {
+		display: none;
 	}
 
 	.persons-wrapper {
