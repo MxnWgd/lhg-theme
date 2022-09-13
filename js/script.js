@@ -1,4 +1,10 @@
+var cookies = {};
 document.addEventListener('DOMContentLoaded', function() {
+
+  document.cookie.split('; ').forEach((item, i) => {
+    cookies[item.split('=')[0]] = item.split('=')[1];
+  });
+
   var scrollFromTop = document.documentElement.scrollTop;
 
   //init

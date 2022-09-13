@@ -35,6 +35,7 @@
       'exclude_from_search' => true,
       'menu_icon' => 'dashicons-groups',
       'has_archive' => false,
+      'show_in_nav_menus' => false,
       'supports' => array('title', 'thumbnail'),
     ));
   }
@@ -126,21 +127,200 @@
   add_action('admin_menu', 'events_page_placeholder');
 
 
-  /* Resolutions */
-  // TODO
-
-  function resolution_page_placeholder() {
-    add_menu_page('Beschlüsse', 'Beschlüsse', 'manage_options', 'resolutions', 'placeholder_page', 'dashicons-text-page', 27);
-  }
-  add_action('admin_menu', 'resolution_page_placeholder');
-
-
-
-
 
   function placeholder_page() {
     ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwickelt und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
   }
+
+
+  /* Resolutions */
+
+  function post_type_resolutions() {
+    register_post_type('resolutions', array(
+      'labels' => array(
+        'name' => 'Beschlüsse',
+        'singular_name' => 'Beschluss',
+        'menu_name' => 'Beschlüsse',
+        'parent_item_colon' => 'Übergeordneter Beschluss',
+        'all_items' => 'Alle Beschlüsse',
+        'view_item' => 'Beschluss anzeigen',
+        'add_new_item' => 'Beschluss erstellen',
+        'add_new' => 'Erstellen',
+        'edit_item' => 'Beschluss bearbeiten',
+        'update_item' => 'Beschluss aktualisieren',
+        'search_items' => 'Beschluss suchen',
+        'not_found' => 'Keine Beschlüsse gefunden.',
+        'not_found_in_trash' => 'Keine Beschlüsse im Papierkorb gefunden',
+      ),
+      'public' => true,
+      'exclude_from_search' => true,
+      'menu_icon' => 'dashicons-text-page',
+      'has_archive' => true,
+      'show_in_nav_menus' => true,
+      'taxonomies' => array('applicants', 'assembly', 'resolutiontags'),
+      'supports' => array('title', 'editor'),
+    ));
+  }
+  add_action('init', 'post_type_resolutions');
+
+  function register_taxonomy_applicants() {
+    $labels = array(
+      'name'              => 'Antragsteller',
+      'singular_name'     => 'Antragsteller',
+      'search_items'      => 'Antragsteller suchen',
+      'all_items'         => 'Alle Antragsteller',
+      'edit_item'         => 'Antragsteller bearbeiten',
+      'update_item'       => 'Antragsteller aktualisieren',
+      'add_new_item'      => 'Antragsteller hinzufügen',
+      'new_item_name'     => 'Antragsteller',
+      'separate_items_with_commas' => 'Antragsteller mit Kommas trennen',
+      'choose_from_most_used' => 'Meist verwendete Antragsteller',
+      'menu_name'         => 'Antragsteller',
+    );
+    $args   = array(
+      'hierarchical'      => false,
+      'labels'            => $labels,
+      'show_ui'           => true,
+      'show_admin_column' => true,
+      'query_var'         => true,
+      'rewrite'           => ['slug' => 'applicants'],
+    );
+    register_taxonomy('applicants', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_applicants');
+
+  function register_taxonomy_assembly() {
+  	 $labels = array(
+  		 'name'              => 'Versammlungen',
+  		 'singular_name'     => 'Versammlung',
+  		 'search_items'      => 'Versammlung suchen',
+  		 'all_items'         => 'Alle Versammlungen',
+  		 'edit_item'         => 'Versammlung bearbeiten',
+  		 'update_item'       => 'Versammlung aktualisieren',
+  		 'add_new_item'      => 'Versammlung hinzufügen',
+  		 'new_item_name'     => 'Versammlungsname',
+  		 'menu_name'         => 'Versammlungen',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => true,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'assembly'],
+  	 );
+  	 register_taxonomy('assembly', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_assembly');
+
+  function register_taxonomy_resolutiontags() {
+  	 $labels = array(
+  		 'name'              => 'Schlagworte',
+  		 'singular_name'     => 'Schlagwort',
+  		 'search_items'      => 'Schlagwort suchen',
+  		 'all_items'         => 'Alle Schlagworte',
+  		 'edit_item'         => 'Schlagwort bearbeiten',
+  		 'update_item'       => 'Schlagwort aktualisieren',
+  		 'add_new_item'      => 'Schlagwort hinzufügen',
+  		 'new_item_name'     => 'Schlagwort',
+  		 'menu_name'         => 'Schlagworte',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => false,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'resolutiontags'],
+  	 );
+  	 register_taxonomy('resolutiontags', ['resolutions'], $args);
+  }
+  add_action('init', 'register_taxonomy_resolutiontags');
+
+  function resolution_filter(){
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => array('resolutions'),
+      'posts_per_page' => -1,
+    );
+
+    $args['tax_query'] = array('relation' => 'AND');
+
+    if (isset($_POST['applicants']) && $_POST['applicants'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'applicants',
+          'field' => 'id',
+          'terms' => $_POST['applicants']
+        )
+      ));
+    }
+
+    if (isset($_POST['assembly']) && $_POST['assembly'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'assembly',
+          'field' => 'id',
+          'terms' => $_POST['assembly']
+        )
+      ));
+    }
+
+    if (isset($_POST['tags']) && $_POST['tags'] != 'all') {
+      $args['tax_query'] = array_merge($args['tax_query'], array(
+        array(
+          'taxonomy' => 'resolutiontags',
+          'field' => 'id',
+          'terms' => $_POST['tags']
+        )
+      ));
+    }
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+      while ($query->have_posts()) {
+        $query->the_post();
+
+        get_template_part('inc/post_templates/content-resolutions');
+      }
+    } else {
+      ?><h2>Keine Beiträge gefunden.</h2><?php
+    }
+
+    die();
+  }
+  add_action('wp_ajax_resolutionfilter', 'resolution_filter');
+  add_action('wp_ajax_nopriv_resolutionfilter', 'resolution_filter');
+
+  function resolution_search(){
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => array('resolutions'),
+      'posts_per_page' => -1,
+      's' => $_POST['search'],
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+      while ($query->have_posts()) {
+        $query->the_post();
+
+        get_template_part('inc/post_templates/content-resolutions');
+      }
+    } else {
+      ?><h2>Keine Beiträge gefunden.</h2><?php
+    }
+
+    die();
+  }
+  add_action('wp_ajax_resolutionsearch', 'resolution_search');
+  add_action('wp_ajax_nopriv_resolutionsearch', 'resolution_search');
+
+
+
+
 
 
   /* Help page */
@@ -173,6 +353,12 @@
   }
   add_action('admin_menu', 'help_page_menu');
 
+
+  function ensure_metaboxes_visible($user_id) {
+    $hidden_metaboxes = array();
+    update_user_option($user_id, 'metaboxhidden_nav-menus', $hidden_metaboxes);
+  }
+  add_action('admin_init', 'ensure_metaboxes_visible', 10, 1);
 
 
   /*---------------------------------------------
