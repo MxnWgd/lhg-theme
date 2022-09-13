@@ -34,10 +34,10 @@
 
 
 <h3>Beschlusssammlung anzeigen</h3>
+<img src="<?php echo get_template_directory_uri(); ?>/inc/help/img/resolutions2.png" alt="Menüansicht zum Hinzufügen der Beschlusssammlung" style="width: 300px; float: right;">
 <p>Für die Beschlusssammlung wird die Inhaltstyp-Archiv-Funktion der Beschlüsse verwendet. Dieses muss also an entsprechenden Stellen verlinkt werden.</p>
 
 <h4>Einfügen in ein Menü</h4>
-<img src="<?php echo get_template_directory_uri(); ?>/inc/help/img/resolutions2.png" alt="Menüansicht zum Hinzufügen der Beschlusssammlung" style="width: 300px; float: right;">
 <div class="notice-info notice">
 	<p>Ist der Abschnitt <em>Beschlüsse</em> in der Menüverwaltung nicht sichtbar, sollte über <em>Ansicht anpassen</em> oben rechts sichergestellt werden, dass der Haken bei <em>Beschlüsse</em> gesetzt ist.</p>
 </div>

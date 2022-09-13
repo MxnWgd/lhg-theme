@@ -145,7 +145,7 @@
   </head>
 
   <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
-    <?php if (!is_customize_preview() && !$_COOKIE['cookies'] == 'accepted' && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
+    <?php if (!is_customize_preview() && (!isset($_COOKIE['cookies']) || !$_COOKIE['cookies'] == 'accepted') && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
     <?php get_template_part('image-view'); ?>
 
     <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) ? 'no-image' : '' ?>">

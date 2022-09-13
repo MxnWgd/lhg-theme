@@ -4,11 +4,11 @@
   <div class="page">
     <h1 class="page-title-heading">Beschlusssammlung</h1>
 
-    <div class="resolution-search">
+    <div class="resolution-filter">
       <h3>Filtern</h3>
 
-      <form class="resolution-search-form" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="filter">
-        <select class="resolution-search-select" name="applicants" id="applicantsSelect" onchange="jQuery('#filter').submit();">
+      <form class="resolution-filter-form" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="filter">
+        <select class="resolution-filter-select" name="applicants" id="applicantsSelect" onchange="jQuery('#filter').submit();">
           <option value="all">Alle Antragsteller</option>
 
           <?php
@@ -23,7 +23,7 @@
           ?>
         </select>
 
-        <select class="resolution-search-select" name="assembly" id="assemblySelect" onchange="jQuery('#filter').submit();">
+        <select class="resolution-filter-select" name="assembly" id="assemblySelect" onchange="jQuery('#filter').submit();">
           <option value="all">Alle Versammlungen</option>
 
           <?php
@@ -45,7 +45,7 @@
           ));
 
           if (sizeof($all_tags) > 0) { ?>
-            <select class="resolution-search-select" name="tags" id="tagsSelect" onchange="jQuery('#filter').submit();">
+            <select class="resolution-filter-select" name="tags" id="tagsSelect" onchange="jQuery('#filter').submit();">
               <option value="all">Alle Schlagworte</option>
 
               <?php
@@ -56,9 +56,18 @@
             </select>
         <?php } ?>
 
-        <button class="resolution-search-button" type="button" name="Suche">Suche&nbsp;&nbsp;<i class="fas fa-search"></i></button>
+        <button class="resolution-search-button" type="button" name="Suche" id="openSearchButton"><i class="fas fa-search"></i>&nbsp;&nbsp;Textsuche</button>
 
         <input type="hidden" name="action" value="resolutionfilter">
+      </form>
+
+      <form class="resolution-search-form hide" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="post" id="resolutionsearch">
+
+        <button type="button" name="Suche schließen" id="closeSearchButton">&lt;</button>
+        <input type="text" name="search" value="" placeholder="Suche nach Beschlussinhalten..." id="resolutionSearchForm">
+        <button type="submit" name="Suchen">Suchen</button>
+
+        <input type="hidden" name="action" value="resolutionsearch">
       </form>
     </div>
 
@@ -76,7 +85,7 @@
       ?>
     </div>
 
-    <div class="pagination-nav">
+    <div class="pagination-nav" id="paginationNav">
       <?php next_posts_link('< Ältere Beiträge'); ?>
       <div>&nbsp;</div>
       <?php previous_posts_link('Neuere Beiträge >') ?>
@@ -84,33 +93,6 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  jQuery(document).ready(function() {
-    if (jQuery('#applicantsSelect').val() != 'all'
-    || jQuery('#assemblySelect').val() != 'all'
-    || jQuery('#tagsSelect').val() != 'all') {
-      jQuery('#response').html('<h3>Lädt...</h3>');
-      jQuery('#filter').submit();
-    }
-  });
-
-  jQuery('#filter').submit(function(){
-    var filter = jQuery('#filter');
-    jQuery.ajax({
-      url:filter.attr('action'),
-      data:filter.serialize(),
-      type:filter.attr('method'),
-
-      beforeSend:function(xhr){
-        jQuery('#response').html('<h3>Lädt...</h3>');
-      },
-
-      success:function(data){
-        jQuery('#response').html(data);
-      }
-    });
-    return false;
-  });
-</script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/js/resolution-archive.js"></script>
 
 <?php get_footer(); ?>

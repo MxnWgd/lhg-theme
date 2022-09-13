@@ -2237,13 +2237,26 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	color: var(--bright-text-color);
 }
 
+.resolution-filter-form,
 .resolution-search-form {
 	display: flex;
 	flex-direction: row;
+	height: 50px;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s 0.3s ease, height 0s 0.3s ease, opacity 0.3s 0.3s ease;
 }
 
-.resolution-search-select,
-.dark-background .resolution-search-select {
+.resolution-filter-form.hide,
+.resolution-search-form.hide {
+	height: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 0.3s ease, height 0s 0.3s ease, opacity 0.3s 0s ease;
+}
+
+.resolution-filter-select,
+.dark-background .resolution-filter-select {
 	background-image: none;
 	color: inherit;
 	opacity: 0.8;
@@ -2251,11 +2264,11 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	margin: 10px 0;
 }
 
-.resolution-search-select:not(:last-of-type) {
+.resolution-filter-select:not(:last-of-type) {
 	margin-right: 20px;
 }
 
-.resolution-search-button {
+.resolution-filter button {
 	background-color: transparent;
 	font-size: inherit;
 	color: inherit;
@@ -2267,14 +2280,59 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	padding: 0;
 }
 
-.resolution-search-button:hover,
-.resolution-search-button:focus {
+.resolution-filter button:hover,
+.resolution-filter button:focus {
 	text-decoration: underline;
 	background-color: transparent;
 	color: inherit;
 	opacity: 0.8;
 }
 
+#resolutionSearchForm {
+	height: 100%;
+  padding: 10px 0;
+	background-image: linear-gradient(#232323 0%, #232323 100%);
+	opacity: 0.8;
+}
+
+.dark-background #resolutionSearchForm {
+	background-image: linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+}
+
+#resolutionSearchForm::placeholder {
+	color: #232323;
+}
+
+.dark-background #resolutionSearchForm::placeholder {
+	color: var(--bright-text-color);
+}
+
+#closeSearchButton {
+	min-width: 30px;
+	font-size: 1.2em;
+	margin: 0 10px;
+}
+
+.resolution-search-loading {
+	display: block;
+	width: 100%;
+	height: 200px;
+	background-color: #CCCCCC;
+	padding: 20px 65px;
+	margin: 20px 0;
+	position: relative;
+	clip-path: polygon(
+		calc(0% + 40px) 0%,
+		100% 0%,
+		calc(100% - 40px) 100%,
+		0% 100%
+	);
+	animation: opacity-pulse 2s infinite;
+}
+
+.dark-background .resolution-search-loading {
+	background-color: #555555;
+}
 
 /*-----------------------------------------------
   Miscellaneous
@@ -2947,12 +3005,12 @@ footer:not(.invisible) {
 		padding-bottom: 180px;
 	}
 
-	.resolution-search-form {
+	.resolution-filter-form {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.resolution-search-select:not(:last-of-type) {
+	.resolution-filter-form:not(:last-of-type) {
 		margin-right: 0;
 	}
 }
@@ -3363,6 +3421,10 @@ footer:not(.invisible) {
 	.person-wrapper-description[open] {
 		padding-bottom: 170px;
 	}
+
+	#closeSearchButton {
+		min-width: 20px;
+	}
 }
 
 
@@ -3410,4 +3472,10 @@ footer:not(.invisible) {
 @keyframes slide-up-footer {
 	0% { opacity: 0; transform: translateY(100px); }
 	100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes opacity-pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0.5; }
+	100% { opacity: 1; }
 }

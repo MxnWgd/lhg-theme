@@ -293,6 +293,31 @@
   add_action('wp_ajax_resolutionfilter', 'resolution_filter');
   add_action('wp_ajax_nopriv_resolutionfilter', 'resolution_filter');
 
+  function resolution_search(){
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => array('resolutions'),
+      'posts_per_page' => -1,
+      's' => $_POST['search'],
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+      while ($query->have_posts()) {
+        $query->the_post();
+
+        get_template_part('inc/post_templates/content-resolutions');
+      }
+    } else {
+      ?><h2>Keine Beiträge gefunden.</h2><?php
+    }
+
+    die();
+  }
+  add_action('wp_ajax_resolutionsearch', 'resolution_search');
+  add_action('wp_ajax_nopriv_resolutionsearch', 'resolution_search');
+
 
 
 
