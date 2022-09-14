@@ -119,18 +119,144 @@
 
 
   /* Events */
-  // TODO
 
-  function events_page_placeholder() {
-    add_menu_page('Veranstaltungen', 'Veranstaltungen', 'manage_options', 'events', 'placeholder_page', 'dashicons-calendar-alt', 26);
+
+  function post_type_events() {
+    register_post_type('events', array(
+      'labels' => array(
+        'name' => 'Veranstaltungen',
+        'singular_name' => 'Veranstaltung',
+        'menu_name' => 'Veranstaltung',
+        'parent_item_colon' => 'Übergeordnete Veranstaltung',
+        'all_items' => 'Alle Veranstaltungen',
+        'view_item' => 'Veranstaltung anzeigen',
+        'add_new_item' => 'Veranstaltung erstellen',
+        'add_new' => 'Erstellen',
+        'edit_item' => 'Veranstaltung bearbeiten',
+        'update_item' => 'Veranstaltung aktualisieren',
+        'search_items' => 'Veranstaltung suchen',
+        'not_found' => 'Keine Veranstaltungen gefunden.',
+        'not_found_in_trash' => 'Keine Veranstaltungen im Papierkorb gefunden',
+      ),
+      'public' => true,
+      'exclude_from_search' => true,
+      'menu_icon' => 'dashicons-calendar-alt',
+      'has_archive' => true,
+      'show_in_nav_menus' => true,
+      #'taxonomies' => array('applicants', 'assembly', 'resolutiontags'),
+      'supports' => array('title'),
+    ));
   }
-  add_action('admin_menu', 'events_page_placeholder');
+  add_action('init', 'post_type_events');
 
-
-
-  function placeholder_page() {
-    ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwickelt und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
+  function adding_events_meta_boxes(){
+    add_meta_box(
+        'event_data',
+        'Veranstaltungsdaten',
+        'event_form_render',
+        'events',
+        'normal',
+        'high'
+    );
   }
+  function event_form_render() {
+    global $post;
+
+    $currentDate = new DateTime();
+    $post_meta = get_post_meta($post->ID);
+
+    ?>
+
+    <div class="notice-info error" style="display: none;" id="errorDateTime">
+    	<p><strong>Bitte überprüfe die Angaben zu Veranstaltungsdatum und -zeit.</strong></p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 150px auto; grid-gap: 10px;">
+      <label for="metaInputEventDateStart" style="width: 100%; margin: 10px 5px;"><strong>Von</strong></label>
+      <div>
+        <input type="date" id="metaInputEventDateStart" name="date_start" value="<?php echo isset($post_meta['date_start'][0]) ? $post_meta['date_start'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
+        <input type="time" id="metaInputEventTimeStart" name="time_start" value="<?php echo isset($post_meta['time_start'][0]) ? $post_meta['time_start'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
+      </div>
+
+      <label for="metaInputEventDateEnd" style="width: 100%; margin: 10px 5px;"><strong>Bis</strong></label>
+      <div>
+        <input type="date" id="metaInputEventDateEnd" name="date_end" value="<?php echo isset($post_meta['date_end'][0]) ? $post_meta['date_end'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
+        <input type="time" id="metaInputEventTimeEnd" name="time_end" value="<?php echo isset($post_meta['time_end'][0]) ? $post_meta['time_end'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
+      </div>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label for="metaInputEventLocation" style="width: 100%; margin: 10px 5px;"><strong>Veranstaltungsort</strong></label>
+      <input type="text" id="metaInputEventLocation" name="location" value="<?php echo isset($post_meta['location'][0]) ? $post_meta['location'][0] : ''; ?>"/>
+
+      <label for="metaInputEventMaps" style="width: 100%; margin: 10px 5px;">
+        <input type="checkbox" id="metaInputEventMaps" name="link_to_maps" <?php if (isset($post_meta['link_to_maps']) && $post_meta['link_to_maps'][0]) { echo 'checked'; } ?> onchange="toggleLinkBox()"/>
+        <strong>Google Maps-Link anzeigen</strong>
+      </label>
+      <p>
+        Die Veranstaltungslocation wird automatisch auf einen Google Maps Treffer verlinkt.
+      </p>
+
+      <label for="metaInputEventLink" style="width: 100%; margin: 10px 5px;"><strong>Veranstaltungslink</strong></label>
+      <input type="url" id="metaInputEventLink" name="event_link" value="<?php echo isset($post_meta['event_link'][0]) ? $post_meta['event_link'][0] : ''; ?>"/>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label style="width: 100%; margin: 10px 5px;"><strong>Beschreibung</strong></label>
+      <?php wp_editor(isset($post_meta['event_desc'][0]) ? $post_meta['event_desc'][0] : '', 'event_desc', array('textarea_rows' => '8')); ?>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label for="metaInputEventLarge" style="width: 100%; margin: 10px 5px;">
+        <input type="checkbox" id="metaInputEventLarge" name="large_event" <?php if (isset($post_meta['large_event']) && $post_meta['large_event'][0]) { echo 'checked'; } ?>/>
+        <strong>Veranstaltungsseite erstellen</strong>
+      </label>
+      <p>
+        Diese Veranstaltung soll eine eigene Unterseite für mehr Informationen bekommen. Dadurch wird der Beschreibungstext nach dem Weiterlesen-Tag erst auf der Unterseite angezeigt. <br>
+        <a href="<?php menu_page_url('help_events'); ?>#large_event" target="_blank">Mehr Informationen in der Hilfe</a>
+      </p>
+
+    </div>
+
+    <script type="text/javascript">
+      function toggleLinkBox() {
+        if (jQuery('#metaInputEventMaps').prop('checked')) {
+          jQuery('#metaInputEventLink').hide();
+          jQuery('label[for="metaInputEventLink"]').hide();
+        } else {
+          jQuery('#metaInputEventLink').show();
+          jQuery('label[for="metaInputEventLink"]').show();
+        }
+      }
+
+      function validateTimeDateEnd() {
+        console.log(new Date(jQuery('#metaInputEventDateStart').val() + ' ' + jQuery('#metaInputEventTimeStart').val()) + ' > ' + new Date(jQuery('#metaInputEventDateEnd').val() + ' ' + jQuery('#metaInputEventTimeEnd').val()));
+
+        if (new Date(jQuery('#metaInputEventDateStart').val() + ' ' + jQuery('#metaInputEventTimeStart').val())
+            > new Date(jQuery('#metaInputEventDateEnd').val() + ' ' + jQuery('#metaInputEventTimeEnd').val())) {
+          jQuery('#publish').prop("disabled", true);
+          jQuery('#errorDateTime').show();
+        } else {
+          jQuery('#publish').prop("disabled", false);
+          jQuery('#errorDateTime').hide();
+        }
+      }
+    </script>
+
+    <?php
+  }
+  add_action('add_meta_boxes_' . 'events', 'adding_events_meta_boxes');
+
+
+
+
+
+
+
+
+
+
+
 
 
   /* Resolutions */
