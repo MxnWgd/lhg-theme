@@ -99,14 +99,7 @@
     <a href="<?php menu_page_url('help_persons'); ?>" title="Hilfe zu den Personen" target="_blank">Hilfe zu den Personen</a>
     <?php
   }
-  function save_metabox($post_id, $post){
-    foreach ($_POST as $key=>$value) {
-      update_post_meta($post_id, $key, $value);
-    }
-  }
   add_action('add_meta_boxes_' . 'persons', 'adding_person_meta_boxes');
-  add_action('save_post', 'save_metabox' , 10, 2);
-
 
   function persons_shorttag_func($prop) {
     global $post;
@@ -118,8 +111,8 @@
   add_shortcode('person', 'persons_shorttag_func');
 
 
-  /* Events */
 
+  /* Events */
 
   function post_type_events() {
     register_post_type('events', array(
@@ -172,13 +165,13 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 150px auto; grid-gap: 10px;">
-      <label for="metaInputEventDateStart" style="width: 100%; margin: 10px 5px;"><strong>Von</strong></label>
+      <label for="metaInputEventDateStart" style="width: 100%; margin: 10px 5px;"><strong>Beginn</strong></label>
       <div>
         <input type="date" id="metaInputEventDateStart" name="date_start" value="<?php echo isset($post_meta['date_start'][0]) ? $post_meta['date_start'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
         <input type="time" id="metaInputEventTimeStart" name="time_start" value="<?php echo isset($post_meta['time_start'][0]) ? $post_meta['time_start'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
       </div>
 
-      <label for="metaInputEventDateEnd" style="width: 100%; margin: 10px 5px;"><strong>Bis</strong></label>
+      <label for="metaInputEventDateEnd" style="width: 100%; margin: 10px 5px;"><strong>Ende</strong></label>
       <div>
         <input type="date" id="metaInputEventDateEnd" name="date_end" value="<?php echo isset($post_meta['date_end'][0]) ? $post_meta['date_end'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
         <input type="time" id="metaInputEventTimeEnd" name="time_end" value="<?php echo isset($post_meta['time_end'][0]) ? $post_meta['time_end'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
@@ -190,11 +183,11 @@
       <input type="text" id="metaInputEventLocation" name="location" value="<?php echo isset($post_meta['location'][0]) ? $post_meta['location'][0] : ''; ?>"/>
 
       <label for="metaInputEventMaps" style="width: 100%; margin: 10px 5px;">
-        <input type="checkbox" id="metaInputEventMaps" name="link_to_maps" <?php if (isset($post_meta['link_to_maps']) && $post_meta['link_to_maps'][0]) { echo 'checked'; } ?> onchange="toggleLinkBox()"/>
+        <input type="checkbox" value="1" id="metaInputEventMaps" name="link_to_maps" onchange="toggleLinkBox()" <?php if (isset($post_meta['link_to_maps']) && $post_meta['link_to_maps'][0] === '1') { echo 'checked'; } ?>/>
         <strong>Google Maps-Link anzeigen</strong>
       </label>
       <p>
-        Die Veranstaltungslocation wird automatisch auf einen Google Maps Treffer verlinkt.
+        Die Veranstaltungslocation wird automatisch auf einen Google Maps Treffer verlinkt. <em>Es wird empfohlen, diesen Link zu testen!</em>
       </p>
 
       <label for="metaInputEventLink" style="width: 100%; margin: 10px 5px;"><strong>Veranstaltungslink</strong></label>
@@ -208,7 +201,7 @@
       <div>&nbsp;</div><div>&nbsp;</div>
 
       <label for="metaInputEventLarge" style="width: 100%; margin: 10px 5px;">
-        <input type="checkbox" id="metaInputEventLarge" name="large_event" <?php if (isset($post_meta['large_event']) && $post_meta['large_event'][0]) { echo 'checked'; } ?>/>
+        <input type="checkbox" value="1" id="metaInputEventLarge" name="large_event" <?php if (isset($post_meta['large_event']) && $post_meta['large_event'][0] === '1') { echo 'checked'; } ?>/>
         <strong>Veranstaltungsseite erstellen</strong>
       </label>
       <p>
@@ -219,6 +212,10 @@
     </div>
 
     <script type="text/javascript">
+      jQuery(document).ready(function() {
+        toggleLinkBox();
+      });
+
       function toggleLinkBox() {
         if (jQuery('#metaInputEventMaps').prop('checked')) {
           jQuery('#metaInputEventLink').hide();
@@ -230,8 +227,6 @@
       }
 
       function validateTimeDateEnd() {
-        console.log(new Date(jQuery('#metaInputEventDateStart').val() + ' ' + jQuery('#metaInputEventTimeStart').val()) + ' > ' + new Date(jQuery('#metaInputEventDateEnd').val() + ' ' + jQuery('#metaInputEventTimeEnd').val()));
-
         if (new Date(jQuery('#metaInputEventDateStart').val() + ' ' + jQuery('#metaInputEventTimeStart').val())
             > new Date(jQuery('#metaInputEventDateEnd').val() + ' ' + jQuery('#metaInputEventTimeEnd').val())) {
           jQuery('#publish').prop("disabled", true);
@@ -363,7 +358,7 @@
   }
   add_action('init', 'register_taxonomy_resolutiontags');
 
-  function resolution_filter(){
+  function resolution_filter() {
     $args = array(
       'orderby' => 'date',
       'post_type' => array('resolutions'),
@@ -446,7 +441,17 @@
 
 
 
+  /* Post type save function */
+  function save_metabox($post_id) {
+    //reset checkboxes
+    delete_post_meta($post_id, 'link_to_maps', '1');
+    delete_post_meta($post_id, 'large_event', '1');
 
+    foreach ($_POST as $key => $value) {
+      update_post_meta($post_id, $key, $value);
+    }
+  }
+  add_action('save_post', 'save_metabox');
 
 
   /* Help page */
