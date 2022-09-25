@@ -242,7 +242,16 @@
   }
   add_action('add_meta_boxes_' . 'events', 'adding_events_meta_boxes');
 
+  function calendar_switch(){
+    $date = explode('-', $_POST['date']);
 
+    include_once 'inc/calendar/calendar.php';
+    echo getCalendar($date[1], $date[0]);
+
+    exit();
+  }
+  add_action('wp_ajax_calendarswitch', 'calendar_switch');
+  add_action('wp_ajax_nopriv_calendarswitch', 'calendar_switch');
 
 
 

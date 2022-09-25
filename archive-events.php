@@ -37,9 +37,13 @@
       ?>
     </div>
 
-    <h3>Kalender</h3>
+    <br>
 
-    <p>to be implemented</p>
+    <?php
+      include_once 'inc/calendar/calendar.php';
+
+      getCalendar();
+    ?>
   </div>
 </div>
 
