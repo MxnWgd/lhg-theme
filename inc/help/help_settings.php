@@ -77,13 +77,17 @@
 		<p>Maximal werden die acht aktuellsten Posts der Kategorie angezeigt.</p>
   </li>
   <li>
-    <h3>Zusätzlicher Inhalt</h3>
+    <h3>Seite für zusätzlichen Contentbereich</h3>
 		<p>Hier kann ein zusätzlicher Textblock auf einem Hintergrundbild angezeigt werden. Diese Seite könnte beispielsweise einen kurzen Vorstellungstext der LHG beinhalten, sollte aber nicht zu umfangreich sein. Als Hintergrundbild wird das Beitragsbild der Seite verwendet.</p>
 		<p>Lege dazu zuerst eine Seite fest, die hierfür verwendet werden soll. Du kannst zudem festlegen, ob die Textbox links- oder rechtsorientiert angezeigt werden soll. Alternativ kann der Abschnitt auch ausgeblendet werden.</p>
   </li>
 	<li>
-		<h3>Termine (coming soon)</h3>
-		<p><em>Dieses Feature wird in Kürze nachgereicht.</em></p>
+		<h3>Terminansicht</h3>
+		<div class="notice-info notice">
+				<p>Mehr Informationen zu den Veranstaltungen findest du auf der <a href="<?php menu_page_url('help_events'); ?>" title="Hilfeseite über Veranstaltungen">Hilfeseite über Veranstaltungen</a>.</p>
+		</div>
+		<p>Hier können bis zu drei anstehende Veranstaltungen angezeigt werden.</p>
+		<p>Lege dazu einen Titel für den Abschnitt fest. Bleibt der Titel leer, wird der Abschnitt ausgeblendet.</p>
 	</li>
   <li>
     <h3>Personenansicht</h3>

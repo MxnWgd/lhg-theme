@@ -14,7 +14,7 @@
   add_action('wp_enqueue_scripts', 'lhg_script_enqueue');
 
   add_action('enqueue_block_editor_assets', function() {
-    wp_enqueue_style('twentytwenty-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
+    wp_enqueue_style('lhg-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
   });
 
 
@@ -241,6 +241,79 @@
     <?php
   }
   add_action('add_meta_boxes_' . 'events', 'adding_events_meta_boxes');
+
+  function register_taxonomy_calendar() {
+  	 $labels = array(
+  		 'name'              => 'Kalender',
+  		 'singular_name'     => 'Kalender',
+  		 'search_items'      => 'Kalender suchen',
+  		 'all_items'         => 'Alle Kalender',
+  		 'edit_item'         => 'Kalender bearbeiten',
+  		 'update_item'       => 'Kalender aktualisieren',
+  		 'add_new_item'      => 'Kalender hinzufügen',
+  		 'new_item_name'     => 'Kalendername',
+  		 'menu_name'         => 'Kalender',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => true,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'calendar'],
+  	 );
+  	 register_taxonomy('calendar', ['events'], $args);
+  }
+  add_action('init', 'register_taxonomy_calendar');
+
+  function calendar_add_color_select($taxonomy) {
+    ?>
+      <div class="form-field">
+        <label for="calendarcolor">Kalenderfarbe</label>
+        <select name="calendarcolor">
+          <option value="default" selected>Standard</option>
+          <option value="pink" style="background-color: #A4005A; color: #FFFFFF;">Violett</option>
+          <option value="magenta" style="background-color: #52002D; color: #FFFFFF;">Dunkles Magenta</option>
+          <option value="dark-blue" style="background-color: #003852; color: #FFFFFF;">Dunkelblau</option>
+          <option value="blue" style="background-color: #0071A4; color: #FFFFFF;">Blau</option>
+          <option value="turquoise" style="background-color: #00ABAE; color: #FFFFFF;">Türkis</option>
+          <option value="yellow" style="background-color: #FFED00; color: #232323;">Gelb</option>
+          <option value="grey" style="background-color: #555555; color: #FFFFFF;">Grau</option>
+        </select>
+      </div>
+    <?php
+  }
+  function calendar_edit_color_select($term, $taxonomy) {
+    $value = get_term_meta($term->term_id, 'calendarcolor', true);
+    ?>
+      <table class="form-table">
+        <tr class="form-field">
+          <th><label for="calendarcolor">Kalenderfarbe</label></th>
+          <td>
+            <select name="calendarcolor">
+              <option value="default" <?php echo $value == 'default' ? 'selected' : ''; ?>>Standard</option>
+              <option value="pink" style="background-color: #A4005A; color: #FFFFFF;" <?php echo $value == 'pink' ? 'selected' : ''; ?>>Violett</option>
+              <option value="magenta" style="background-color: #52002D; color: #FFFFFF;" <?php echo $value == 'magenta' ? 'selected' : ''; ?>>Dunkles Magenta</option>
+              <option value="dark-blue" style="background-color: #003852; color: #FFFFFF;" <?php echo $value == 'dark-blue' ? 'selected' : ''; ?>>Dunkelblau</option>
+              <option value="blue" style="background-color: #0071A4; color: #FFFFFF;" <?php echo $value == 'blue' ? 'selected' : ''; ?>>Blau</option>
+              <option value="turquoise" style="background-color: #00ABAE; color: #FFFFFF;" <?php echo $value == 'turquoise' ? 'selected' : ''; ?>>Türkis</option>
+              <option value="yellow" style="background-color: #FFED00; color: #555555;" <?php echo $value == 'yellow' ? 'selected' : ''; ?>>Gelb</option>
+              <option value="grey" style="background-color: #555555; color: #FFFFFF;" <?php echo $value == 'grey' ? 'selected' : ''; ?>>Grau</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    <?php
+  }
+  add_action('calendar_add_form_fields', 'calendar_add_color_select');
+  add_action('calendar_edit_form_fields', 'calendar_edit_color_select', 10, 2);
+
+  function calendar_save_color_select($term_id) {
+    update_term_meta($term_id, 'calendarcolor', sanitize_text_field($_POST['calendarcolor']));
+  }
+  add_action('created_calendar', 'calendar_save_color_select');
+  add_action('edited_calendar', 'calendar_save_color_select');
+
 
   function calendar_switch(){
     $date = explode('-', $_POST['date']);

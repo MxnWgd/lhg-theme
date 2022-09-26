@@ -56,6 +56,8 @@
 
         $date_diff = $day_end != $day_start ? date_diff(date_create($data_ds), date_create($data_de))->days : 0;
 
+        $color = get_the_terms(get_the_ID(), 'calendar', true) != '' ? get_term_meta(get_the_terms(get_the_ID(), 'calendar', true)[0]->term_id, 'calendarcolor', true) : '';
+
         $ev = array(
           'title' => get_the_title(),
           'day_start' => explode('-', $data_ds)[2],
@@ -66,6 +68,7 @@
           'desc' => cutoff(strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->') + 11)), 256),
           'location' => get_post_meta(get_the_ID(), 'location', true),
           'link_to_page' => get_post_meta(get_the_ID(), 'large_event', true) === '1' ? get_permalink() : '',
+          'color' => $color,
           'extension' => false,
         );
 
@@ -135,6 +138,7 @@
                             'desc' => $value['desc'],
                             'location' => $value['location'],
                             'link_to_page' => $value['link_to_page'],
+                            'color' => $value['color'],
                             'extension' => true,
                           );
 
@@ -178,6 +182,7 @@
                               'desc' => $value['desc'],
                               'location' => $value['location'],
                               'link_to_page' => $value['link_to_page'],
+                              'color' => $value['color'],
                               'extension' => true,
                             );
 
@@ -306,7 +311,8 @@
             transform-origin: 40% 60%;
           }
 
-          .calendar-element-event {
+          .calendar-element-event,
+          .calendar-element-event.default {
             color: var(--element-text-color);
             background-color: var(--element-accent-color);
             text-transform: uppercase;
@@ -320,6 +326,35 @@
             overflow: hidden;
             box-shadow: 0px 0px 8px #FFFFFF99;
             transition: transform 0.3s ease;
+          }
+
+          .calendar-element-event.pink {
+            color: #FFFFFF;
+            background-color: #A4005A;
+          }
+          .calendar-element-event.magenta {
+            color: #FFFFFF;
+            background-color: #52002D;
+          }
+          .calendar-element-event.dark-blue {
+            color: #FFFFFF;
+            background-color: #003852;
+          }
+          .calendar-element-event.blue {
+            color: #FFFFFF;
+            background-color: #0071A4;
+          }
+          .calendar-element-event.turquoise {
+            color: #FFFFFF;
+            background-color: #00ABAE;
+          }
+          .calendar-element-event.yellow {
+            color: #232323;
+            background-color: #FFED00;
+          }
+          .calendar-element-event.grey {
+            color: #FFFFFF;
+            background-color: #555555;
           }
 
           .dark-background .calendar-element-event {
@@ -426,17 +461,59 @@
             width: 100%;
           }
 
-          .calendar-element-event .additional-info .events-page-link {
+          .calendar-element-event .additional-info .events-page-link,
+          .calendar-element-event.default .additional-info .events-page-link {
             background-image: linear-gradient(var(--element-text-color) 0%, var(--element-text-color) 100%);
             display: inline-block;
             padding: 2px 1px;
             width: auto;
           }
+          .calendar-element-event.pink .additional-info .events-page-link,
+          .calendar-element-event.magenta .additional-info .events-page-link,
+          .calendar-element-event.dark-blue .additional-info .events-page-link,
+          .calendar-element-event.blue .additional-info .events-page-link,
+          .calendar-element-event.turquoise .additional-info .events-page-link,
+          .calendar-element-event.grey .additional-info .events-page-link {
+            background-image: linear-gradient(#FFFFFF 0%, #FFFFFF 100%);
+          }
+          .calendar-element-event.yellow .additional-info .events-page-link {
+            background-image: linear-gradient(#232323 0%, #232323 100%);
+          }
 
           .calendar-element-event .additional-info .events-page-link:hover,
-          .calendar-element-event .additional-info .events-page-link:focus {
+          .calendar-element-event .additional-info .events-page-link:focus,
+          .calendar-element-event.default .additional-info .events-page-link:hover,
+          .calendar-element-event.default .additional-info .events-page-link:focus {
             color: var(--element-accent-color);
             text-decoration: none;
+          }
+          .calendar-element-event.pink .additional-info .events-page-link:hover,
+          .calendar-element-event.pink .additional-info .events-page-link:focus {
+            color: #A4005A;
+          }
+          .calendar-element-event.magenta .additional-info .events-page-link:hover,
+          .calendar-element-event.magenta .additional-info .events-page-link:focus {
+            color: #52002D;
+          }
+          .calendar-element-event.dark-blue .additional-info .events-page-link:hover,
+          .calendar-element-event.dark-blue .additional-info .events-page-link:focus {
+            color: #003852;
+          }
+          .calendar-element-event.blue .additional-info .events-page-link:hover,
+          .calendar-element-event.blue .additional-info .events-page-link:focus {
+            color: #0071A4;
+          }
+          .calendar-element-event.turquoise .additional-info .events-page-link:hover,
+          .calendar-element-event.turquoise .additional-info .events-page-link:focus{
+            color: #00ABAE;
+          }
+          .calendar-element-event.grey .additional-info .events-page-link:hover,
+          .calendar-element-event.grey .additional-info .events-page-link:focus {
+            color: #555555;
+          }
+          .calendar-element-event.yellow .additional-info .events-page-link:hover,
+          .calendar-element-event.yellow .additional-info .events-page-link:focus {
+            color: #FFED00;
           }
 
           .calendar-blur {
@@ -646,7 +723,7 @@
   }
 
   function e_event($v, $month, $year, $span) {
-    ?><span class="calendar-element-event <?php echo $v['extension'] ? 'extension' : '' ?>" span="<?php echo $span; ?>" onclick="event.stopPropagation(); expandEvent(this);">
+    ?><span class="calendar-element-event <?php echo $v['extension'] ? 'extension' : '' ?> <?php echo $v['color'] == '' ? 'default' : $v['color']; ?>" span="<?php echo $span; ?>" onclick="event.stopPropagation(); expandEvent(this);">
       <span class="title"><?php echo $v['title']; ?></span>
       <span class="additional-info">
         <span class="subtitle">

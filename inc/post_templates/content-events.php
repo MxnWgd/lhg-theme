@@ -56,9 +56,11 @@
       }
     }
   }
+
+  $color = get_the_terms(get_the_ID(), 'calendar', true) != '' ? get_term_meta(get_the_terms(get_the_ID(), 'calendar', true)[0]->term_id, 'calendarcolor', true) : '';
 ?>
 
-<article class="event-wrapper">
+<article class="event-wrapper <?php echo $v['color'] == '' ? 'default' : $v['color']; ?>">
   <div class="event-wrapper-floater"></div>
 
   <h1 class="event-wrapper-title"><?php the_title(); ?></h1>
