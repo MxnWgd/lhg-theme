@@ -80,15 +80,15 @@
             get_template_part('inc/post_templates/content-resolutions');
           }
         } else {
-          ?><h2>Keine Beiträge gefunden.</h2><?php
+          ?><h2>Keine Beschlüsse gefunden.</h2><?php
         }
       ?>
     </div>
 
     <div class="pagination-nav" id="paginationNav">
-      <?php next_posts_link('< Ältere Beiträge'); ?>
+      <?php next_posts_link('< Ältere Beschlüsse'); ?>
       <div>&nbsp;</div>
-      <?php previous_posts_link('Neuere Beiträge >') ?>
+      <?php previous_posts_link('Neuere Beschlüsse >') ?>
     </div>
   </div>
 </div>

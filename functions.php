@@ -14,7 +14,7 @@
   add_action('wp_enqueue_scripts', 'lhg_script_enqueue');
 
   add_action('enqueue_block_editor_assets', function() {
-    wp_enqueue_style('twentytwenty-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
+    wp_enqueue_style('lhg-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
   });
 
 
@@ -99,14 +99,7 @@
     <a href="<?php menu_page_url('help_persons'); ?>" title="Hilfe zu den Personen" target="_blank">Hilfe zu den Personen</a>
     <?php
   }
-  function save_metabox($post_id, $post){
-    foreach ($_POST as $key=>$value) {
-      update_post_meta($post_id, $key, $value);
-    }
-  }
   add_action('add_meta_boxes_' . 'persons', 'adding_person_meta_boxes');
-  add_action('save_post', 'save_metabox' , 10, 2);
-
 
   function persons_shorttag_func($prop) {
     global $post;
@@ -118,19 +111,229 @@
   add_shortcode('person', 'persons_shorttag_func');
 
 
+
   /* Events */
-  // TODO
 
-  function events_page_placeholder() {
-    add_menu_page('Veranstaltungen', 'Veranstaltungen', 'manage_options', 'events', 'placeholder_page', 'dashicons-calendar-alt', 26);
+  function post_type_events() {
+    register_post_type('events', array(
+      'labels' => array(
+        'name' => 'Veranstaltungen',
+        'singular_name' => 'Veranstaltung',
+        'menu_name' => 'Veranstaltung',
+        'parent_item_colon' => 'Übergeordnete Veranstaltung',
+        'all_items' => 'Alle Veranstaltungen',
+        'view_item' => 'Veranstaltung anzeigen',
+        'add_new_item' => 'Veranstaltung erstellen',
+        'add_new' => 'Erstellen',
+        'edit_item' => 'Veranstaltung bearbeiten',
+        'update_item' => 'Veranstaltung aktualisieren',
+        'search_items' => 'Veranstaltung suchen',
+        'not_found' => 'Keine Veranstaltungen gefunden.',
+        'not_found_in_trash' => 'Keine Veranstaltungen im Papierkorb gefunden',
+      ),
+      'public' => true,
+      'exclude_from_search' => true,
+      'menu_icon' => 'dashicons-calendar-alt',
+      'has_archive' => true,
+      'show_in_nav_menus' => true,
+      #'taxonomies' => array('applicants', 'assembly', 'resolutiontags'),
+      'supports' => array('title'),
+    ));
   }
-  add_action('admin_menu', 'events_page_placeholder');
+  add_action('init', 'post_type_events');
 
-
-
-  function placeholder_page() {
-    ?><h1>Coming soon</h1><p>Dieses Feature wird derzeit entwickelt und im nächsten Release des Themes nachgereicht. Wir bitten noch um etwas Geduld.</p><?php
+  function adding_events_meta_boxes(){
+    add_meta_box(
+        'event_data',
+        'Veranstaltungsdaten',
+        'event_form_render',
+        'events',
+        'normal',
+        'high'
+    );
   }
+  function event_form_render() {
+    global $post;
+
+    $currentDate = new DateTime();
+    $post_meta = get_post_meta($post->ID);
+
+    ?>
+
+    <div class="notice-info error" style="display: none;" id="errorDateTime">
+    	<p><strong>Bitte überprüfe die Angaben zu Veranstaltungsdatum und -zeit.</strong></p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 150px auto; grid-gap: 10px;">
+      <label for="metaInputEventDateStart" style="width: 100%; margin: 10px 5px;"><strong>Beginn</strong></label>
+      <div>
+        <input type="date" id="metaInputEventDateStart" name="date_start" value="<?php echo isset($post_meta['date_start'][0]) ? $post_meta['date_start'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
+        <input type="time" id="metaInputEventTimeStart" name="time_start" value="<?php echo isset($post_meta['time_start'][0]) ? $post_meta['time_start'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
+      </div>
+
+      <label for="metaInputEventDateEnd" style="width: 100%; margin: 10px 5px;"><strong>Ende</strong></label>
+      <div>
+        <input type="date" id="metaInputEventDateEnd" name="date_end" value="<?php echo isset($post_meta['date_end'][0]) ? $post_meta['date_end'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
+        <input type="time" id="metaInputEventTimeEnd" name="time_end" value="<?php echo isset($post_meta['time_end'][0]) ? $post_meta['time_end'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
+      </div>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label for="metaInputEventLocation" style="width: 100%; margin: 10px 5px;"><strong>Veranstaltungsort</strong></label>
+      <input type="text" id="metaInputEventLocation" name="location" value="<?php echo isset($post_meta['location'][0]) ? $post_meta['location'][0] : ''; ?>"/>
+
+      <label for="metaInputEventMaps" style="width: 100%; margin: 10px 5px;">
+        <input type="checkbox" value="1" id="metaInputEventMaps" name="link_to_maps" onchange="toggleLinkBox()" <?php if (isset($post_meta['link_to_maps']) && $post_meta['link_to_maps'][0] === '1') { echo 'checked'; } ?>/>
+        <strong>Google Maps-Link anzeigen</strong>
+      </label>
+      <p>
+        Die Veranstaltungslocation wird automatisch auf einen Google Maps Treffer verlinkt. <em>Es wird empfohlen, diesen Link zu testen!</em>
+      </p>
+
+      <label for="metaInputEventLink" style="width: 100%; margin: 10px 5px;"><strong>Veranstaltungslink</strong></label>
+      <input type="url" id="metaInputEventLink" name="event_link" value="<?php echo isset($post_meta['event_link'][0]) ? $post_meta['event_link'][0] : ''; ?>"/>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label style="width: 100%; margin: 10px 5px;"><strong>Beschreibung</strong></label>
+      <?php wp_editor(isset($post_meta['event_desc'][0]) ? $post_meta['event_desc'][0] : '', 'event_desc', array('textarea_rows' => '8')); ?>
+
+      <div>&nbsp;</div><div>&nbsp;</div>
+
+      <label for="metaInputEventLarge" style="width: 100%; margin: 10px 5px;">
+        <input type="checkbox" value="1" id="metaInputEventLarge" name="large_event" <?php if (isset($post_meta['large_event']) && $post_meta['large_event'][0] === '1') { echo 'checked'; } ?>/>
+        <strong>Veranstaltungsseite erstellen</strong>
+      </label>
+      <p>
+        Diese Veranstaltung soll eine eigene Unterseite für mehr Informationen bekommen. Dadurch wird der Beschreibungstext nach dem Weiterlesen-Tag erst auf der Unterseite angezeigt. <br>
+        <a href="<?php menu_page_url('help_events'); ?>#large_event" target="_blank">Mehr Informationen in der Hilfe</a>
+      </p>
+
+    </div>
+
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+        toggleLinkBox();
+      });
+
+      function toggleLinkBox() {
+        if (jQuery('#metaInputEventMaps').prop('checked')) {
+          jQuery('#metaInputEventLink').hide();
+          jQuery('label[for="metaInputEventLink"]').hide();
+        } else {
+          jQuery('#metaInputEventLink').show();
+          jQuery('label[for="metaInputEventLink"]').show();
+        }
+      }
+
+      function validateTimeDateEnd() {
+        if (new Date(jQuery('#metaInputEventDateStart').val() + ' ' + jQuery('#metaInputEventTimeStart').val())
+            > new Date(jQuery('#metaInputEventDateEnd').val() + ' ' + jQuery('#metaInputEventTimeEnd').val())) {
+          jQuery('#publish').prop("disabled", true);
+          jQuery('#errorDateTime').show();
+        } else {
+          jQuery('#publish').prop("disabled", false);
+          jQuery('#errorDateTime').hide();
+        }
+      }
+    </script>
+
+    <?php
+  }
+  add_action('add_meta_boxes_' . 'events', 'adding_events_meta_boxes');
+
+  function register_taxonomy_calendar() {
+  	 $labels = array(
+  		 'name'              => 'Kalender',
+  		 'singular_name'     => 'Kalender',
+  		 'search_items'      => 'Kalender suchen',
+  		 'all_items'         => 'Alle Kalender',
+  		 'edit_item'         => 'Kalender bearbeiten',
+  		 'update_item'       => 'Kalender aktualisieren',
+  		 'add_new_item'      => 'Kalender hinzufügen',
+  		 'new_item_name'     => 'Kalendername',
+  		 'menu_name'         => 'Kalender',
+  	 );
+  	 $args   = array(
+  		 'hierarchical'      => true,
+  		 'labels'            => $labels,
+  		 'show_ui'           => true,
+  		 'show_admin_column' => true,
+  		 'query_var'         => true,
+  		 'rewrite'           => ['slug' => 'calendar'],
+  	 );
+  	 register_taxonomy('calendar', ['events'], $args);
+  }
+  add_action('init', 'register_taxonomy_calendar');
+
+  function calendar_add_color_select($taxonomy) {
+    ?>
+      <div class="form-field">
+        <label for="calendarcolor">Kalenderfarbe</label>
+        <select name="calendarcolor">
+          <option value="default" selected>Standard</option>
+          <option value="pink" style="background-color: #A4005A; color: #FFFFFF;">Violett</option>
+          <option value="magenta" style="background-color: #52002D; color: #FFFFFF;">Dunkles Magenta</option>
+          <option value="dark-blue" style="background-color: #003852; color: #FFFFFF;">Dunkelblau</option>
+          <option value="blue" style="background-color: #0071A4; color: #FFFFFF;">Blau</option>
+          <option value="turquoise" style="background-color: #00ABAE; color: #FFFFFF;">Türkis</option>
+          <option value="yellow" style="background-color: #FFED00; color: #232323;">Gelb</option>
+          <option value="grey" style="background-color: #555555; color: #FFFFFF;">Grau</option>
+        </select>
+      </div>
+    <?php
+  }
+  function calendar_edit_color_select($term, $taxonomy) {
+    $value = get_term_meta($term->term_id, 'calendarcolor', true);
+    ?>
+      <table class="form-table">
+        <tr class="form-field">
+          <th><label for="calendarcolor">Kalenderfarbe</label></th>
+          <td>
+            <select name="calendarcolor">
+              <option value="default" <?php echo $value == 'default' ? 'selected' : ''; ?>>Standard</option>
+              <option value="pink" style="background-color: #A4005A; color: #FFFFFF;" <?php echo $value == 'pink' ? 'selected' : ''; ?>>Violett</option>
+              <option value="magenta" style="background-color: #52002D; color: #FFFFFF;" <?php echo $value == 'magenta' ? 'selected' : ''; ?>>Dunkles Magenta</option>
+              <option value="dark-blue" style="background-color: #003852; color: #FFFFFF;" <?php echo $value == 'dark-blue' ? 'selected' : ''; ?>>Dunkelblau</option>
+              <option value="blue" style="background-color: #0071A4; color: #FFFFFF;" <?php echo $value == 'blue' ? 'selected' : ''; ?>>Blau</option>
+              <option value="turquoise" style="background-color: #00ABAE; color: #FFFFFF;" <?php echo $value == 'turquoise' ? 'selected' : ''; ?>>Türkis</option>
+              <option value="yellow" style="background-color: #FFED00; color: #555555;" <?php echo $value == 'yellow' ? 'selected' : ''; ?>>Gelb</option>
+              <option value="grey" style="background-color: #555555; color: #FFFFFF;" <?php echo $value == 'grey' ? 'selected' : ''; ?>>Grau</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    <?php
+  }
+  add_action('calendar_add_form_fields', 'calendar_add_color_select');
+  add_action('calendar_edit_form_fields', 'calendar_edit_color_select', 10, 2);
+
+  function calendar_save_color_select($term_id) {
+    update_term_meta($term_id, 'calendarcolor', sanitize_text_field($_POST['calendarcolor']));
+  }
+  add_action('created_calendar', 'calendar_save_color_select');
+  add_action('edited_calendar', 'calendar_save_color_select');
+
+
+  function calendar_switch(){
+    $date = explode('-', $_POST['date']);
+
+    include_once 'inc/calendar/calendar.php';
+    echo getCalendar($date[1], $date[0]);
+
+    exit();
+  }
+  add_action('wp_ajax_calendarswitch', 'calendar_switch');
+  add_action('wp_ajax_nopriv_calendarswitch', 'calendar_switch');
+
+
+
+
+
+
+
+
+
 
 
   /* Resolutions */
@@ -237,7 +440,7 @@
   }
   add_action('init', 'register_taxonomy_resolutiontags');
 
-  function resolution_filter(){
+  function resolution_filter() {
     $args = array(
       'orderby' => 'date',
       'post_type' => array('resolutions'),
@@ -320,7 +523,17 @@
 
 
 
+  /* Post type save function */
+  function save_metabox($post_id) {
+    //reset checkboxes
+    delete_post_meta($post_id, 'link_to_maps', '1');
+    delete_post_meta($post_id, 'large_event', '1');
 
+    foreach ($_POST as $key => $value) {
+      update_post_meta($post_id, $key, $value);
+    }
+  }
+  add_action('save_post', 'save_metabox');
 
 
   /* Help page */

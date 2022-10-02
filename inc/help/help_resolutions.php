@@ -42,4 +42,4 @@
 	<p>Ist der Abschnitt <em>Beschlüsse</em> in der Menüverwaltung nicht sichtbar, sollte über <em>Ansicht anpassen</em> oben rechts sichergestellt werden, dass der Haken bei <em>Beschlüsse</em> gesetzt ist.</p>
 </div>
 <p>Um die Beschlusssammlung von einem Menü aus zu erreichen, muss der Menüeintrag <em>Alle Beschlüsse</em> hinzugefügt werden.</p>
-<p>Hierzu unter <em>Menüeinträge hinzufügen</em> den Abschnitt <em>Beschlüsse</em> aufklappen, dort den Reiter <em>Alle</em> auswählen und den Eintrag <em>Alle Beschlüsse</em> auswählen.</p>
+<p>Hierzu unter <em>Menüeinträge hinzufügen</em> den Abschnitt <em>Beschlüsse</em> aufklappen, dort den Reiter <em>Alle</em> auswählen und den Eintrag <em>Alle Beschlüsse</em> auswählen. Anschließend den Eintrag dem Menü an der gewünschten Stelle hinzufügen.</p>

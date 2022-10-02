@@ -42,6 +42,7 @@
     <a href="<?php echo get_category_link(get_cat_ID(get_theme_mod('front_page_news_category'))) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>
   </div>
 
+
   <?php if (get_theme_mod('front_page_additional_area_page') != 0) {
     $content_area_page = get_post(get_theme_mod('front_page_additional_area_page')); ?>
     <div class="front-page-content-area" style="background-image: url(<?php echo has_post_thumbnail($content_area_page->ID) ? get_the_post_thumbnail_url($content_area_page->ID, 'original') : (get_theme_mod('header_slider_mode') === '2' ? wp_get_attachment_image_src(explode(',', get_theme_mod('header_slider_carousel'))[0], 'full')[0] : wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]); ?>);">
@@ -51,6 +52,47 @@
       </div>
     </div>
   <?php } ?>
+
+
+  <?php if (get_theme_mod('front_page_events_title') != null) { ?>
+    <div class="front-page-event-wrapper">
+      <h1 class="front-page-title"><?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?></h1>
+
+      <div class="front-page-event-list">
+        <?php
+          $args = array(
+            'orderby' => 'meta_value',
+            'order' => 'ASC',
+            'meta_key' => 'date_start',
+            'post_type' => array('events'),
+            'posts_per_page' => 3,
+            'meta_query' => array(
+              array(
+                'key' => 'date_start',
+                'value' => date('Y-m-d'),
+                'compare' => '>=',
+              )
+            ),
+          );
+
+          $query = new WP_Query($args);
+
+          if ($query->have_posts()) {
+            while ($query->have_posts()) {
+              $query->the_post();
+
+              get_template_part('inc/post_templates/content-events');
+            }
+          } else {
+            ?><h2>Keine Veranstaltungen gefunden.</h2><?php
+          }
+        ?>
+      </div>
+
+      <a href="<?php echo get_post_type_archive_link('events') ?>" title="Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?>" class="front-page-large-link">Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?> &gt;</a>
+    </div>
+  <?php } ?>
+
 
   <?php if (get_theme_mod('front_page_board_list') != '') { ?>
     <div class="front-page-persons-wrapper">

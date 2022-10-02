@@ -120,6 +120,19 @@ class LHG_Theme_Customize {
       'active_callback' => function() { return '0' !== get_theme_mod('front_page_additional_area_page'); },
     ));
 
+    $wp_customize->add_setting('front_page_events_title', array(
+      'default' => '',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('front_page_events_title_control', array(
+      'settings' => 'front_page_events_title',
+      'section' => 'front_page_options',
+      'label' => 'Terminansicht',
+      'description' => 'Lege fest, wie der Abschnitt mit den Terminen benannt sein soll. Ist der Titel leer, wird der Abschnitt ausgeblendet.',
+    ));
+
     $wp_customize->add_setting('front_page_board_list', array(
       'default' => '',
       'capability' => 'edit_theme_options',
@@ -174,19 +187,6 @@ class LHG_Theme_Customize {
       'active_callback' => function() { return '0' !== get_theme_mod('front_page_board_page'); },
     ));
 
-    $wp_customize->add_setting('front_page_events', array(
-      'default' => 'left',
-      'capability' => 'edit_theme_options',
-      'type' => 'theme_mod',
-    ));
-
-    $wp_customize->add_control('front_page_events_control', array(
-      'settings' => 'front_page_events',
-      'section' => 'front_page_options',
-      'label' => 'Termine anzeigen',
-      'description' => '[coming soon]',
-      'type' => 'checkbox',
-    ));
 
 
 

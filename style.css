@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 1.1.7
+  Version: 1.1.8
 	Requires at least: 6.0
 	Tested up to: 6.0
   Text Domain: lhg
@@ -1716,6 +1716,7 @@ option {
 -----------------------------------------------*/
 
 .front-page-news-wrapper,
+.front-page-event-wrapper,
 .front-page-persons-wrapper {
 	width: 100%;
 	text-align: center;
@@ -1723,6 +1724,7 @@ option {
 }
 
 .front-page-news-wrapper:first-child,
+.front-page-event-wrapper:first-child,
 .front-page-persons-wrapper:first-child {
 	margin-top: 0;
 }
@@ -1879,6 +1881,106 @@ option {
 .front-page-content-area .wp-block-separator {
 	border-top-color: var(--element-text-color);
 }
+
+.front-page-event-wrapper {
+	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
+	color: var(--bright-text-color);
+	padding: 10px 0 60px;
+	box-shadow: 0px 0px 40px #000000AA;
+}
+
+.front-page-event-wrapper .front-page-title,
+.front-page-event-wrapper .front-page-large-link {
+	color: var(--bright-text-color);
+}
+
+.front-page-event-list {
+	width: 50%;
+	margin: 0 auto;
+	font-size: 18px;
+}
+
+.front-page-event-list .event-wrapper {
+	color: var(--dark-text-color);
+	background: #FFFFFF;
+}
+
+.dark-background .front-page-event-list .event-wrapper {
+	color: var(--bright-text-color);
+	background: var(--dark-background-color);
+}
+
+.front-page-event-list .event-wrapper-title {
+	color: var(--dark-accent-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper-title {
+	color: var(--light-accent-color);
+}
+
+.front-page-event-list .event-wrapper-date {
+	background-color: #FFFFFF;
+	color: var(--dark-text-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper-date {
+	background-color: var(--dark-background-color);
+	color: var(--bright-text-color);
+	box-shadow: 0px 0px 30px #000000;
+}
+
+.front-page-event-list .event-wrapper-date-day {
+	color: var(--dark-accent-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper-date-day {
+	color: var(--light-accent-color);
+}
+
+.front-page-event-list .event-wrapper .post-meta {
+	color: var(--dark-text-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper .post-meta {
+	color: var(--bright-text-color);
+}
+
+.front-page-event-list .event-wrapper .post-meta a {
+	color: var(--dark-text-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper .post-meta a {
+	color: var(--bright-text-color);
+}
+
+.front-page-event-list .event-wrapper-description {
+	color: var(--dark-text-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper-description {
+	color: var(--bright-text-color);
+}
+
+.front-page-event-list .event-wrapper-description .expand-icon-ud {
+  border-color: var(--dark-text-color);
+}
+
+.dark-background .front-page-event-list .event-wrapper-description .expand-icon-ud {
+  border-color: var(--bright-text-color);
+}
+
+.front-page-event-list .events-page-link,
+.front-page-event-list .events-page-link:hover,
+.front-page-event-list .events-page-link:focus {
+	color: var(--dark-accent-color);
+}
+
+.dark-background .front-page-event-list .events-page-link,
+.dark-background .front-page-event-list .events-page-link:hover,
+.dark-background .front-page-event-list .events-page-link:focus {
+	color: var(--light-accent-color);
+}
+
 
 /*-----------------------------------------------
   Footer
@@ -2184,7 +2286,7 @@ details.person-wrapper-description summary::-webkit-details-marker {
 }
 
 .person-wrapper-description[open] .expand-icon-ud {
-	transform: rotate(-225deg);
+	transform: rotate(-225deg) skew(10deg, 10deg);
 }
 
 
@@ -2333,6 +2435,151 @@ details.person-wrapper-description summary::-webkit-details-marker {
 .dark-background .resolution-search-loading {
 	background-color: #555555;
 }
+
+
+
+.event-wrapper {
+	display: block;
+	width: calc(100% - 50px);
+	min-height: 110px;
+	color: #FFFFFF;
+	margin: 70px 0 70px 70px;
+	padding: 20px 20px 5px 20px;
+	position: relative;
+	text-align: left;
+	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
+}
+
+.event-wrapper-floater {
+	display: block;
+	float: left;
+	height: 115px;
+  width: 70px;
+	margin: 0;
+}
+
+.event-wrapper-title {
+	color: var(--bright-text-color);
+	font-size: 2.2em;
+	margin: 0;
+}
+
+.dark-background .event-wrapper-title {
+	color: var(--bright-text-color);
+}
+
+.event-wrapper-date {
+	position: absolute;
+	left: -100px;
+  top: -25px;
+  width: 160px;
+  height: 160px;
+	padding: 20px 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: var(--light-accent-color);
+	color: var(--bright-text-color);
+	border-radius: 50%;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: var(--display-font);
+	box-shadow: 0px 0px 30px #00000077;
+	pointer-events: none;
+}
+
+.event-wrapper-date.dark-text {
+	color: var(--dark-text-color);
+}
+
+.event-wrapper-date-day {
+	font-size: 78px;
+	line-height: 90%;
+	white-space: nowrap;
+}
+
+.event-wrapper-date-day.multiple {
+	font-size: 54px;
+}
+
+.event-wrapper-date-month {
+	white-space: nowrap;
+	line-height: 100%;
+	font-size: 24px;
+}
+
+.event-wrapper-date-year {
+  height: 0;
+  opacity: 1;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.event-wrapper .post-meta {
+	opacity: 1;
+	color: var(--bright-text-color);
+	margin: 0;
+	line-height: 120%;
+}
+
+.event-wrapper .post-meta a {
+	color: var(--bright-text-color);
+}
+
+.event-wrapper-description {
+	width: 90%;
+	text-align: justify;
+	margin: 0 auto;
+}
+
+.dark-background .event-wrapper-description {
+	color: var(--bright-text-color);
+}
+
+.event-wrapper-description summary {
+	text-align: center;
+  line-height: 100%;
+	margin-bottom: 5px;
+}
+
+.event-wrapper-description[open] summary ~ * {
+	padding: 0 0 20px 0;
+	animation: fade-in 0.5s ease;
+}
+
+details.event-wrapper-description summary::marker,
+details.event-wrapper-description summary::-webkit-details-marker {
+	content: "";
+  display: none;
+}
+
+.event-wrapper-description .expand-icon-ud {
+	width: 15px;
+	height: 15px;
+	border-color: #FFFFFF;
+	transition: transform 0.3s ease;
+}
+
+.event-wrapper-description[open] .expand-icon-ud {
+	transform: rotate(-225deg) skew(10deg, 10deg);
+}
+
+.events-page-link,
+.dark-background .events-page-link {
+	color: inherit;
+	background-image: none;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.events-page-link:hover,
+.events-page-link:focus,
+.dark-background .events-page-link:hover,
+.dark-background .events-page-link:focus {
+	color: inherit;
+	text-decoration: underline;
+}
+
 
 /*-----------------------------------------------
   Miscellaneous
@@ -2652,7 +2899,7 @@ footer:not(.invisible) {
 	border: 0;
 	border-bottom: 2px solid var(--dark-accent-color);
 	border-left: 2px solid var(--dark-accent-color);
-	transform: rotate(-45deg);
+	transform: rotate(-45deg) skew(10deg, 10deg);
 	transform-origin: 25% 75%;
 }
 
@@ -2705,7 +2952,8 @@ footer:not(.invisible) {
 	}
 
 	.page,
-	.post {
+	.post,
+	.front-page-event-list {
     width: 70%;
 	}
 
@@ -3143,7 +3391,9 @@ footer:not(.invisible) {
 		padding-top: 30px;
 	}
 
-	.page, .post {
+	.page,
+	.post,
+	.front-page-event-list {
     width: 90%;
 	}
 
@@ -3239,6 +3489,50 @@ footer:not(.invisible) {
 
 	.person-wrapper-description[open] {
 		padding-bottom: 150px;
+	}
+
+	.event-wrapper {
+		min-height: 90px;
+		margin: 30px 0 30px 25px;
+    width: calc(100% - 25px);
+		padding: 15px 15px 5px 15px;
+	}
+
+	.event-wrapper-floater {
+		height: 90px;
+    width: 75px;
+	}
+
+	.event-wrapper-title {
+		font-size: 1.6em;
+	}
+
+	.event-wrapper .post-meta {
+		font-size: 1em;
+	}
+
+	.event-wrapper-date {
+		left: -35px;
+		top: -10px;
+		width: 110px;
+		height: 110px;
+    padding: 10px 10px;
+	}
+
+	.event-wrapper-date-day {
+    font-size: 50px;
+	}
+
+	.event-wrapper-date-day.multiple {
+    font-size: 36px;
+	}
+
+	.event-wrapper-date-month {
+		font-size: 16px;
+	}
+
+	.event-wrapper-description {
+    width: 100%;
 	}
 
 	footer {
