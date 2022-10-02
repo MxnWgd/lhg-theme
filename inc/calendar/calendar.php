@@ -311,8 +311,7 @@
             transform-origin: 40% 60%;
           }
 
-          .calendar-element-event,
-          .calendar-element-event.default {
+          .calendar-element-event {
             color: var(--element-text-color);
             background-color: var(--element-accent-color);
             text-transform: uppercase;

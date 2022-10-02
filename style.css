@@ -2444,7 +2444,7 @@ details.person-wrapper-description summary::-webkit-details-marker {
 	min-height: 110px;
 	color: #FFFFFF;
 	margin: 70px 0 70px 70px;
-	padding: 20px 20px 0 20px;
+	padding: 20px 20px 5px 20px;
 	position: relative;
 	text-align: left;
 	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
@@ -3495,7 +3495,7 @@ footer:not(.invisible) {
 		min-height: 90px;
 		margin: 30px 0 30px 25px;
     width: calc(100% - 25px);
-		padding: 15px 15px 0 15px;
+		padding: 15px 15px 5px 15px;
 	}
 
 	.event-wrapper-floater {
