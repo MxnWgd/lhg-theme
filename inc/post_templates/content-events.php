@@ -60,7 +60,7 @@
   $color = get_the_terms(get_the_ID(), 'calendar', true) != '' ? get_term_meta(get_the_terms(get_the_ID(), 'calendar', true)[0]->term_id, 'calendarcolor', true) : '';
 ?>
 
-<article class="event-wrapper <?php echo $v['color'] == '' ? 'default' : $v['color']; ?>">
+<article class="event-wrapper <?php echo $color == '' ? 'default' : $color; ?>">
   <div class="event-wrapper-floater"></div>
 
   <h1 class="event-wrapper-title"><?php the_title(); ?></h1>
@@ -129,7 +129,7 @@
       <div>
         <?php
           // remove html and all text after more-tag
-          echo strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->') + 11));
+          echo strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->') + 11), '<p><a><b><i><em><strong><del>');
         ?>
 
         <?php if (get_post_meta(get_the_ID(), 'large_event', true) === '1') { ?>

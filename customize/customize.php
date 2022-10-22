@@ -24,10 +24,30 @@ class LHG_Theme_Customize {
 
 
 
+    $wp_customize->add_section('maintenance_mode_options', array(
+      'title' => 'Wartungsmodus',
+      'description' => 'Hier kannst du den Wartungsmodus aktivieren oder deaktivieren. Ist der Wartungsmodus aktiv, werden alle Seiten vor Besuchern versteckt und sind lediglich für angemeldete Benutzer sichtbar.',
+      'priority' => 1,
+    ));
+
+    $wp_customize->add_setting('maintenance_mode', array(
+      'default' => true,
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('maintenance_mode_control', array(
+      'settings' => 'maintenance_mode',
+      'section' => 'maintenance_mode_options',
+      'label' => 'Wartungsmodus aktivieren',
+      'type' => 'checkbox',
+    ));
+
+
     $wp_customize->add_section('theme_color_options', array(
       'title' => 'LHG-Farbschema',
       'description' => 'Wähle aus verschiedenen Farbschemata, um die Seite zu individualisieren. Alle Farbschemata sind mit der CI der Liberalen Hochschulgruppen abgestimmt.',
-      'priority' => 22,
+      'priority' => 23,
     ));
 
     $wp_customize->add_setting('theme_color_option', array(
@@ -57,7 +77,7 @@ class LHG_Theme_Customize {
     $wp_customize->add_section('front_page_options', array(
       'title' => 'Startseiteneinstellungen',
       'description' => 'Lege hier fest, wie die Startseite aussehen soll.',
-      'priority' => 22,
+      'priority' => 24,
     ));
 
     $wp_customize->add_setting('front_page_news_title', array(
@@ -139,11 +159,16 @@ class LHG_Theme_Customize {
       'type' => 'theme_mod',
     ));
 
-    $wp_customize->add_control('front_page_board_list_control', array(
-      'settings' => 'front_page_board_list',
-      'section' => 'front_page_options',
-      'label' => 'Personenansicht',
-      'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
+    // $wp_customize->add_control('front_page_board_list_control', array(
+    //   'settings' => 'front_page_board_list',
+    //   'section' => 'front_page_options',
+    //   'label' => 'Personenansicht',
+    //   'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
+    // ));
+
+    $wp_customize->add_control(new Person_Selector($wp_customize, 'front_page_board_list', array(
+      'section'  => 'front_page_options',
+      )
     ));
 
     $wp_customize->add_setting('front_page_board_title', array(
@@ -381,6 +406,32 @@ class LHG_Theme_Customize {
       'type' => 'checkbox',
     ));
 
+    $wp_customize->add_setting('show_sos_icon', array(
+      'default' => '',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('show_sos_icon_control', array(
+      'settings' => 'show_sos_icon',
+      'section' => 'more_options',
+      'label' => 'SOS-Link im Zusatzmenü im Footer anzeigen',
+      'type' => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('remove_footer_branding', array(
+      'default' => '',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('remove_footer_branding_control', array(
+      'settings' => 'remove_footer_branding',
+      'section' => 'more_options',
+      'label' => 'Branding im Footer entfernen',
+      'type' => 'checkbox',
+    ));
+
     $wp_customize->add_setting('data_protection_page', array(
       'default' => '0',
       'capability' => 'edit_theme_options',
@@ -410,38 +461,12 @@ class LHG_Theme_Customize {
       'active_callback' => function() { return '0' !== get_theme_mod('data_protection_page'); },
     ));
 
-    $wp_customize->add_setting('show_sos_icon', array(
-      'default' => '',
-      'capability' => 'edit_theme_options',
-      'type' => 'theme_mod',
-    ));
-
-    $wp_customize->add_control('show_sos_icon_control', array(
-      'settings' => 'show_sos_icon',
-      'section' => 'more_options',
-      'label' => 'SOS-Link im Zusatzmenü im Footer anzeigen',
-      'type' => 'checkbox',
-    ));
-
-    $wp_customize->add_setting('remove_footer_branding', array(
-      'default' => '',
-      'capability' => 'edit_theme_options',
-      'type' => 'theme_mod',
-    ));
-
-    $wp_customize->add_control('remove_footer_branding_control', array(
-      'settings' => 'remove_footer_branding',
-      'section' => 'more_options',
-      'label' => 'Branding im Footer entfernen',
-      'type' => 'checkbox',
-    ));
-
 
 
     $wp_customize->add_section('header_slider_section', array(
       'title'=> 'Header-Einstellungen',
       'description' => 'Hier kannst du einstellen, was im Header auf der Startseite angezeigt wird.',
-      'priority' => 21
+      'priority' => 22,
     ));
 
     $wp_customize->add_setting('header_slider_mode', array(
@@ -500,50 +525,37 @@ class LHG_Theme_Customize {
       'active_callback' => function() { return '2' === get_theme_mod('header_slider_mode'); },
       )
     ));
+
+    //remove static homepage section to prevent wrong settings
+    $wp_customize->remove_section('static_front_page');
   }
 }
 
 add_action('customize_register', array('LHG_Theme_Customize', 'lhg_customize_register'));
 
-function no_data_protection_page_warning() {
-  if (get_theme_mod('data_protection_page') === '0') { ?>
-    <div class="notice-warning notice">
-      <p>Du hast derzeit keine Seite als Datenschutzerklärung festgelegt. Wir empfehlen dir <strong>dringend</strong>, dies in den Themeeinstellungen im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> zu tun.</p>
-    </div>
-  <?php }
+
+
+/*---------------------------------------------
+  Require components
+---------------------------------------------*/
+
+require_once('multi-image.php');
+
+
+
+require_once('person-select.php');
+function person_select_data() {
+  $id = $_POST['id'];
+
+  $return_data = array(
+    'name' => get_the_title($id),
+    'thumb' => has_post_thumbnail($id) ? get_the_post_thumbnail_url($id, 'thumbnail') : ''
+  );
+
+   wp_send_json($return_data);
+  exit;
 }
-add_action('admin_notices', 'no_data_protection_page_warning');
-
-
-
-if (!class_exists('WP_Customize_Image_Control')) {
-  return null;
-}
-
-class Multi_Image_Selector extends WP_Customize_Control {
-  public function enqueue() {
-    wp_enqueue_style('multi-image-style', get_template_directory_uri() . '/customize/multi-image.css');
-    wp_enqueue_script('multi-image-script', get_template_directory_uri() . '/customize/multi-image.js', array('jquery'), rand(), true);
-  }
-
-  public function render_content() {
-    wp_enqueue_media();
-
-    ?>
-    <label>
-      <span class='customize-control-title'>Ausgewähle Bilder</span>
-    </label>
-    <span class="customize-control-description">Lege hier die Bilder für die Slideshow fest. Auf anderen Unterseiten wird das erste Bild der Slideshow angezeigt.</span>
-    <div>
-      <ul class='images'></ul>
-    </div>
-    <div class='actions'>
-      <a class="button-secondary upload">Hinzufügen</a>
-    </div>
-
-    <input class="wp-editor-area" id="imagesInput" type="hidden" <?php $this->link(); ?> >
-    <?php
-  }
-}
+add_action('wp_ajax_nopriv_person_select_data', 'person_select_data');
+add_action('wp_ajax_person_select_data', 'person_select_data');
 
 ?>

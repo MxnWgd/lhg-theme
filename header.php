@@ -148,7 +148,7 @@
     <?php if (!is_customize_preview() && (!isset($_COOKIE['cookies']) || !$_COOKIE['cookies'] == 'accepted') && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
     <?php get_template_part('image-view'); ?>
 
-    <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) ? 'no-image' : '' ?>">
+    <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) || (get_post_type() == 'persons' && is_single()) ? 'no-image' : '' ?>">
       <div class="header-top-bar" id="headerTopBar">
         <div class="header-top-branding">
           <?php if (has_custom_logo()) {
@@ -204,7 +204,7 @@
         switch (get_theme_mod('header_slider_mode')) {
           case '0': //Bild
             ?><div class="header-image-slider">
-              <div class="header-image-slide" style="background-image: url(<?php echo wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]; ?>)">&nbsp;</div>
+              <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>)">&nbsp;</div>
             </div><?php
             break;
 
@@ -230,10 +230,34 @@
               </div>
             </div><?php
             break;
+
+          default:
+            ?><div class="header-image-slider">
+              <div class="header-image-slide" style="background-image: url(<?php echo get_template_directory_uri() ?>/img/default.jpg)">&nbsp;</div>
+            </div><?php
         }
-      } else if (has_post_thumbnail() && !is_category() && !is_search() && !is_tag()) { ?>
+      } else if (has_post_thumbnail()
+        && !is_category()
+        && !is_search()
+        && !is_tag()
+        && !(get_post_type() == 'persons' && is_single())) { ?>
         <div class="header-image-wrapper">
-          <div class="header-image-slide" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
+          <div class="header-image-slide <?php
+            switch (get_post_meta(get_the_ID(), 'featured_image_position', 'center')) {
+              case 'top':
+                echo 'align-top';
+                break;
+
+              case 'bottom':
+                echo 'align-bottom';
+                break;
+
+              case 'center':
+              default:
+                echo 'align-center';
+                break;
+            } ?>"
+          style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
         </div>
       <?php } else if (get_theme_mod('header_slider_mode') === '2') { ?>
         <div class="header-image-wrapper">
@@ -241,7 +265,7 @@
         </div>
       <?php } else { ?>
         <div class="header-image-wrapper">
-          <div class="header-image-slide" style="background-image: url(<?php echo wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]; ?>);">&nbsp;</div>
+          <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>);">&nbsp;</div>
         </div>
       <?php } ?>
 

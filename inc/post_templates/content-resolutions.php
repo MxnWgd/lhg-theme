@@ -13,18 +13,23 @@
               echo ', ';
             }
           }
-        ?>
-        &nbsp;&verbar;&nbsp;
-        <?php
+          
           $applicants = get_the_terms(get_the_ID(), 'applicants');
 
-          for ($i = 0; $i < sizeof($applicants); $i++) {
-            echo $applicants[$i]->name;
+          if ($applicants != false) {
+            ?>
+            &nbsp;&verbar;&nbsp;
+            <?php
 
-            if ($i < sizeof($applicants) - 1) {
-              echo ', ';
+            for ($i = 0; $i < sizeof($applicants); $i++) {
+              echo $applicants[$i]->name;
+
+              if ($i < sizeof($applicants) - 1) {
+                echo ', ';
+              }
             }
           }
+
         ?>
       </p>
 

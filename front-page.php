@@ -1,46 +1,46 @@
 <?php get_header(); ?>
 
 <div class="content-wrapper">
-  <div class="front-page-news-wrapper">
-    <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title') != null ? get_theme_mod('front_page_news_title') : 'Neuigkeiten'; ?></h1>
+  <?php if (get_theme_mod('front_page_news_category') != null) { ?>
+    <div class="front-page-news-wrapper">
+      <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title') != null ? get_theme_mod('front_page_news_title') : 'Neuigkeiten'; ?></h1>
 
-    <div class="front-page-list">
-      <?php
-      $news_posts = get_posts(array(
-          'numberposts' => 8,
-          'category' => get_cat_ID(get_theme_mod('front_page_news_category')),
-          'no_found_rows'  => true
-      ));
+      <div class="front-page-list">
+        <?php
+        $news_posts = get_posts(array(
+            'numberposts' => 8,
+            'category' => get_cat_ID(get_theme_mod('front_page_news_category')),
+            'no_found_rows'  => true
+        ));
 
-      #print_r($news_posts);
-
-      $sticky_posts = [];
-      $non_sticky_posts = [];
-      for ($i = 0; $i < sizeof($news_posts); $i++) {
-        if (is_sticky($news_posts[$i]->ID)) {
-          array_push($sticky_posts, $news_posts[$i]);
-        } else {
-          array_push($non_sticky_posts, $news_posts[$i]);
+        $sticky_posts = [];
+        $non_sticky_posts = [];
+        for ($i = 0; $i < sizeof($news_posts); $i++) {
+          if (is_sticky($news_posts[$i]->ID)) {
+            array_push($sticky_posts, $news_posts[$i]);
+          } else {
+            array_push($non_sticky_posts, $news_posts[$i]);
+          }
         }
-      }
 
-      $iterate_list = array_merge($sticky_posts, $non_sticky_posts);
+        $iterate_list = array_merge($sticky_posts, $non_sticky_posts);
 
-      foreach ($iterate_list as $key => $value) {
-        	?>
-          <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
-            <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
-              <div class="post-tile-info">
-                <span class="post-tile-date"><?php if (is_sticky($value->ID)) { ?><span class="post-tile-sticky"><i class="fas fa-thumbtack"></i></span><?php } ?><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
-                <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
-              </div>
-            </article>
-          </a>
-        <?php } ?>
+        foreach ($iterate_list as $key => $value) {
+          	?>
+            <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
+              <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
+                <div class="post-tile-info">
+                  <span class="post-tile-date"><?php if (is_sticky($value->ID)) { ?><span class="post-tile-sticky"><i class="fas fa-thumbtack"></i></span><?php } ?><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
+                  <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
+                </div>
+              </article>
+            </a>
+          <?php } ?>
+      </div>
+
+      <a href="<?php echo get_category_link(get_cat_ID(get_theme_mod('front_page_news_category'))) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>
     </div>
-
-    <a href="<?php echo get_category_link(get_cat_ID(get_theme_mod('front_page_news_category'))) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>
-  </div>
+  <?php } ?>
 
 
   <?php if (get_theme_mod('front_page_additional_area_page') != 0) {
@@ -77,19 +77,25 @@
 
           $query = new WP_Query($args);
 
+          $posts_found = false;
+
           if ($query->have_posts()) {
+            $posts_found = true;
+
             while ($query->have_posts()) {
               $query->the_post();
 
               get_template_part('inc/post_templates/content-events');
             }
           } else {
-            ?><h2>Keine Veranstaltungen gefunden.</h2><?php
+            ?><h3>Derzeit sind keine Veranstaltungen geplant.</h3><?php
           }
         ?>
       </div>
 
-      <a href="<?php echo get_post_type_archive_link('events') ?>" title="Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?>" class="front-page-large-link">Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?> &gt;</a>
+      <?php if ($posts_found) { ?>
+        <a href="<?php echo get_post_type_archive_link('events') ?>" title="Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?>" class="front-page-large-link">Alle <?php echo get_theme_mod('front_page_events_title') != null ? get_theme_mod('front_page_events_title') : 'Termine'; ?> &gt;</a>
+      <?php } ?>
     </div>
   <?php } ?>
 
@@ -104,7 +110,7 @@
           $p = get_post($id);
           if ($p->post_type != 'persons') { continue; }?>
 
-          <a class="post-tile-link" href="" rel="bookmark" title="<?php echo $p->post_title; ?>">
+          <a class="post-tile-link" href="<?php echo get_post_permalink($p->ID); ?>" rel="bookmark" title="<?php echo $p->post_title; ?>">
             <article class="post-tile" <?php if (!empty(get_the_post_thumbnail_url($p->ID, 'large'))) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($p->ID, 'large') ?>)" <?php } ?>>
               <div class="post-tile-info">
                 <span class="post-tile-date"><?php echo get_post_meta($p->ID, 'position', true); ?></span>

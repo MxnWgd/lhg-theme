@@ -14,7 +14,7 @@
         while (have_posts()) {
           the_post();
 
-          get_template_part('content-compact-circle');
+          get_template_part('content-compact-image');
         }
       } else {
         ?><h2>Keine Beiträge gefunden.</h2><?php

@@ -5,9 +5,13 @@ function switchCalendar(element) {
     'date' : jQuery(element).attr('name'),
   }
 
+  jQuery('#calendar').addClass('loading');
+
   jQuery.post(jQuery(element).attr('href'), data, function(response) {
-    jQuery('#calendar').html(response);
+    jQuery('#calendar').replaceWith(response);
+    jQuery('#calendar').removeClass('loading');
   });
+
 }
 
 function expandEvent(element) {

@@ -43,3 +43,6 @@
 </div>
 <p>Um die Beschlusssammlung von einem Menü aus zu erreichen, muss der Menüeintrag <em>Alle Beschlüsse</em> hinzugefügt werden.</p>
 <p>Hierzu unter <em>Menüeinträge hinzufügen</em> den Abschnitt <em>Beschlüsse</em> aufklappen, dort den Reiter <em>Alle</em> auswählen und den Eintrag <em>Alle Beschlüsse</em> auswählen. Anschließend den Eintrag dem Menü an der gewünschten Stelle hinzufügen.</p>
+<div class="notice-info notice">
+	<p>Die Beschlüsse in der Beschlusssammlung werden nach dem Erstelldatum (nicht der Versammlung!) sortiert. Dieses kann gegebenenfalls manuell über die Bearbeitungsseite angepasst werden.</p>
+</div>

@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 // filter form submit
 jQuery('#filter').submit(function(){
   var filter = jQuery('#filter');
-  document.cookie = 'resolutionfilter=filter;expires' + expires;
+  document.cookie = 'resolutionfilter=filter;expires=' + expires;
 
   jQuery.ajax({
     url:filter.attr('action'),
@@ -53,7 +53,7 @@ jQuery('#filter').submit(function(){
 // search form submit
 jQuery('#resolutionsearch').submit(function(){
   var filter = jQuery('#resolutionsearch');
-  document.cookie = 'resolutionfilter=search;expires' + expires;
+  document.cookie = 'resolutionfilter=search;expires=' + expires;
 
   jQuery.ajax({
     url:filter.attr('action'),
@@ -73,13 +73,13 @@ jQuery('#resolutionsearch').submit(function(){
 });
 
 function switchToFilter() {
-  document.cookie = 'resolutionfilter=filter;expires' + expires;
+  document.cookie = 'resolutionfilter=filter;expires=' + expires;
   jQuery('#resolutionsearch').addClass('hide');
   jQuery('#filter').removeClass('hide');
 }
 
 function switchToSearch() {
-  document.cookie = 'resolutionfilter=search;expires' + expires;
+  document.cookie = 'resolutionfilter=search;expires=' + expires;
   jQuery('#filter').addClass('hide');
   jQuery('#resolutionsearch').removeClass('hide');
 }

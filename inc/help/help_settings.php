@@ -8,6 +8,11 @@
 
 
 <hr>
+<h2>Wartungsmodus</h2>
+<p>Der Wartungsmodus der Website kann hier aktiviert und deaktiviert werden. Ist der Wartungsmodus aktiv, werden alle Seiten vor Besuchern versteckt und sind lediglich für angemeldete Benutzer sichtbar.</p>
+
+
+<hr>
 <h2>Website-Informationen</h2>
 <div class="notice-info notice">
 		<p>Der hier festgelegte Untertitel erscheint als großer Text im Header auf der Startseite.</p>
@@ -94,7 +99,7 @@
 		<div class="notice-info notice">
 				<p>Mehr Informationen zu den Personen findest du auf der <a href="<?php menu_page_url('help_persons'); ?>" title="Hilfeseite über Personen">Hilfeseite über Personen</a>.</p>
 		</div>
-		<p>Hier kann eine Auswahl von Personen (bspw. Vorstandsmitglieder oder Mandatsträger) angezeigt werden. Dazu müssen die jeweiligen IDs der vorher angelegten Personen (durch Kommas getrennt) eingegeben werden.</p>
+		<p>Hier kann eine Auswahl von Personen (bspw. Vorstandsmitglieder oder Mandatsträger) angezeigt werden. </p>
 		<p>Zudem kann festgelegt werden, wie der Abschnitt betitelt werden soll sowie auf welche Seite der Link unterhalb des Abschnitts verlinken soll (bspw. eine Seite mit allen Vorstandsmitgliedern). Dieser Link kann zudem individuell benannt werden.</p>
   </li>
 </ul>
@@ -162,6 +167,7 @@
 	</li>
 	<li>
 		<h3>Verschiedenes</h3>
-		<p>Wahlweise kann ein Link zum <a href="https://sos.bundes-lhg.de/" title="SOS-Tool">SOS-Tool</a> im Footer angezeigt werden.</p>
+		<p>Der Suchbutton im Header kann ausgeblendet werden.</p>
+		<p>Wahlweise kann zudem ein Link zum <a href="https://sos.bundes-lhg.de/" title="SOS-Tool">SOS-Tool</a> im Footer angezeigt werden.</p>
 	</li>
 </ul>

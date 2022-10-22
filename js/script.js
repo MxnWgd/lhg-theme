@@ -1,5 +1,5 @@
 var cookies = {};
-document.addEventListener('DOMContentLoaded', function() {
+jQuery(document).ready(function() {
 
   document.cookie.split('; ').forEach((item, i) => {
     cookies[item.split('=')[0]] = item.split('=')[1];
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var scrollFromTop = document.documentElement.scrollTop;
 
-  //init
+  //header top bar
   if (scrollFromTop >= 100) {
     jQuery('#header').addClass('collapsed');
   }
@@ -50,10 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
     date.setTime(date.getTime() + (90 * 24 * 60 * 60 * 1000)); //expiring time to 90 days
     const expires = "expires=" + date.toUTCString();
 
-    document.cookie = 'cookies=accepted;expires' + expires;
+    document.cookie = 'cookies=accepted;expires=' + expires;
     jQuery('.cookie-banner-blur').addClass('hidden');
     jQuery('.cookie-banner').addClass('hidden');
     jQuery('html').removeClass('scroll-blocked');
+  });
+
+
+
+  //create links for encrypted mail-addresses
+  jQuery('.mail-encrypted').click(function(e) {
+    var enc_mail_address = jQuery(e.target).closest('a').attr('data-enc-email');
+    var mail_address = enc_mail_address.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
+    console.log(mail_address);
+
+    window.location = 'mailto:' + mail_address;
   });
 
 
@@ -130,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Scroll fade-in
 jQuery(window).on("load", function (e) {
-  // Scroll fade-in
   var boxes = [];
   jQuery.each(jQuery('.content-wrapper').children(), function(key, value) {
     boxes.push(jQuery(value));

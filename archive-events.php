@@ -32,7 +32,7 @@
             get_template_part('inc/post_templates/content-events');
           }
         } else {
-          ?><h2>Keine Veranstaltungen gefunden.</h2><?php
+          ?><h4>Derzeit sind keine Veranstaltungen geplant.</h4><?php
         }
       ?>
     </div>

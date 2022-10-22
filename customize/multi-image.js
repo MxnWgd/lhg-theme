@@ -1,4 +1,4 @@
-jQuery(document).ready( function( ) {
+jQuery(document).ready(function() {
   //load selected images
   var begin_attachment_string = jQuery("#imagesInput").val();
   var begin_attachment_array = [];
