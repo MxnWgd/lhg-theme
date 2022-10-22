@@ -8,6 +8,11 @@
 
 
 <hr>
+<h2>Wartungsmodus</h2>
+<p>Der Wartungsmodus der Website kann hier aktiviert und deaktiviert werden. Ist der Wartungsmodus aktiv, werden alle Seiten vor Besuchern versteckt und sind lediglich für angemeldete Benutzer sichtbar.</p>
+
+
+<hr>
 <h2>Website-Informationen</h2>
 <div class="notice-info notice">
 		<p>Der hier festgelegte Untertitel erscheint als großer Text im Header auf der Startseite.</p>
@@ -77,20 +82,24 @@
 		<p>Maximal werden die acht aktuellsten Posts der Kategorie angezeigt.</p>
   </li>
   <li>
-    <h3>Zusätzlicher Inhalt</h3>
+    <h3>Seite für zusätzlichen Contentbereich</h3>
 		<p>Hier kann ein zusätzlicher Textblock auf einem Hintergrundbild angezeigt werden. Diese Seite könnte beispielsweise einen kurzen Vorstellungstext der LHG beinhalten, sollte aber nicht zu umfangreich sein. Als Hintergrundbild wird das Beitragsbild der Seite verwendet.</p>
 		<p>Lege dazu zuerst eine Seite fest, die hierfür verwendet werden soll. Du kannst zudem festlegen, ob die Textbox links- oder rechtsorientiert angezeigt werden soll. Alternativ kann der Abschnitt auch ausgeblendet werden.</p>
   </li>
 	<li>
-		<h3>Termine (coming soon)</h3>
-		<p><em>Dieses Feature wird in Kürze nachgereicht.</em></p>
+		<h3>Terminansicht</h3>
+		<div class="notice-info notice">
+				<p>Mehr Informationen zu den Veranstaltungen findest du auf der <a href="<?php menu_page_url('help_events'); ?>" title="Hilfeseite über Veranstaltungen">Hilfeseite über Veranstaltungen</a>.</p>
+		</div>
+		<p>Hier können bis zu drei anstehende Veranstaltungen angezeigt werden.</p>
+		<p>Lege dazu einen Titel für den Abschnitt fest. Bleibt der Titel leer, wird der Abschnitt ausgeblendet.</p>
 	</li>
   <li>
     <h3>Personenansicht</h3>
 		<div class="notice-info notice">
 				<p>Mehr Informationen zu den Personen findest du auf der <a href="<?php menu_page_url('help_persons'); ?>" title="Hilfeseite über Personen">Hilfeseite über Personen</a>.</p>
 		</div>
-		<p>Hier kann eine Auswahl von Personen (bspw. Vorstandsmitglieder oder Mandatsträger) angezeigt werden. Dazu müssen die jeweiligen IDs der vorher angelegten Personen (durch Kommas getrennt) eingegeben werden.</p>
+		<p>Hier kann eine Auswahl von Personen (bspw. Vorstandsmitglieder oder Mandatsträger) angezeigt werden. </p>
 		<p>Zudem kann festgelegt werden, wie der Abschnitt betitelt werden soll sowie auf welche Seite der Link unterhalb des Abschnitts verlinken soll (bspw. eine Seite mit allen Vorstandsmitgliedern). Dieser Link kann zudem individuell benannt werden.</p>
   </li>
 </ul>
@@ -158,6 +167,7 @@
 	</li>
 	<li>
 		<h3>Verschiedenes</h3>
-		<p>Wahlweise kann ein Link zum <a href="https://sos.bundes-lhg.de/" title="SOS-Tool">SOS-Tool</a> im Footer angezeigt werden.</p>
+		<p>Der Suchbutton im Header kann ausgeblendet werden.</p>
+		<p>Wahlweise kann zudem ein Link zum <a href="https://sos.bundes-lhg.de/" title="SOS-Tool">SOS-Tool</a> im Footer angezeigt werden.</p>
 	</li>
 </ul>

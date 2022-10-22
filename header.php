@@ -8,9 +8,25 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php is_front_page() ? bloginfo('name') : wp_title(''); ?>">
     <meta property="og:description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
-    <meta property="og:image" content="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium') ?>">
+    <meta property="og:image" content="<?php
+      if (is_front_page()) {
+        switch (get_theme_mod('header_slider_mode')) {
+          case '0':
+          case '1':
+          default:
+            echo wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'medium')[0];
+            break;
 
-    <meta name="description" content="<?php echo get_the_excerpt(get_the_ID()); ?>">
+          case '2':
+            echo wp_get_attachment_image_src(explode(',', get_theme_mod('header_slider_carousel'))[0], 'medium')[0];
+            break;
+        }
+      } else {
+        echo get_the_post_thumbnail_url(get_the_ID(), 'medium');
+      }
+    ?>">
+
+    <meta name="description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
 
     <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
@@ -18,8 +34,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
     <?php if (has_site_icon()) { ?>
-        <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/<?php echo get_site_icon_url(); ?>">
-        <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/<?php echo get_site_icon_url(); ?>">
+        <link rel="icon" type="image/x-icon" href="<?php echo get_site_icon_url(); ?>">
+        <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(); ?>">
     <?php } else {
       switch (get_theme_mod('theme_color_option')) {
         case 'magenta':
@@ -129,10 +145,10 @@
   </head>
 
   <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
-    <?php if (!is_customize_preview() && !$_COOKIE['cookies'] == 'accepted' && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
+    <?php if (!is_customize_preview() && (!isset($_COOKIE['cookies']) || !$_COOKIE['cookies'] == 'accepted') && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
     <?php get_template_part('image-view'); ?>
 
-    <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) ? 'no-image' : '' ?>">
+    <header id="header" class="<?php echo is_front_page() ? 'front-page' : '' ?> <?php echo !(is_front_page() || has_post_thumbnail()) || (get_post_type() == 'persons' && is_single()) ? 'no-image' : '' ?>">
       <div class="header-top-bar" id="headerTopBar">
         <div class="header-top-branding">
           <?php if (has_custom_logo()) {
@@ -165,11 +181,14 @@
                   'theme_location' => 'primary',
                 ));
               ?>
-              <button title="Suche" class="nav-search-button" type="button"><i class="fas fa-search"></i>
-                <div class="nav-search-field">
-                  <?php get_search_form(); ?>
-                </div>
-              </button>
+
+              <?php if (!get_theme_mod('remove_search_button')) { ?>
+                <button title="Suche" class="nav-search-button" type="button"><i class="fas fa-search"></i>
+                  <div class="nav-search-field">
+                    <?php get_search_form(); ?>
+                  </div>
+                </button>
+              <?php } ?>
             </nav>
           <?php } ?>
 
@@ -185,7 +204,7 @@
         switch (get_theme_mod('header_slider_mode')) {
           case '0': //Bild
             ?><div class="header-image-slider">
-              <div class="header-image-slide" style="background-image: url(<?php echo wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]; ?>)">&nbsp;</div>
+              <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>)">&nbsp;</div>
             </div><?php
             break;
 
@@ -211,10 +230,34 @@
               </div>
             </div><?php
             break;
+
+          default:
+            ?><div class="header-image-slider">
+              <div class="header-image-slide" style="background-image: url(<?php echo get_template_directory_uri() ?>/img/default.jpg)">&nbsp;</div>
+            </div><?php
         }
-      } else if (has_post_thumbnail() && !is_category() && !is_search() && !is_tag()) { ?>
+      } else if (has_post_thumbnail()
+        && !is_category()
+        && !is_search()
+        && !is_tag()
+        && !(get_post_type() == 'persons' && is_single())) { ?>
         <div class="header-image-wrapper">
-          <div class="header-image-slide" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
+          <div class="header-image-slide <?php
+            switch (get_post_meta(get_the_ID(), 'featured_image_position', 'center')) {
+              case 'top':
+                echo 'align-top';
+                break;
+
+              case 'bottom':
+                echo 'align-bottom';
+                break;
+
+              case 'center':
+              default:
+                echo 'align-center';
+                break;
+            } ?>"
+          style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>);"></div>
         </div>
       <?php } else if (get_theme_mod('header_slider_mode') === '2') { ?>
         <div class="header-image-wrapper">
@@ -222,7 +265,7 @@
         </div>
       <?php } else { ?>
         <div class="header-image-wrapper">
-          <div class="header-image-slide" style="background-image: url(<?php echo wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]; ?>);">&nbsp;</div>
+          <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>);">&nbsp;</div>
         </div>
       <?php } ?>
 

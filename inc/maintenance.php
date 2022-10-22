@@ -126,27 +126,13 @@
   <body>
     <div class="extra-page">
       <div class="extra-page-content">
-        <h3>404</h3>
-        <h1 class="page-title">:(</h1>
-        <h3>Die gewünschte Seite konnte nicht gefunden werden.</h3>
+        <h3>Wartungsmodus</h3>
+        <h1 class="page-title"><i class="fas fa-wrench"></i></h1>
+        <h3>Derzeit wird unsere Seite überarbeitet. Sie steht euch in Kürze wieder zur Verfügung.</h3>
       </div>
 
       <div class="extra-page-footer">
         <div class="extra-page-footer-flex-area">
-          <?php if (has_nav_menu('secondary')) { ?>
-            <nav class="extra-page-footer-nav">
-              <?php
-              wp_nav_menu(array(
-                'menu_class' => 'header-menu',
-                'container' => '',
-                'theme_location' => 'secondary',
-              ));
-              ?>
-              <?php if (get_theme_mod('data_protection_page_in_menu') && get_theme_mod('data_protection_page') !== '0') { ?><a title="Datenschutzerklärung" class="footer-menu-button" type="button" href="<?php echo get_page_link(get_theme_mod('data_protection_page')); ?>"><?php echo get_the_title(get_theme_mod('data_protection_page')); ?></a><?php } ?>
-              <?php if (get_theme_mod('show_sos_icon')) { ?><a title="SOS" class="footer-menu-button" id="sosButton" type="button" target="_blank" href="https://sos.bundes-lhg.de/">🆘</a><?php } ?>
-            </nav>
-          <?php } ?>
-
           <div class="extra-page-footer-branding">
             <?php if (has_custom_logo()) {
               the_custom_logo();
@@ -154,6 +140,13 @@
               ?><a href="<?php echo get_home_url(); ?>"><?php bloginfo('name'); ?></a><?php
             } ?>
           </div>
+
+          <a title="Zur Loginseite" class="extra-page-login-link" href="<?php echo wp_login_url(); ?>">Login</a>
+          <script type="text/javascript">
+            jQuery(document).ready(function() {
+              jQuery('.extra-page-login-link').attr('href', jQuery('.extra-page-login-link').attr('href') + '?redirect_to=' + window.location.href);
+            });
+          </script>
         </div>
       </div>
     </div>

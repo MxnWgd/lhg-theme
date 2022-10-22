@@ -2,11 +2,7 @@
 
 <div class="content-wrapper">
   <div class="page">
-    <h1 class="page-title-heading">Suchergebnisse</h1>
-
-    <div class="page-content">
-      <?php get_search_form(); ?>
-    </div>
+    <h1 class="page-title-heading"><?php the_archive_title(); ?></h1>
 
     <div class="posts-list-wrapper">
       <?php

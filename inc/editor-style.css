@@ -4,19 +4,24 @@
 
 @font-face {
 	font-family: 'Catamaran';
-	src: url('inc/fonts/Catamaran-VariableFont_wght.ttf');
-	font-weight: 400 bold;
-	font-stretch: 100%;
+	src: url('inc/fonts/Catamaran-Regular.ttf') format('truetype');
+	font-weight: normal;
 	font-style: normal;
-	font-synthesis: none;
+}
+
+@font-face {
+	font-family: 'Catamaran';
+	src: url('inc/fonts/Catamaran-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Passion One';
-	src: url('inc/fonts/PassionOne-Regular.ttf');
+	src: url('inc/fonts/PassionOne-Regular.ttf') format('truetype');
 	font-stretch: 100%;
 	font-style: normal;
-	font-synthesis: none;
+	font-display: fallback;
 }
 
 /*-----------------------------------------------

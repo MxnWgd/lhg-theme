@@ -1,0 +1,145 @@
+.person-selector {
+  border: 1px solid #8C8F94;
+  border-radius: 4px;
+  background: #FFFFFF;
+  padding: 5px;
+}
+
+.available-persons {
+  margin-top: 10px;
+}
+
+.available-persons-list {
+  min-height: 30px;
+  height: auto;
+  max-height: 140px;
+  width: 100%;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.available-persons-list::before {
+  content: 'Keine Personen gefunden.';
+  font-size: 12px;
+  position: absolute;
+  z-index: 101;
+  margin: 5px;
+  font-style: italic;
+}
+
+.persons-element,
+.available-persons-element {
+  width: 100%;
+  height: 40px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDE;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.persons-element {
+  cursor: default;
+  margin: 3px 0;
+}
+
+.available-persons-element {
+  cursor: pointer;
+  position: relative;
+  z-index: 102;
+  margin: 0;
+}
+
+.available-persons-element:hover .available-persons-thumbnail::after,
+.available-persons-element:focus .available-persons-thumbnail::after {
+  content: '+';
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 30px;
+  line-height: 83%;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: #00000088;
+  color: #FFFFFF;
+  border-radius: 50%;
+}
+
+.persons-thumbnail,
+.available-persons-thumbnail {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #CCCCCC;
+  margin-right: 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.persons-name,
+.available-persons-name {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+  flex-grow: 1;
+}
+
+.persons-element-delete {
+  background-color: transparent;
+  border: 0;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  color: #FF0000;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.persons-element-delete:hover,
+.persons-element-delete:focus {
+  background-color: #FF0000;
+  color: #FFFFFF;
+}
+
+.persons-move-buttons {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.persons-move-button {
+  height: 15px;
+  padding: 0;
+  border: none;
+  font-size: 18px;
+  line-height: 15px;
+  font-weight: 1000;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.persons-move-button:hover,
+.persons-move-button:hover {
+  background-color: #646970;
+  color: #FFFFFF;
+}
+
+.persons-element:first-of-type .move-up {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.persons-element:last-of-type .move-down {
+  visibility: hidden;
+  pointer-events: none;
+}
