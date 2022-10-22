@@ -129,7 +129,13 @@
       <div>
         <?php
           // remove html and all text after more-tag
-          echo strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->') + 11), '<p><a><b><i><em><strong><del>');
+          $more_tag_pos = strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->');
+
+          if (!$more_tag_pos) {
+            echo strip_tags(get_post_meta(get_the_ID(), 'event_desc', true), '<p><a><b><i><em><strong><del>');
+          } else {
+            echo strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, $more_tag_pos + 11), '<p><a><b><i><em><strong><del>');
+          }
         ?>
 
         <?php if (get_post_meta(get_the_ID(), 'large_event', true) === '1') { ?>
