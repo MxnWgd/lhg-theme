@@ -183,7 +183,7 @@
               ?>
 
               <?php if (!get_theme_mod('remove_search_button')) { ?>
-                <button title="Suche" class="nav-search-button" type="button"><i class="fas fa-search"></i>
+                <button title="Suche" class="nav-search-button" type="button" id="navSearchButton"><i class="fas fa-search"></i>
                   <div class="nav-search-field">
                     <?php get_search_form(); ?>
                   </div>

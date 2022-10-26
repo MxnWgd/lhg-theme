@@ -58,6 +58,19 @@
 
         $color = get_the_terms(get_the_ID(), 'calendar', true) != '' ? get_term_meta(get_the_terms(get_the_ID(), 'calendar', true)[0]->term_id, 'calendarcolor', true) : '';
 
+        // description
+        $desc = '';
+        if (get_post_meta(get_the_ID(), 'event_desc', true) !== '') {
+          $more_tag_pos = strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->');
+
+          if (!$more_tag_pos) {
+            $desc = strip_tags(get_post_meta(get_the_ID(), 'event_desc', true), '<b><i><em><strong><del>');
+          } else {
+            $desc = strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, $more_tag_pos + 11), '<b><i><em><strong><del>');
+          }
+        }
+
+
         $ev = array(
           'title' => get_the_title(),
           'day_start' => explode('-', $data_ds)[2],
@@ -65,7 +78,7 @@
           'span' => $date_diff + 1,
           'time_start' => get_post_meta(get_the_ID(), 'time_start', true),
           'time_end' => get_post_meta(get_the_ID(), 'time_end', true),
-          'desc' => cutoff(strip_tags(substr(get_post_meta(get_the_ID(), 'event_desc', true), 0, strpos(get_post_meta(get_the_ID(), 'event_desc', true), '<!--more-->') + 11)), 256),
+          'desc' => cutoff($desc, 256),
           'location' => get_post_meta(get_the_ID(), 'location', true),
           'link_to_page' => get_post_meta(get_the_ID(), 'large_event', true) === '1' ? get_permalink() : '',
           'color' => $color,
@@ -304,7 +317,7 @@
         </span>
         <span>
           <?php
-            echo $v['desc'];
+            echo wpautop($v['desc']);
             if ($v['link_to_page'] != '') { ?>
               <br>
               <a class="events-page-link" href="<?php echo $v['link_to_page']; ?>" title="Mehr Infos">Mehr Infos &gt;</a>

@@ -239,6 +239,10 @@
   width: 100%;
 }
 
+.calendar-element-event .additional-info br {
+  display: none;
+}
+
 .calendar-element-event .additional-info .events-page-link,
 .calendar-element-event.default .additional-info .events-page-link {
   background-image: linear-gradient(var(--element-text-color) 0%, var(--element-text-color) 100%);

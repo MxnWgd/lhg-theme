@@ -166,7 +166,7 @@ function event_form_render() {
 
     <label for="metaInputEventDateEnd" style="width: 100%; margin: 10px 5px;"><strong>Ende</strong></label>
     <div>
-      <input type="date" id="metaInputEventDateEnd" name="date_end" value="<?php echo isset($post_meta['date_end'][0]) ? $post_meta['date_end'][0] : $currentDate->format('Y-m-d'); ?>" onchange="validateTimeDateEnd()"/>
+      <input type="date" id="metaInputEventDateEnd" name="date_end" value="<?php echo isset($post_meta['date_end'][0]) ? $post_meta['date_end'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
       <input type="time" id="metaInputEventTimeEnd" name="time_end" value="<?php echo isset($post_meta['time_end'][0]) ? $post_meta['time_end'][0] : '' ?>" onchange="validateTimeDateEnd()"/>
     </div>
 
@@ -189,7 +189,14 @@ function event_form_render() {
     <div>&nbsp;</div><div>&nbsp;</div>
 
     <label style="width: 100%; margin: 10px 5px;"><strong>Beschreibung</strong></label>
-    <?php wp_editor(isset($post_meta['event_desc'][0]) ? $post_meta['event_desc'][0] : '', 'event_desc', array('textarea_rows' => '8')); ?>
+    <?php wp_editor(
+      wpautop(isset($post_meta['event_desc'][0]) ? $post_meta['event_desc'][0] : ''),
+      'event_desc',
+      array(
+        'wpautop' => false,
+        'textarea_rows' => '8',
+      )
+    ); ?>
 
     <div>&nbsp;</div><div>&nbsp;</div>
 
