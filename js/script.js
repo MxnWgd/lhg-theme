@@ -36,6 +36,13 @@ jQuery(document).ready(function() {
 
 
 
+  //header search button
+  jQuery('#navSearchButton').click(function() {
+    jQuery('#searchInput').focus();
+  });
+
+
+
   //checkboxes & radio
   jQuery('label input[type="checkbox"]').after('<span class="checkbox">&nbsp;</span>');
   jQuery('label input[type="checkbox"]').addClass('hide');
