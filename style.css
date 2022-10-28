@@ -2,7 +2,7 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 2.0.2.1
+  Version: 2.0.3
 	Requires at least: 6.0
 	Tested up to: 6.0.3
   Text Domain: lhg
@@ -1095,6 +1095,11 @@ option {
 	left: 0;
 }
 
+.secondary-nav ul li:nth-child(n+8) {
+	display: none;
+}
+
+
 .header-navigation-button {
 	margin: 15px 20px 15px 0;
 	display: none;
@@ -1927,7 +1932,6 @@ option {
 	color: var(--dark-text-color);
 	background: #FFFFFF;
 }
-
 .dark-background .front-page-event-list .event-wrapper {
 	color: var(--bright-text-color);
 	background: var(--dark-background-color);
@@ -1936,7 +1940,6 @@ option {
 .front-page-event-list .event-wrapper-title {
 	color: var(--dark-accent-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper-title {
 	color: var(--light-accent-color);
 }
@@ -1945,7 +1948,6 @@ option {
 	background-color: #FFFFFF;
 	color: var(--dark-text-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper-date {
 	background-color: var(--dark-background-color);
 	color: var(--bright-text-color);
@@ -1955,7 +1957,6 @@ option {
 .front-page-event-list .event-wrapper-date-day {
 	color: var(--dark-accent-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper-date-day {
 	color: var(--light-accent-color);
 }
@@ -1963,7 +1964,6 @@ option {
 .front-page-event-list .event-wrapper .post-meta {
 	color: var(--dark-text-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper .post-meta {
 	color: var(--bright-text-color);
 }
@@ -1971,7 +1971,6 @@ option {
 .front-page-event-list .event-wrapper .post-meta a {
 	color: var(--dark-text-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper .post-meta a {
 	color: var(--bright-text-color);
 }
@@ -1979,35 +1978,32 @@ option {
 .front-page-event-list .event-wrapper-description {
 	color: var(--dark-text-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper-description {
 	color: var(--bright-text-color);
+}
+
+.front-page-event-list .event-wrapper-description a {
+	color: var(--dark-accent-color);
+	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+}
+.front-page-event-list .event-wrapper-description a:hover,
+.front-page-event-list .event-wrapper-description a:focus {
+	color: var(--bright-text-color);
+}
+.dark-background .front-page-event-list .event-wrapper-description a {
+	color: var(--light-accent-color);
+	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
+}
+.dark-background .front-page-event-list .event-wrapper-description a:hover,
+.dark-background .front-page-event-list .event-wrapper-description a:focus {
+	color: var(--dark-text-color);
 }
 
 .front-page-event-list .event-wrapper-description .expand-icon-ud {
   border-color: var(--dark-text-color);
 }
-
 .dark-background .front-page-event-list .event-wrapper-description .expand-icon-ud {
   border-color: var(--bright-text-color);
-}
-
-.front-page-event-list .events-page-link {
-	color: var(--dark-accent-color);
-	background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
-}
-.front-page-event-list .events-page-link:hover,
-.front-page-event-list .events-page-link:focus {
-	color: var(--bright-text-color);
-}
-
-.dark-background .front-page-event-list .events-page-link {
-	color: var(--light-accent-color);
-	background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
-}
-.dark-background .front-page-event-list .events-page-link:hover,
-.dark-background .front-page-event-list .events-page-link:focus {
-	color: var(--dark-background-color);
 }
 
 
@@ -2136,6 +2132,15 @@ footer {
 .dark-background .footer-nav ul li a:focus {
 	color: var(--bright-text-color);
 	text-decoration: underline;
+}
+
+.footer-nav > ul > li > ul.sub-menu > li {
+	opacity: 0.7;
+	font-size: 0.9em;
+}
+
+.footer-nav li.menu-item-has-children {
+	padding-right: 0;
 }
 
 .footer-menu-button,

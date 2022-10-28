@@ -187,24 +187,68 @@
 
   /* Data protection page warning */
   function no_data_protection_page_warning() {
-    if (get_theme_mod('data_protection_page', '0') === '0') { ?>
-      <div class="notice-warning notice">
+    if (get_theme_mod('data_protection_page', '0') === '0' && !get_theme_mod('disable_data_protection_warning', false)) { ?>
+      <div class="notice-warning notice is-dismissible" id="lhgDataProtectionWarning">
+        <button
+          type="button"
+          class="notice-dismiss"
+          onclick="jQuery.post(ajaxurl, { 'action': 'disable_data_protection_warning' }, function(response) {
+    					jQuery('#lhgDataProtectionWarning').hide();
+    				});"
+          >
+          <span class="screen-reader-text">Diese Meldung ausblenden.</span>
+        </button>
+
         <p>Du hast derzeit keine Seite als Datenschutzerklärung festgelegt. Wir empfehlen dir <strong>dringend</strong>, dies in den Themeeinstellungen im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> zu tun.</p>
       </div>
     <?php }
   }
   add_action('admin_notices', 'no_data_protection_page_warning');
 
+  function disable_data_protection_warning() {
+    set_theme_mod('disable_data_protection_warning', true);
+  }
+  add_action('wp_ajax_disable_data_protection_warning', 'disable_data_protection_warning');
+  add_action('wp_ajax_nopriv_disable_data_protection_warning', 'disable_data_protection_warning');
+  function enable_data_protection_warning() {
+    if (get_theme_mod('data_protection_page', '0') !== '0') {
+      set_theme_mod('disable_data_protection_warning', false);
+    }
+  }
+  add_action('customize_save_after', 'enable_data_protection_warning');
+
 
   /* No logo set warning */
   function no_logo_set_warning() {
-    if (!has_custom_logo()) { ?>
-      <div class="notice-warning error">
+    if (!has_custom_logo() && !get_theme_mod('disable_missing_logo_warning', false)) { ?>
+      <div class="notice-warning error notice is-dismissible" id="lhgMissingLogoWarning">
+        <button
+          type="button"
+          class="notice-dismiss"
+          onclick="jQuery.post(ajaxurl, { 'action': 'disable_missing_logo_warning' }, function(response) {
+    					jQuery('#lhgMissingLogoWarning').hide();
+    				});"
+          >
+          <span class="screen-reader-text">Diese Meldung ausblenden.</span>
+        </button>
+
         <p>Du hast momentan kein Logo für eure Website festgelegt. Wir empfehlen dir dringend, das LHG-Logo deiner Gruppe im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> einzurichten. Alle Logos für LHGs findest du in der <a href="https://bundeslhg.sharepoint.com/:f:/s/LHG-Cloud/El8w8EVDNRVGnXinyaoHeXABCcRLo85d9WrdHgtlnWeYag?e=JVWK8Z" title="Link zur LHG-Cloud" target="_blank">LHG-Cloud</a>. Sollte deine Gruppe noch kein Logo haben, wende dich gerne an den Bundesvorstand.</p>
       </div>
     <?php }
   }
   add_action('admin_notices', 'no_logo_set_warning');
+
+  function disable_missing_logo_warning() {
+    set_theme_mod('disable_missing_logo_warning', true);
+  }
+  add_action('wp_ajax_disable_missing_logo_warning', 'disable_missing_logo_warning');
+  add_action('wp_ajax_nopriv_disable_missing_logo_warning', 'disable_missing_logo_warning');
+  function enable_missing_logo_warning() {
+    if (has_custom_logo()) {
+      set_theme_mod('disable_missing_logo_warning', false);
+    }
+  }
+  add_action('customize_save_after', 'enable_missing_logo_warning');
 
 
 ?>

@@ -116,6 +116,9 @@
   </li>
   <li>
     <h3>Kleines Zusatzmenü im Header und Footer</h3>
+		<div class="notice-warning notice">
+				<p>Dieses Menü wird im Header nicht immer sowie lediglich die oberste Ebene der Menühierarchie und maximal sieben Einträge angezeigt. Im Footer ist stets das volle Zusatzmenü zu sehen.</p>
+		</div>
 		<p>Zusätzlich kann ein kleines Zusatzmenü im Header und Footer angezeigt werden. Dieses Menü ist optional und wird im Header nicht immer angezeigt. Es eignet sich also nicht für Hauptseiten, sondern vorzugsweise für gelegentlich benötigte Unterseiten (z.B. das Impressum).</p>
 		<p>Unter "Weitere Themeeinstellungen" wird beschrieben, wie das Footer-Menü noch weiter angepasst werden kann.</p>
 	</li>

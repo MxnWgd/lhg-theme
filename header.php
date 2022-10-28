@@ -28,7 +28,14 @@
 
     <meta name="description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
 
-    <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
+    <title>
+      <?php bloginfo('name'); ?>
+      <?php if (is_front_page()) {
+        echo get_bloginfo('description') != '' ? ' | ' . get_bloginfo('description') : '';
+      } else {
+        ?> | <?php wp_title('');
+      } ?>
+    </title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
@@ -165,6 +172,7 @@
                   'menu_class' => 'header-menu',
                   'container' => '',
                   'theme_location' => 'secondary',
+                  'depth' => 1
                 ));
               ?>
             </nav>
