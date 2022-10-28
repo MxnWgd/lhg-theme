@@ -115,7 +115,7 @@ function post_type_events() {
       'singular_name' => 'Veranstaltung',
       'menu_name' => 'Veranstaltungen',
       'parent_item_colon' => 'Übergeordnete Veranstaltung',
-      'all_items' => 'Alle Veranstaltungen',
+      'all_items' => 'Veranstaltungen',
       'view_item' => 'Veranstaltung anzeigen',
       'add_new_item' => 'Veranstaltung erstellen',
       'add_new' => 'Erstellen',
@@ -259,6 +259,7 @@ function register_taxonomy_calendar() {
      'labels'            => $labels,
      'show_ui'           => true,
      'show_admin_column' => true,
+     'show_in_nav_menus' => false,
      'query_var'         => true,
      'rewrite'           => ['slug' => 'calendar'],
    );
@@ -341,7 +342,7 @@ function post_type_resolutions() {
       'singular_name' => 'Beschluss',
       'menu_name' => 'Beschlüsse',
       'parent_item_colon' => 'Übergeordneter Beschluss',
-      'all_items' => 'Alle Beschlüsse',
+      'all_items' => 'Beschlüsse',
       'view_item' => 'Beschluss anzeigen',
       'add_new_item' => 'Beschluss erstellen',
       'add_new' => 'Erstellen',
@@ -381,6 +382,7 @@ function register_taxonomy_applicants() {
     'labels'            => $labels,
     'show_ui'           => true,
     'show_admin_column' => true,
+    'show_in_nav_menus' => false,
     'query_var'         => true,
     'rewrite'           => ['slug' => 'applicants'],
   );
@@ -405,6 +407,7 @@ function register_taxonomy_assembly() {
      'labels'            => $labels,
      'show_ui'           => true,
      'show_admin_column' => true,
+     'show_in_nav_menus' => false,
      'query_var'         => true,
      'rewrite'           => ['slug' => 'assembly'],
    );
@@ -429,6 +432,7 @@ function register_taxonomy_resolutiontags() {
      'labels'            => $labels,
      'show_ui'           => true,
      'show_admin_column' => true,
+     'show_in_nav_menus' => false,
      'query_var'         => true,
      'rewrite'           => ['slug' => 'resolutiontags'],
    );

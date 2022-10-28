@@ -1,7 +1,8 @@
 <?php get_header(); ?>
 
 <div class="content-wrapper">
-  <?php if (get_theme_mod('front_page_news_category') != null) { ?>
+  <?php $cat_id = get_theme_mod('front_page_news_category') != null ? get_theme_mod('front_page_news_category') : get_categories(array( 'fields' => 'ids'))[0]; ?>
+  <?php if ($cat_id != null) { ?>
     <div class="front-page-news-wrapper">
       <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title') != null ? get_theme_mod('front_page_news_title') : 'Neuigkeiten'; ?></h1>
 
@@ -9,7 +10,7 @@
         <?php
         $news_posts = get_posts(array(
             'numberposts' => 8,
-            'category' => get_cat_ID(get_theme_mod('front_page_news_category')),
+            'category' => get_cat_ID($cat_id),
             'no_found_rows'  => true
         ));
 
@@ -38,7 +39,7 @@
           <?php } ?>
       </div>
 
-      <a href="<?php echo get_category_link(get_cat_ID(get_theme_mod('front_page_news_category'))) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>
+      <a href="<?php echo get_category_link(get_cat_ID($cat_id)) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>
     </div>
   <?php } ?>
 
