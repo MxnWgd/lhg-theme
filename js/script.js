@@ -69,7 +69,6 @@ jQuery(document).ready(function() {
   jQuery('.mail-encrypted').click(function(e) {
     var enc_mail_address = jQuery(e.target).closest('a').attr('data-enc-email');
     var mail_address = enc_mail_address.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
-    console.log(mail_address);
 
     window.location = 'mailto:' + mail_address;
   });

@@ -1,6 +1,6 @@
 <a class="compact-wrapper-link" href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title(); ?>">
-  <article class="compact-wrapper">
-      <h1 class="post-title"><?php the_title(); ?></h1>
+  <article class="compact-wrapper <?php echo get_post_meta(get_the_ID(), 'resolution_status', true) == 'expired' ? 'inactive' : ''; ?>">
+      <h1 class="post-title"><?php the_title(); ?> <?php echo get_post_meta(get_the_ID(), 'resolution_status', true) == 'expired' ? '(abgelaufen)' : ''; ?></h1>
 
       <p class="post-meta">
         <?php
@@ -13,7 +13,7 @@
               echo ', ';
             }
           }
-          
+
           $applicants = get_the_terms(get_the_ID(), 'applicants');
 
           if ($applicants != false) {

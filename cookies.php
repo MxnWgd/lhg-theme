@@ -22,4 +22,8 @@
 
 <script type="text/javascript">
   jQuery('html').addClass('scroll-blocked');
+
+  jQuery(document).ready(function() {
+    jQuery('#cookieBannerCloseButton').focus();
+  });
 </script>

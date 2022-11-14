@@ -441,6 +441,32 @@ function register_taxonomy_resolutiontags() {
 add_action('init', 'register_taxonomy_resolutiontags');
 
 
+function add_resolutions_meta() {
+  add_meta_box(
+      'resolutions_meta',
+      'Weitere Einstellungen',
+      'resolutions_meta_render',
+      'resolutions',
+      'side',
+      'default'
+  );
+}
+function resolutions_meta_render() {
+  global $post;
+
+  $post_meta = get_post_meta($post->ID);
+
+  ?>
+  <label style="margin-bottom: 10px; display: inline-block;">Beschlussstatus</label>
+  <select name="resolution_status" id="metaResolutionStatus" style="display: block; width: 100%; box-sizing: border-box;">
+    <option value="normal" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'normal' ? 'selected' : ''; ?>>Standard</option>
+    <option value="expired" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'expired' ? 'selected' : ''; ?>>Abgelaufen</option>
+  </select>
+  <?php
+}
+add_action('add_meta_boxes_' . 'resolutions', 'add_resolutions_meta');
+
+
 /* AJAX responder */
 
 function resolution_filter() {

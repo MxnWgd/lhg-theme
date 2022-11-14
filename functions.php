@@ -1,4 +1,7 @@
 <?php
+  define('CHECK_UPDATE_URL', 'https://bundes-lhg.de/');
+
+
   /*---------------------------------------------
     General functions
   ---------------------------------------------*/
@@ -39,7 +42,8 @@
 
   /* Help page */
   function help_page_menu() {
-    add_menu_page('Hilfe', 'Hilfe', 'read', 'help', 'help_page', 'dashicons-editor-help', 28);
+    add_menu_page('Hilfe', 'Hilfe', 'read', 'help', 'help_page', 'dashicons-editor-help', 35);
+    add_submenu_page('help', 'Beiträge & Seiten', 'Beiträge & Seiten', 'read', 'help_pages', 'help_pages_page');
     add_submenu_page('help', 'Personen', 'Personen', 'read', 'help_persons', 'help_persons_page');
     add_submenu_page('help', 'Veranstaltungen', 'Veranstaltungen', 'read', 'help_events', 'help_events_page');
     add_submenu_page('help', 'Beschlusssammlung', 'Beschlusssammlung', 'read', 'help_resolutions', 'help_resolutions_page');
@@ -51,6 +55,9 @@
   }
   function help_persons_page() {
     include_once(get_template_directory() . '/inc/help/help_persons.php');
+  }
+  function help_pages_page() {
+    include_once(get_template_directory() . '/inc/help/help_pages.php');
   }
   function help_events_page() {
     include_once(get_template_directory() . '/inc/help/help_events.php');
@@ -153,7 +160,7 @@
         <?php
       },
       'dashicons-admin-generic',
-      29
+      36
     );
   }
   add_action('admin_menu', 'theme_settings_page');
@@ -177,7 +184,7 @@
     if (is_admin() && get_theme_mod('maintenance_mode', true)) {
       ?>
       <div class="notice-info error">
-        <p>Der <strong>Wartungsmodus</strong> ist momentan aktiviert. Dadurch können normale Websitebesucher die Inhalte deiner Seite nicht sehen. Bitte denke daran, den Wartungsmodus im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> zu deaktivieren, sobald er nicht mehr benötigt wird.</p>
+        <p>Der <strong>Wartungsmodus</strong> ist momentan aktiviert. Dadurch können normale Websitebesucher die Inhalte deiner Seite nicht sehen. Bitte denke daran, den Wartungsmodus im <?php $query['autofocus[section]'] = 'maintenance_mode_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Customizer</a> zu deaktivieren, sobald er nicht mehr benötigt wird.</p>
       </div>
       <?php
     }
@@ -199,7 +206,7 @@
           <span class="screen-reader-text">Diese Meldung ausblenden.</span>
         </button>
 
-        <p>Du hast derzeit keine Seite als Datenschutzerklärung festgelegt. Wir empfehlen dir <strong>dringend</strong>, dies in den Themeeinstellungen im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> zu tun.</p>
+        <p>Du hast derzeit keine Seite als Datenschutzerklärung festgelegt. Wir empfehlen dir <strong>dringend</strong>, dies in den Themeeinstellungen im <?php $query['autofocus[control]'] = 'data_protection_page_control'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Customizer</a> zu tun.</p>
       </div>
     <?php }
   }
@@ -232,7 +239,7 @@
           <span class="screen-reader-text">Diese Meldung ausblenden.</span>
         </button>
 
-        <p>Du hast momentan kein Logo für eure Website festgelegt. Wir empfehlen dir dringend, das LHG-Logo deiner Gruppe im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a> einzurichten. Alle Logos für LHGs findest du in der <a href="https://bundeslhg.sharepoint.com/:f:/s/LHG-Cloud/El8w8EVDNRVGnXinyaoHeXABCcRLo85d9WrdHgtlnWeYag?e=JVWK8Z" title="Link zur LHG-Cloud" target="_blank">LHG-Cloud</a>. Sollte deine Gruppe noch kein Logo haben, wende dich gerne an den Bundesvorstand.</p>
+        <p>Du hast momentan kein Logo für eure Website festgelegt. Wir empfehlen dir dringend, das LHG-Logo deiner Gruppe im <?php $query['autofocus[section]'] = 'title_tagline'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Customizer</a> einzurichten. Alle Logos für LHGs findest du in der <a href="https://bundeslhg.sharepoint.com/:f:/s/LHG-Cloud/El8w8EVDNRVGnXinyaoHeXABCcRLo85d9WrdHgtlnWeYag?e=JVWK8Z" title="Link zur LHG-Cloud" target="_blank">LHG-Cloud</a>. Sollte deine Gruppe noch kein Logo haben, wende dich gerne an den Bundesvorstand.</p>
       </div>
     <?php }
   }
@@ -249,6 +256,61 @@
     }
   }
   add_action('customize_save_after', 'enable_missing_logo_warning');
+
+
+
+
+  /*-----------------------------------------------
+    Check for updates
+  -----------------------------------------------*/
+
+  function lhg_check_for_update() {
+    $lhg_page = file_get_contents(CHECK_UPDATE_URL);
+
+    if (preg_match('/<meta\sname="theme-version"\scontent="(.+)">/', $lhg_page, $version)) {
+      return $version[1] === wp_get_theme()->version;
+    } else {
+      return false;
+    }
+  }
+
+  function lhg_ajax_check_for_update() {
+    print_r(lhg_check_for_update());
+    exit();
+  }
+  add_action('wp_ajax_check_for_update', 'lhg_ajax_check_for_update');
+  add_action('wp_ajax_nopriv_check_for_update', 'lhg_ajax_check_for_update');
+
+
+  /* Notice on update */
+
+  add_action('wp', 'lhg_auto_update_check');
+  function lhg_auto_update_check() {
+    if (!wp_next_scheduled('lhg_auto_update_event')) {
+      wp_schedule_event(time(), 'hourly', 'lhg_auto_update_event');
+    }
+  }
+
+
+  add_action('lhg_auto_update_event', 'lhg_auto_update_notice');
+  function lhg_auto_update_notice() {
+    set_theme_mod('update_available', false);
+
+    if (!lhg_check_for_update()) {
+      set_theme_mod('update_available', true);
+    }
+  }
+
+  function update_notice() {
+    if (get_theme_mod('update_available', false)) {
+      ?>
+      <div class="notice-info notice">
+        <p>Ein Update für das LHG-Theme ist möglicherweise verfügbar. Bitte schaue hierzu in die <a href="https://bundeslhg.sharepoint.com/:f:/s/LHG-Cloud/El8w8EVDNRVGnXinyaoHeXABCcRLo85d9WrdHgtlnWeYag?e=JVWK8Z" title="Link zur LHG-Cloud" target="_blank">LHG-Cloud</a> oder wende dich an den <a href="<?php menu_page_url('help_support'); ?>" title="IT-Support">IT-Support</a>. </p>
+      </div>
+      <?php
+    }
+  }
+  add_action('admin_notices', 'update_notice');
 
 
 ?>
