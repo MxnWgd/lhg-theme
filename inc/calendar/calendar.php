@@ -108,7 +108,7 @@
         <script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/inc/calendar/calendar.js"></script>
         <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/inc/calendar/calendar.css">
 
-        <h1 class="calendar-title"><?php echo get_month_name($month) . ' ' . $year; ?></h1>
+        <h3 class="calendar-title"><?php echo get_month_name($month) . ' ' . $year; ?></h3>
 
         <div class="calendar-block">
           <button class="calendar-switch-button" type="button" name="<?php echo $prev_month; ?>" title="Vorheriger Monat" href="<?php echo site_url() ?>/wp-admin/admin-ajax.php" onclick="switchCalendar(this)"><span class="arrow-icon left"></span></button>

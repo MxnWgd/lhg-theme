@@ -44,6 +44,70 @@ class LHG_Theme_Customize {
     ));
 
 
+    $wp_customize->add_section('header_slider_section', array(
+      'title'=> 'Header-Einstellungen',
+      'description' => 'Hier kannst du einstellen, was im Header auf der Startseite angezeigt wird.',
+      'priority' => 22,
+    ));
+
+    $wp_customize->add_setting('header_slider_mode', array(
+      'default' => '0',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('header_slider_mode_control', array(
+      'settings' => 'header_slider_mode',
+      'section' => 'header_slider_section',
+      'label' => 'Header-Modus',
+      'description' => 'Wähle, ob im Header ein statisches Bild, ein Video oder eine Slideshow angezeigt werden soll.',
+      'type' => 'select',
+      'choices' => array(
+        '0' => 'Bild',
+        '1' => 'Video',
+        '2' => 'Slideshow',
+      )
+    ));
+
+    $wp_customize->add_setting('header_slider_video', array(
+      'default'   => array(),
+      'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_slider_video', array(
+      'section' => 'header_slider_section',
+      'label' => 'Video',
+      'description' => 'Lege das Video für den Header auf der Startseite fest. Auf anderen Unterseiten wird das unten festgelegte Bild angezeigt.',
+      'mime_type' => 'video',
+      'active_callback' => function() { return '1' === get_theme_mod('header_slider_mode'); },
+    )
+  ));
+
+  $wp_customize->add_setting('header_slider_image', array(
+    'default'   => array(),
+    'transport' => 'refresh',
+  ));
+
+  $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_slider_image', array(
+    'section' => 'header_slider_section',
+    'label' => 'Bild',
+    'mime_type' => 'image',
+    'active_callback' => function() { return '0' === get_theme_mod('header_slider_mode') || '1' === get_theme_mod('header_slider_mode'); },
+    )
+    ));
+
+    $wp_customize->add_setting('header_slider_carousel', array(
+    'default'   => array(),
+    'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Multi_Image_Selector($wp_customize, 'header_slider_carousel', array(
+    'section'  => 'header_slider_section',
+    'active_callback' => function() { return '2' === get_theme_mod('header_slider_mode'); },
+    )
+    ));
+
+
     $wp_customize->add_section('theme_color_options', array(
       'title' => 'LHG-Farbschema',
       'description' => 'Wähle aus verschiedenen Farbschemata, um die Seite zu individualisieren. Alle Farbschemata sind mit der CI der Liberalen Hochschulgruppen abgestimmt.',
@@ -70,6 +134,18 @@ class LHG_Theme_Customize {
         'gelb-pink*' => 'Gelb-Pink (Pinke Akzente)',
         'gelb-pink-dark' => 'Gelb-Pink (Dunkler Hintergrund)'
       )
+    ));
+    $wp_customize->add_setting('bw_mode_option', array(
+      'default' => '',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('bw_mode_control', array(
+      'settings' => 'bw_mode_option',
+      'section' => 'theme_color_options',
+      'label' => '"Trauermodus" (Seite komplett in Schwarz-Weiß) aktivieren',
+      'type' => 'checkbox',
     ));
 
 
@@ -158,13 +234,6 @@ class LHG_Theme_Customize {
       'capability' => 'edit_theme_options',
       'type' => 'theme_mod',
     ));
-
-    // $wp_customize->add_control('front_page_board_list_control', array(
-    //   'settings' => 'front_page_board_list',
-    //   'section' => 'front_page_options',
-    //   'label' => 'Personenansicht',
-    //   'description' => 'Trage hier die IDs der Personen (durch Komma getrennt) ein, die in der Personenansicht angezeigt werden sollen. Wenn keine ID eingetragen wird, bleibt der Bereich leer.',
-    // ));
 
     $wp_customize->add_control(new Person_Selector($wp_customize, 'front_page_board_list', array(
       'section'  => 'front_page_options',
@@ -462,69 +531,39 @@ class LHG_Theme_Customize {
     ));
 
 
-
-    $wp_customize->add_section('header_slider_section', array(
-      'title'=> 'Header-Einstellungen',
-      'description' => 'Hier kannst du einstellen, was im Header auf der Startseite angezeigt wird.',
-      'priority' => 22,
-    ));
-
-    $wp_customize->add_setting('header_slider_mode', array(
-      'default' => '0',
+    $wp_customize->add_setting('event_page_layout', array(
+      'default' => 'both',
       'capability' => 'edit_theme_options',
       'type' => 'theme_mod',
     ));
 
-    $wp_customize->add_control('header_slider_mode_control', array(
-      'settings' => 'header_slider_mode',
-      'section' => 'header_slider_section',
-      'label' => 'Header-Modus',
-      'description' => 'Wähle, ob im Header ein statisches Bild, ein Video oder eine Slideshow angezeigt werden soll.',
+    $wp_customize->add_control('event_page_layout_control', array(
+      'settings' => 'event_page_layout',
+      'section' => 'more_options',
+      'label' => 'Veranstaltungsübersichts-Seite',
+      'description' => 'Lege hier das Layout der <a href="' . get_post_type_archive_link('events') . '">Seite für die Veranstaltungsübersicht</a> fest.',
       'type' => 'select',
       'choices' => array(
-        '0' => 'Bild',
-        '1' => 'Video',
-        '2' => 'Slideshow',
-      )
+        'both' => 'Kommende Veranstaltungen oberhalb des Kalenders anzeigen',
+        'both_switched' => 'Kommende Veranstaltungen unterhalb des Kalenders anzeigen',
+        'only_list' => 'Nur kommende Veranstaltungen anzeigen',
+        'only_calendar' => 'Nur Kalender anzeigen',
+      ),
     ));
 
-    $wp_customize->add_setting('header_slider_video', array(
-      'default'   => array(),
-      'transport' => 'refresh',
+    $wp_customize->add_setting('event_page_amount_elements', array(
+      'default' => -1,
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
     ));
 
-    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_slider_video', array(
-      'section' => 'header_slider_section',
-      'label' => 'Video',
-      'description' => 'Lege das Video für den Header auf der Startseite fest. Auf anderen Unterseiten wird das unten festgelegte Bild angezeigt.',
-      'mime_type' => 'video',
-      'active_callback' => function() { return '1' === get_theme_mod('header_slider_mode'); },
-      )
+    $wp_customize->add_control('event_page_amount_elements_control', array(
+      'settings' => 'event_page_amount_elements',
+      'section' => 'more_options',
+      'description' => 'Hier kannst du festlegen, wie viele kommende Veranstaltungen angezeigt werden sollen. Um alle anzuzeigen, trage <code>-1</code> ein.',
+      'active_callback' => function() { return 'only_calendar' !== get_theme_mod('event_page_layout'); },
     ));
 
-    $wp_customize->add_setting('header_slider_image', array(
-      'default'   => array(),
-      'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'header_slider_image', array(
-      'section' => 'header_slider_section',
-      'label' => 'Bild',
-      'mime_type' => 'image',
-      'active_callback' => function() { return '0' === get_theme_mod('header_slider_mode') || '1' === get_theme_mod('header_slider_mode'); },
-      )
-    ));
-
-    $wp_customize->add_setting('header_slider_carousel', array(
-      'default'   => array(),
-      'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control(new Multi_Image_Selector($wp_customize, 'header_slider_carousel', array(
-      'section'  => 'header_slider_section',
-      'active_callback' => function() { return '2' === get_theme_mod('header_slider_mode'); },
-      )
-    ));
 
     //remove static homepage section to prevent wrong settings
     $wp_customize->remove_section('static_front_page');

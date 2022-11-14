@@ -15,6 +15,7 @@ function switchCalendar(element) {
 }
 
 function expandEvent(element) {
+  jQuery('.calendar-element-event.expanded').removeClass('expanded');
   jQuery(element).addClass('expanded');
   jQuery('.calendar-blur').addClass('visible');
 }

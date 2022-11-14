@@ -3,8 +3,9 @@
   <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-version" content="<?php echo wp_get_theme()->version ?>">
 
-    <meta property="og:url" content="<?php echo $current_url; ?>">
+    <meta property="og:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php is_front_page() ? bloginfo('name') : wp_title(''); ?>">
     <meta property="og:description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
@@ -151,7 +152,7 @@
     </style>
   </head>
 
-  <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?>">
+  <body class="<?php echo get_theme_mod('theme_color_option') == 'gelb-pink-dark' ? 'dark-background' : '' ?> <?php echo get_theme_mod('bw_mode_option', false) ? 'bw-mode' : '' ?>">
     <?php if (!is_customize_preview() && (!isset($_COOKIE['cookies']) || !$_COOKIE['cookies'] == 'accepted') && get_the_ID() != get_theme_mod('data_protection_page')) { get_template_part('cookies'); } ?>
     <?php get_template_part('image-view'); ?>
 

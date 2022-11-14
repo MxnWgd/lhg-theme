@@ -1,19 +1,16 @@
 <h1>Themeeinstellungen</h1>
 
-<div class="notice-info notice">
-		<p>Die Themeeinstellungen findest du im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a>.</p>
-</div>
-
 <p>Das Theme bietet eine Vielzahl von Konfigurationsmöglichkeiten, von Farbschemata über die Startseitenkonfiguration bis hin zu Flyouts.</p>
+<p>Alle Themeeinstellungen findest du im <a href="<?php echo wp_customize_url(); ?>" title="Link zum Customizer">Customizer</a>. Mit einem Klick auf die Titel gelangst du direkt zu den jeweiligen Einstellungen.</p>
 
 
 <hr>
-<h2>Wartungsmodus</h2>
+<h2><?php $query['autofocus[section]'] = 'maintenance_mode_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Wartungsmodus</a></h2>
 <p>Der Wartungsmodus der Website kann hier aktiviert und deaktiviert werden. Ist der Wartungsmodus aktiv, werden alle Seiten vor Besuchern versteckt und sind lediglich für angemeldete Benutzer sichtbar.</p>
 
 
 <hr>
-<h2>Website-Informationen</h2>
+<h2><?php $query['autofocus[section]'] = 'title_tagline'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Website-Informationen</a></h2>
 <div class="notice-info notice">
 		<p>Der hier festgelegte Untertitel erscheint als großer Text im Header auf der Startseite.</p>
 </div>
@@ -21,7 +18,7 @@
 
 
 <hr>
-<h2>Header-Einstellungen</h2>
+<h2><?php $query['autofocus[section]'] = 'header_slider_section'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Header-Einstellungen</a></h2>
 <div class="notice-info notice">
 		<p>Die Header auf den Unterseiten werden je nach Inhalt automatisch konfiguriert. Hat beispielsweise eine Seite oder ein Beitrag ein Beitragsbild, wird natürlich dieses angezeigt. Andernfalls wird ein statisches Bild - abhängig von der jeweiligen Einstellung unten - angezeigt.</p>
 </div>
@@ -46,7 +43,7 @@
 
 
 <hr>
-<h2>Farbschemata</h2>
+<h2><?php $query['autofocus[section]'] = 'theme_color_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Farbschemata</a></h2>
 <p>Das LHG-Theme bietet euch mehrere Farbschemata - abgestimmt auf die CI-Farben der LHG - zur Auswahl. Diese können im Customizer unter Farbschemata ausgewählt werden.</p>
 
 <div style="display: inline-block; width: 200px; height: 50px; margin: 10px; color: #FFFFFF; text-align: center; line-height: 50px; background: linear-gradient(90deg, #52002E 0%, #A4005A 100%);">
@@ -66,9 +63,10 @@
 </div>
 <p>* <em>Dieses Farbschema steht auch mit einem Darkmode zur Auswahl.</em></p>
 
+<p>Zusätzlich kann (bspw. für Traueranlässe) eine "Trauermodus" aktiviert werden. Hierbei wird die komplette Seite (inkl. der Bilder auf der Startseite sowie der Header-Bilder, nicht jedoch der Bilder in Beiträgen) in Graustufen angezeigt.</p>
 
 <hr>
-<h2>Startseiteneinstellungen</h2>
+<h2><?php $query['autofocus[section]'] = 'front_page_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Startseiteneinstellungen</a></h2>
 <div class="notice-warning notice">
 		<p>Die Startseiteneinstellungen werden nur angewendet, wenn unter "Homepage-Einstellungen" die Option "Deine letzten Beiträge" ausgewählt ist!</p>
 </div>
@@ -106,7 +104,7 @@
 
 
 <hr>
-<h2>Menüs</h2>
+<h2><?php $query['autofocus[panel]'] = 'nav_menus'; $query['autofocus[section]'] = ''; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Menüs</a></h2>
 <p>Hier können die Menüs konfiguriert werden.</p>
 <p>Das Theme unterstützt zwei verschiedene Menüs:</p>
 <ul style="padding-left: 20px;">
@@ -126,13 +124,13 @@
 
 
 <hr>
-<h2>Social-Media-Icons</h2>
+<h2><?php $query['autofocus[panel]'] = ''; $query['autofocus[section]'] = 'sm_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Social-Media-Icons</a></h2>
 <p>Hier können Links zu den Social-Media-Seiten (Facebook, Twitter, Instagram und YouTube) eingetragen werden. Diese werden dann als Symbole im Footer angezeigt.</p>
 <p>Wird ein Link nicht angegeben, wird das jeweilige Symbol ausgeblendet.</p>
 
 
 <hr>
-<h2>Flyout</h2>
+<h2><?php $query['autofocus[section]'] = 'flyout_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Flyout</a></h2>
 <p>Das Flyout ist ein kleines, seitliches Widget, das beim Daraufzeigen/Antippen geöffnet wird. Es beinhaltet Links zu häufig genutzten Möglichkeiten, sich über die LHG zu informieren und aktiv mitzuwirken.</p>
 <p>Auf mobilen Geräten wird das Flyout nicht seitlich, sondern oberhalb des Footers angezeigt.</p>
 <p>Folgende Buttons können (allesamt optional) im Flyout konfiguriert werden:</p>
@@ -157,7 +155,7 @@
 
 
 <hr>
-<h2>Weitere Themeeinstellungen</h2>
+<h2><?php $query['autofocus[section]'] = 'more_options'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Weitere Themeeinstellungen</a></h2>
 <p>Hier können weitere Details des Themes konfiguriert werden.</p>
 <ul style="padding-left: 20px;">
 	<li>
@@ -167,6 +165,11 @@
 		</div>
 		<p>Hier kann festgelegt werden, auf welcher Seite die Datenschutzerklärung liegt. Dies wird bspw. für den Link zur Erklärung im Cookie-Hinweis verwendet.</p>
 		<p>Zudem kann die Datenschutzerklärung auf Wunsch im Footer-Menü automatisch angezeigt werden.</p>
+	</li>
+	<li>
+		<h3>Veranstaltungsübersichts-Seite</h3>
+		<p>Hier kann die Übersichtsseite für die Veranstaltungen konfiguriert werden.</p>
+		<p>Dazu können vier Layoutoptionen konfiguriert sowie die Anzahl der anzuzeigenden kommenden Veranstaltungen festgelegt werden.</p>
 	</li>
 	<li>
 		<h3>Verschiedenes</h3>

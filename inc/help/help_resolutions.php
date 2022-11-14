@@ -35,6 +35,7 @@
 
 <h3>Beschlusssammlung anzeigen</h3>
 <img src="<?php echo get_template_directory_uri(); ?>/inc/help/img/resolutions2.png" alt="Menüansicht zum Hinzufügen der Beschlusssammlung" style="width: 300px; float: right;">
+<p>In der Beschlussssammlung werden alle veröffentlichen Beschlüsse angezeigt. Diese können von Benutzern durchsucht oder nach den entsprechenden Attributen (Antragssteller, Versammlung, Schlagworte) gefiltert werden - sofern diese vorhanden sind.</p>
 <p>Für die Beschlusssammlung wird die Inhaltstyp-Archiv-Funktion der Beschlüsse verwendet. Dieses muss also an entsprechenden Stellen verlinkt werden.</p>
 
 <h4>Einfügen in ein Menü</h4>

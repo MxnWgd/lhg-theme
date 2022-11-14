@@ -12,7 +12,7 @@
 
 <h3>Erstellen und Verwalten von Kalendern</h3>
 <div class="notice-info notice">
-    <p>Beim Anlegen neuer Veranstaltungen können neue Kalender direkt erstellt werden - sie müssen <em>nicht</em> zuerst über die Attributverwaltung angelegt werden.</p>
+  <p>Beim Anlegen neuer Veranstaltungen können neue Kalender direkt erstellt werden - sie müssen <em>nicht</em> zuerst über die Attributverwaltung angelegt werden.</p>
 </div>
 <p>Ähnlich wie bei Post-Kategorien können Veranstaltungen in Kalendern gruppiert werden. Diese können beim Bearbeiten oder Erstellen von Veranstaltungen festgelegt werden.</p>
 <p>Neue Kalender können über den Menüpunkt <strong>Kalender</strong> links bei geöffnetem Veranstaltungsmenü erstellt und verwaltet werden.</p>
@@ -20,6 +20,9 @@
 
 <h3>Veranstaltungsübersicht anzeigen</h3>
 <img src="<?php echo get_template_directory_uri(); ?>/inc/help/img/events2.png" alt="Menüansicht zum Hinzufügen der Veranstaltungsübersicht" style="width: 300px; float: right;">
+<div class="notice-info notice">
+  <p>Im <?php $query['autofocus[control]'] = 'event_page_layout_control'; ?><a href="<?php echo esc_url(add_query_arg($query, admin_url('customize.php'))); ?>">Customizer</a> kann das Layout sowie die Anzahl der angezeigten kommenden Veranstaltungen angepasst werden.</p>
+</div>
 <p>Für die Veranstaltungsübersicht wird die Inhaltstyp-Archiv-Funktion der Beschlüsse verwendet. Dieses muss also an entsprechenden Stellen verlinkt werden.</p>
 
 <h4>Einfügen in ein Menü</h4>

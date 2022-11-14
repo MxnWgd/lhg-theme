@@ -2,9 +2,10 @@
   Theme Name: LHG-Theme 2022
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
-  Version: 2.0.3
+  Version: 2.1
 	Requires at least: 6.0
-	Tested up to: 6.0.3
+	Requires PHP: 7.4
+	Tested up to: 6.1
   Text Domain: lhg
 */
 
@@ -97,6 +98,22 @@ body {
 body.dark-background {
 	background-color: var(--dark-background-color);
 	color: var(--bright-text-color);
+}
+
+body.bw-mode {
+	--light-accent-color: #555555;
+	--dark-accent-color: #000000;
+	--element-accent-color: #000000;
+	--element-text-color: #CCCCCC;
+	--light-accent-text-color: var(--bright-text-color);
+}
+
+body.bw-mode.dark-background {
+	--light-accent-color: #777777;
+	--dark-accent-color: #333333;
+	--element-accent-color: #333333;
+	--element-text-color: #FFFFFF;
+	--light-accent-text-color: var(--bright-text-color);
 }
 
 
@@ -195,6 +212,10 @@ ul {
 	list-style-type: disc;
 }
 
+ol {
+	list-style-position: inside;
+}
+
 
 figcaption {
 	opacity: 0.8;
@@ -228,12 +249,13 @@ blockquote cite {
 .wp-block-pullquote {
 	padding: 0;
 	margin: 30px;
+	font-size: 1.2em;
 }
 
 .wp-block-pullquote blockquote {
 	display: block;
 	height: auto;
-	line-height: 130%;
+	line-height: 200%;
 	color: var(--bright-text-color);
 	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
 	position: relative;
@@ -264,7 +286,7 @@ blockquote cite {
 	background-color: var(--light-accent-color);
 	font-family: var(--display-font);
 	font-size: 5em;
-  line-height: 158%;
+  line-height: 143%;
 	box-shadow: 0px 0px 40px #000000AA;
 	text-align: center;
 }
@@ -350,6 +372,10 @@ iframe::-webkit-scrollbar-thumb,
 object::-webkit-scrollbar-thumb {
 	border-radius: 5px;
 	background: linear-gradient(180deg, var(--dark-accent-color), var(--light-accent-color));
+}
+
+.wp-block-image {
+	text-align: center;
 }
 
 
@@ -639,6 +665,7 @@ select {
   background-repeat: repeat-x;
   background-size: 2px 2px;
 	transition: background-size 0.3s ease;
+	-webkit-appearance: none;
 }
 
 .dark-background select {
@@ -733,6 +760,10 @@ option {
 	height: 100%;
 }
 
+body.bw-mode .header-top-branding img {
+	filter: saturate(0);
+}
+
 .header-top-branding a:hover,
 .header-top-branding a:focus {
 	transform: scale(1.1);
@@ -758,6 +789,10 @@ option {
 	height: 600px;
 	position: fixed;
 	transition: height 0.5s ease;
+}
+
+body.bw-mode .header-image-slider {
+	filter: saturate(0);
 }
 
 .header-image-slide {
@@ -853,6 +888,10 @@ option {
 	width: 100%;
 	height: 450px;
 	position: fixed;
+}
+
+body.bw-mode .header-image-wrapper {
+	filter: saturate(0);
 }
 
 #header.no-image .header-image-wrapper {
@@ -1242,6 +1281,10 @@ option {
 	margin: 20px 0;
 }
 
+.post-title {
+	margin: 0 auto 30px auto;
+}
+
 .post-meta {
 	font-size: 1.2em;
 	color: var(--dark-text-color);
@@ -1298,7 +1341,11 @@ option {
 }
 
 .page p,
-.post p {
+.page ul,
+.page ol,
+.post p,
+.post ul,
+.post ol {
 	margin: 10px 0;
 	font-size: 1.1em;
 }
@@ -1317,7 +1364,7 @@ option {
 		calc(100% - 40px) 100%,
 		0% 100%
 		);
-	display: inline-block;
+	display: block;
 	background: none;
 }
 
@@ -1333,7 +1380,7 @@ option {
 	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
 	color: #FFFFFF;
 	padding: 20px 65px;
-	margin: 20px 0;
+	margin: 30px 0;
 	clip-path: polygon(
 		calc(0% + 40px) 0%,
 		100% 0%,
@@ -1342,6 +1389,14 @@ option {
 		);
 	filter: drop-shadow(0 0 40px #000000AA);
 }
+
+.compact-wrapper.inactive {
+	background: #AAAAAA;
+}
+.dark-background .compact-wrapper.inactive {
+	background: #555555;
+}
+
 
 .compact-wrapper .post-title,
 .compact-circle-wrapper .post-title {
@@ -1546,6 +1601,10 @@ option {
 	height: 500px;
 	flex-shrink: 0;
 	position: relative;
+}
+
+body.bw-mode .post-tile {
+	filter: saturate(0);
 }
 
 .post-tile-info {
@@ -1798,6 +1857,10 @@ option {
 	background-size: cover;
 	margin: 40px 0;
 	box-shadow: 0px 0px 40px #000000AA;
+}
+
+body.bw-mode .front-page-content-area {
+	filter: saturate(0);
 }
 
 .front-page-content-area-box {
@@ -2094,6 +2157,10 @@ footer {
 .footer-branding img {
 	width: auto;
 	height: 100%;
+}
+
+body.bw-mode .footer-branding img {
+	filter: saturate(0);
 }
 
 .footer-branding .custom-logo-link {
@@ -2460,6 +2527,10 @@ details.persons-wrapper-description summary::-webkit-details-marker {
 	text-decoration: underline;
 }
 
+.resolutions-tile {
+	height: 350px;
+}
+
 .resolutions-tile-info .post-tile-subtitle {
 	color: var(--dark-accent-color);
 	display: inline-block;
@@ -2503,6 +2574,10 @@ details.persons-wrapper-description summary::-webkit-details-marker {
 
 .resolution-filter-select:not(:last-of-type) {
 	margin-right: 20px;
+}
+
+.resolution-filter-select option:first-child {
+	font-style: italic;
 }
 
 .resolution-filter button {

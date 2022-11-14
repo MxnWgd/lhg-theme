@@ -4,7 +4,7 @@
 <p>Aus den Informationen generiert das Theme vorgefertigte Personenkacheln, die auf beliebigen Seiten eingefügt werden können.</p>
 
 <h3>Erstellen einer Person</h3>
-<p>Über die Personenliste sowie links im Menü können neue Personen angelegt werden. Hierbei sollte mindestens ein Titel sowie die Funktion und idealerweise ein Bild festgelegt werden.</p>
+<p>Über die Personenliste sowie links im Menü können neue Personen angelegt werden. Hierbei sollte mindestens ein Titel sowie die Funktion und idealerweise ein Bild (über das Beitragsbild) festgelegt werden.</p>
 <p>Empfehlenswert ist auch die Angabe von Kontakt- und Social-Media-Daten.</p>
 
 <h3>Einfügen einer Person auf einer Seite</h3>
