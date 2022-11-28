@@ -501,6 +501,20 @@ class LHG_Theme_Customize {
       'type' => 'checkbox',
     ));
 
+    $wp_customize->add_setting('use_gdpr_iframes', array(
+      'default' => true,
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('use_gdpr_iframes_control', array(
+      'settings' => 'use_gdpr_iframes',
+      'section' => 'more_options',
+      'label' => 'DSGVO-konforme Einbettungen verwenden',
+      'description' => 'Diese Einstellung sorgt dafür, dass in Posts eingebettete, externe Inhalte (bspw. YouTube-Videos oder Google-Maps-Karten) nicht automatisch geladen werden, um den Anforderungen der DSGVO zu entsprechen.',
+      'type' => 'checkbox',
+    ));
+
     $wp_customize->add_setting('data_protection_page', array(
       'default' => '0',
       'capability' => 'edit_theme_options',

@@ -30,6 +30,8 @@
   position: relative;
   min-width: 0;
   min-height: 0;
+  overflow-y: clip;
+  overflow-x: visible;
 }
 
 .dark-background .calendar-element {
@@ -109,6 +111,20 @@
   overflow: hidden;
   box-shadow: 0px 0px 8px #FFFFFF99;
   transition: transform 0.3s ease;
+}
+
+.calendar-element-event.dummy {
+  background-color: transparent;
+  height: 27px;
+}
+.calendar-element-event.dummy.height-1 {
+  height: 27px;
+}
+.calendar-element-event.dummy.height-2 {
+  height: 54px;
+}
+.calendar-element-event.dummy.height-3 {
+  height: 81px;
 }
 
 .calendar-element-event.pink {
@@ -381,18 +397,48 @@
     border-radius: 50%;
   }
 
-  .calendar-element-event.extension {
+  .calendar-element-event[span="2"],
+  .calendar-element-event[span="3"],
+  .calendar-element-event[span="4"],
+  .calendar-element-event[span="5"],
+  .calendar-element-event[span="6"],
+  .calendar-element-event[span="7"] {
+    display: block;
+  }
+
+  .calendar-element-event.dummy {
+    margin: 0;
     width: 100%;
+    display: block;
+    height: 22px;
+  }
+  .calendar-element-event.dummy.height-1 {
+    height: 22px;
+  }
+  .calendar-element-event.dummy.height-2 {
+    height: 45px;
+  }
+  .calendar-element-event.dummy.height-3 {
+    height: 68px;
+  }
+
+  .calendar-element-event.extension {
+    min-width: 100%;
     border-radius: 0;
-    margin: 0
+    margin: 0 0 3px 0;
+    display: block;
+  }
+
+  .calendar-element-event.extension.expanded {
+    min-width: 0;
   }
 
   .calendar-element-event .title {
-    opacity: 0;
+    display: none;
   }
 
   .calendar-element-event.expanded .title {
-    opacity: 1;
+    display: inline;
   }
 
   .calendar-element-event.expanded,
@@ -420,7 +466,7 @@
   .calendar-element-event[span="6"],
   .calendar-element-event[span="7"] {
     border-radius: 0;
-    margin: 0;
+    margin: 0 0 3px 0;
   }
 }
 
@@ -435,7 +481,8 @@
   }
 
   .calendar-element-label {
-    padding: 2px 3px;
+    padding: 0 3px;
+    font-size: 0.9em;
   }
 
   .calendar-switch-button {
@@ -451,6 +498,19 @@
     width: 12px;
     height: 12px;
     margin: 0 3px 3px 3px;
+  }
+
+  .calendar-element-event.dummy {
+    height: 14px;
+  }
+  .calendar-element-event.dummy.height-1 {
+    height: 14px;
+  }
+  .calendar-element-event.dummy.height-2 {
+    height: 32px;
+  }
+  .calendar-element-event.dummy.height-3 {
+    height: 50px;
   }
 
   .calendar-element-event.expanded,

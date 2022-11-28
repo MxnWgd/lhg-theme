@@ -175,5 +175,8 @@
 		<h3>Verschiedenes</h3>
 		<p>Der Suchbutton im Header kann ausgeblendet werden.</p>
 		<p>Wahlweise kann zudem ein Link zum <a href="https://sos.bundes-lhg.de/" title="SOS-Tool">SOS-Tool</a> im Footer angezeigt werden.</p>
+		<div class="notice-warning notice">
+			<p>Die Abschaltung der DSGVO-konformen Einbettung sorgt u.U. für nicht berechtigte Datenweiterleitungen und damit datenschutzrechtliche Probleme. Sie sollte nur bei technischen Problemen und vorhandenen, alternativen Lösungen vorgenommen werden.</p>
+		</div>
 	</li>
 </ul>

@@ -103,7 +103,6 @@
 
 
     ?>
-
       <div class="calendar" id="calendar">
         <script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/inc/calendar/calendar.js"></script>
         <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/inc/calendar/calendar.css">
@@ -132,7 +131,14 @@
                   <?php
                     if (array_key_exists($current, $prev_month_events)) {
                       foreach ($prev_month_events[$current] as $value) {
+                        //if only offset-value create dummy event and continue
+                        if (!is_array($value)) {
+                          ?><span class="calendar-element-event dummy height-<?php echo $value; ?>"></span><?php
+                          continue;
+                        }
+
                         $total_span = $value['span'];
+                        $span = $total_span;
 
                         //only display if spans into current month, otherwise continue
                         if ($i + $value['span'] - 1 <= $first_day_offset) {
@@ -140,7 +146,7 @@
                         }
 
 
-                        if (($i + $value['span'] - 1) > 7) { //if span exceeds line
+                        if (($i + $total_span - 1) > 7) { //if span exceeds line
                           $span = 8 - $i; //take until line end
                           $overflow_span = $value['span'] - $span; //calculate overflow
 
@@ -167,7 +173,48 @@
                           $span = $value['span'];
                         }
 
-                        e_event($value, $month, $year, $span);
+                        //move down other elements in span by one
+                        if ($span > 1) {
+                          for ($j = $i + 1; $j < $i + $span; $j++) {
+                            //if still in old month
+                            if ($j <= $first_day_offset) {
+                              //add into prev_month_events
+                              $curr = $n_days_in_prev_month - $first_day_offset + $j;
+
+                              if (array_key_exists($curr, $prev_month_events)) {
+                                $offset = 0;
+
+                                //if offset already exists
+                                if (array_key_exists('top-offset', $prev_month_events[$curr])) {
+                                  $offset = $prev_month_events[$curr]['top-offset'];
+                                }
+
+                                $prev_month_events[$curr]['top-offset'] = $offset + 1;
+                                asort($prev_month_events[$curr]);
+                              } else {
+                                $prev_month_events[$curr] = array('top-offset' => 1);
+                              }
+                            //if in new month
+                            } else {
+                              $curr = $j - $first_day_offset;
+                              if (array_key_exists($curr, $month_events)) {
+                                $offset = 0;
+
+                                //if offset already exists
+                                if (array_key_exists('top-offset', $month_events[$curr])) {
+                                  $offset = $month_events[$curr]['top-offset'];
+                                }
+
+                                $month_events[$curr]['top-offset'] = $offset + 1;
+                                asort($month_events[$curr]);
+                              } else {
+                                $month_events[$curr] = array('top-offset' => 1);
+                              }
+                            }
+                          }
+                        }
+
+                        e_event($value, $month, $year, $span, array_key_exists('top-offset', $month_events[$i]) ? $month_events[$i]['top-offset'] : 0);
                       }
                     }
                   ?>
@@ -182,10 +229,17 @@
                     <?php
                       if (array_key_exists($i, $month_events)) {
                         foreach ($month_events[$i] as $value) {
-                          $total_span = $value['span'];
+                          //if only offset-value create dummy event and continue
+                          if (!is_array($value)) {
+                            ?><span class="calendar-element-event dummy height-<?php echo $value; ?>"></span><?php
+                            continue;
+                          }
 
-                          if (((($first_day_offset + $i) % 7) + $value['span'] - 1) > 7) { //if span exceeds line
-                            $span = 8 - (($first_day_offset + $i) % 7); //take until line end
+                          $total_span = $value['span'];
+                          $span = $total_span;
+
+                          if (((($first_day_offset + $i - 1) % 7) + $total_span) > 7) { //if span exceeds line
+                            $span = 7 - (($first_day_offset + $i - 1) % 7); //take until line end
                             $overflow_span = $value['span'] - $span; //calculate overflow
 
                             $ev = array(
@@ -202,6 +256,8 @@
                               'extension' => true,
                             );
 
+                            $value['extension'] = true;
+
                             if (array_key_exists($i + $span, $month_events)) { //and add new element with overflow data
                               array_push($month_events[$i + $span], $ev);
                             } else {
@@ -209,6 +265,25 @@
                             }
                           } else {
                             $span = $value['span'];
+                          }
+
+                          //move down other elements in span by one
+                          if ($span > 1) {
+                            for ($j = $i + 1; $j < $i + $span; $j++) {
+                              if (array_key_exists($j, $month_events)) {
+                                $offset = 0;
+
+                                //if offset already exists
+                                if (array_key_exists('top-offset', $month_events[$j])) {
+                                  $offset = $month_events[$j]['top-offset'];
+                                }
+
+                                $month_events[$j]['top-offset'] = $offset + 1;
+                                asort($month_events[$j]);
+                              } else {
+                                $month_events[$j] = array('top-offset' => 1);
+                              }
+                            }
                           }
 
                           e_event($value, $month, $year, $span);
@@ -233,6 +308,8 @@
 
         <div class="calendar-blur"></div>
       </div>
+
+
     <?php
   }
 

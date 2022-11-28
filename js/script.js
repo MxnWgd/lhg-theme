@@ -1,9 +1,9 @@
 var cookies = {};
+document.cookie.split('; ').forEach((item, i) => {
+  cookies[item.split('=')[0]] = item.split('=')[1];
+});
 jQuery(document).ready(function() {
 
-  document.cookie.split('; ').forEach((item, i) => {
-    cookies[item.split('=')[0]] = item.split('=')[1];
-  });
 
   var scrollFromTop = document.documentElement.scrollTop;
 
@@ -200,4 +200,51 @@ jQuery(window).on("load", function (e) {
     }
   });
 
+
+  //iframes GDPR
+  jQuery('iframe').each(function() {
+    if (jQuery(this).attr('data-src') != null && cookies.iframes != 'accepted') {
+      jQuery(this).addClass('not-loaded');
+
+      var data_src = jQuery(this).attr('data-src');
+      jQuery(this).after(`
+        <div class="iframe-hint">
+          <h2 class="iframe-hint-title">Externer Inhalt</h2>
+          Dieser externe Inhalt stellt eine Verbindung zu <span class="iframe-dest">${data_src}</span> her. Dabei können persönliche Daten, wie bspw. die IP-Adresse, an den Inhaltsanbieter übertragen und Cookies in deinem Browser gesetzt werden.
+
+          <button type="button" class="iframe-accept-button" onclick="loadIframe(this)" data-src="${data_src}">Diesmal einverstanden</button>
+          <button type="button" class="iframe-all-accept-button" onclick="allIframeAccept()" data-src="${data_src}">Immer einverstanden</button>
+
+          <span class="small">Weitere Informationen entnimm bitte unserer und der Datenschutzerklärung des externen Anbieters.</span>
+        </div>`
+      );
+    } else if (jQuery(this).attr('data-src') != null && cookies.iframes == 'accepted') {
+      jQuery(this).attr('src', jQuery(this).attr('data-src'));
+    }
+  });
 })
+
+
+function loadIframe(el) {
+  var iframe = jQuery('iframe[data-src="' + jQuery(el).attr('data-src') + '"]');
+  iframe.removeClass('not-loaded');
+  iframe.attr('src', jQuery(el).attr('data-src'));
+
+  jQuery(el).parent('.iframe-hint').hide();
+}
+
+function allIframeAccept() {
+  let date = new Date();
+  date.setTime(date.getTime() + (90 * 24 * 60 * 60 * 1000)); //expiring time to 90 days
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = 'iframes=accepted;expires=' + expires;
+
+  jQuery('iframe').each(function() {
+    if (jQuery(this).attr('data-src') != null) {
+      jQuery(this).removeClass('not-loaded');
+      jQuery(this).attr('src', jQuery(this).attr('data-src'));
+    }
+  });
+
+  jQuery('.iframe-hint').hide();
+}

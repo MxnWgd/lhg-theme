@@ -17,6 +17,22 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.2</strong><br>
+            - added support for PHP 8.0 (#156)<br>
+            - added autofocus on search input when switching (#168)<br>
+            - added GDPR-embedd-option for iframes, will be suppressed until data transmission is accepted, permanent acception possible (#170)<br>
+            - added login form logo (#171)<br>
+            - fixed resolutionfilter-cookie not working (#160)<br>
+            - fixed select arrows invisible (#163)<br>
+            - fixed some events invisible in calendar (#164)<br>
+            - fixed a lot of calendar bugs<br>
+            - fixed bug with iframe embed<br>
+            - fixed calendar display bugs<br>
+            - embedded fontawesome locally (#172)<br>
+            - extendend help (#174) <br>
+            - links smaller (#166)
+          </li>
+          <li>
             <strong>Ver 2.1</strong><br>
             - added "sorrow"-mode (B/W-mode) (#108)<br>
             - added attachment pages (#124)<br>
@@ -168,8 +184,6 @@
 <p>Lizenz: <em> Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.</em></p>
 
 <p><em>&copy; 2022 Bundesverband Liberaler Hochschulgruppen</em></p>
-
-
 
 <script type="text/javascript">
   jQuery('#checkForUpdate').click(function() {
