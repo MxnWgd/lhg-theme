@@ -90,7 +90,7 @@
       <form class="resolution-search-form hide" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="post" id="resolutionsearch">
 
         <button type="button" name="Suche schließen" id="closeSearchButton">&lt;</button>
-        <input type="text" name="search" value="" placeholder="Suche nach Beschlussinhalten..." id="resolutionSearchForm">
+        <input type="search" name="search" value="" placeholder="Suche nach Beschlussinhalten..." id="resolutionSearchForm">
         <button type="submit" name="Suchen">Suchen</button>
 
         <input type="hidden" name="action" value="resolutionsearch">

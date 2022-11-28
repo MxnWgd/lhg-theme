@@ -38,9 +38,16 @@
       } ?>
     </title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-
+    <link rel="pingback" href="
+      <?php
+      try {
+        echo get_bloginfo('pingback_url');
+      } catch (\Exception $e) {
+        echo '';
+      }
+      ?>
+    ">
+    
     <?php if (has_site_icon()) { ?>
         <link rel="icon" type="image/x-icon" href="<?php echo get_site_icon_url(); ?>">
         <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(); ?>">

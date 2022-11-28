@@ -9,15 +9,17 @@ jQuery(document).ready(function() {
   }
 
   // restore view with old settings
-  if (cookies.resolutionfilter != 'search'
-  && (jQuery('#applicantsSelect').val() != 'all'
-  || jQuery('#assemblySelect').val() != 'all'
-  || jQuery('#tagsSelect').val() != 'all')) {
-    jQuery('#filter').submit();
-  } else if (cookies.resolutionfilter == 'search'
-  && jQuery('#resolutionSearchForm').val() != '') {
-    jQuery('#resolutionsearch').submit();
-  }
+  setTimeout(function() {
+    if (cookies.resolutionfilter != 'search'
+    && (jQuery('#applicantsSelect').val() != 'all'
+    || jQuery('#assemblySelect').val() != 'all'
+    || jQuery('#tagsSelect').val() != 'all')) {
+      jQuery('#filter').submit();
+    } else if (cookies.resolutionfilter == 'search'
+      && jQuery('#resolutionSearchForm').val() != '') {
+      jQuery('#resolutionsearch').submit();
+    }
+  }, 100);
 
   jQuery('#openSearchButton').click(function() {
     switchToSearch();
@@ -82,4 +84,8 @@ function switchToSearch() {
   document.cookie = 'resolutionfilter=search;expires=' + expires;
   jQuery('#filter').addClass('hide');
   jQuery('#resolutionsearch').removeClass('hide');
+
+  setTimeout(function() {
+    jQuery('#resolutionSearchForm').focus();
+  }, 400);
 }

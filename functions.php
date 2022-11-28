@@ -8,6 +8,7 @@
 
   function lhg_theme_enqueue() {
     wp_enqueue_style('customstyle', get_template_directory_uri() . '/style.css', array(), '', 'all');
+    wp_enqueue_style('fontawesome', get_template_directory_uri() . '/inc/fontawesome/css/all.css', array(), '', 'all');
   }
   add_action('wp_enqueue_scripts', 'lhg_theme_enqueue');
 
@@ -19,6 +20,17 @@
   add_action('enqueue_block_editor_assets', function() {
     wp_enqueue_style('lhg-custom-block-editor-styles', get_theme_file_uri( "/inc/editor-style.css" ), false, wp_get_theme()->get('Version'));
   });
+
+
+  add_action('login_head', function() {
+    ?><style>
+      #login h1 a,
+      .login h1 a {
+        background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/img/lhg-logo-blau.png') !important;
+      }
+    </style><?php
+  });
+
 
 
   /* Turn off notification mails for updates */
@@ -312,5 +324,19 @@
   }
   add_action('admin_notices', 'update_notice');
 
+
+
+  /*-----------------------------------------------
+    iframes GDPR
+  -----------------------------------------------*/
+
+
+  function createDynamicContent(string $content) {
+    if (get_theme_mod('use_gdpr_iframes', true)) {
+      $content = preg_replace('/(src)(?=[^<]*<\/iframe>)/', 'data-src', $content);
+    }
+    return $content;
+  }
+  add_filter('the_content', 'createDynamicContent');
 
 ?>
