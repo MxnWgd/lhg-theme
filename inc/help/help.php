@@ -17,6 +17,11 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.2.1</strong><br>
+            - "real support for PHP 8.0... (#176)<br>
+            - fixed events expanded in calendar cut off (#177)
+          </li>
+          <li>
             <strong>Ver 2.2</strong><br>
             - added support for PHP 8.0 (#156)<br>
             - added autofocus on search input when switching (#168)<br>
