@@ -25,6 +25,8 @@
               }
             ?>
           </select>
+        <?php } else { ?>
+          <input type="hidden" name="applicants" id="applicantsSelect" value="all">
         <?php } ?>
 
         <?php
@@ -61,6 +63,8 @@
               <option value="all">Alle Versammlungen</option>
               <?php hierarchical_categories(0); ?>
             </select>
+          <?php } else { ?>
+            <input type="hidden" name="assembly" id="assemblySelect" value="all">
           <?php } ?>
 
           <?php
@@ -80,6 +84,8 @@
               }
             ?>
           </select>
+        <?php } else { ?>
+          <input type="hidden" id="tagsSelect" name="tags" value="all">
         <?php } ?>
 
         <button class="resolution-search-button" type="button" name="Suche" id="openSearchButton"><i class="fas fa-search"></i>&nbsp;&nbsp;Textsuche</button>

@@ -17,7 +17,18 @@
   <p>...und deswegen geben wir auch gerne etwas davon ab :)</p>
   <p>Spaß beiseite: Diese Website benötigt aus technischen Gründen Cookies, um korrekt zu funktionieren. Wenn du diesen Hinweis schließt und unsere Website verwendest, erklärst du dich damit einverstanden, dass wir Cookies setzen. Die Daten werden gemäß unserer Datenschutzerklärung verarbeitet, jedoch keinesfalls für personalisierte Werbung unsererseits verwendet.</p>
   <button id="cookieBannerCloseButton" type="button" name="Verstanden!" class="cookie-banner-close-button">Ok, einverstanden!</button>
-  <p class="cookie-banner-footer">Weitere Informationen zur Datenverarbeitung und wofür diese Seite Cookies verwendet, findest du in unserer <?php if (get_theme_mod('data_protection_page') !== '0') { ?><a href="<?php echo get_page_link(get_theme_mod('data_protection_page')) ?>" title="Datenschutzerklärung">Datenschutzerklärung.</a><?php } else { ?>Datenschutzerklärung <?php } ?></p>
+
+  <div class="cookie-banner-footer">
+    <p>Weitere Informationen zur Datenverarbeitung und wofür diese Seite Cookies verwendet, findest du in unserer <?php if (get_theme_mod('data_protection_page') !== '0') { ?><a href="<?php echo get_page_link(get_theme_mod('data_protection_page')) ?>" title="Datenschutzerklärung">Datenschutzerklärung.</a><?php } else { ?>Datenschutzerklärung <?php } ?></p>
+
+    <details>
+      <summary>Warum kann ich keine Cookies ablehnen?</summary>
+      <p>
+        Unsere Website basiert auf dem Content Management System WordPress. Dieses kann durch Plugins erweitert werden, die möglicherweise Cookies für ihre Funktionsweise setzen. Diese Cookiesetzung können wir leider nicht immer unterbinden. Daher kannst du unsere Website leider nicht nutzen, wenn du keine Cookies akzeptieren möchtest.
+        Aber keine Sorge: diese Cookies werden nicht dazu verwendet, ein Profil von dir anzulegen, personalisierte Werbung anzuzeigen oder anderen wirtschaftlichen Tätigkeiten nachzugehen.
+      </p>
+    </details>
+  </div>
 </div>
 
 <script type="text/javascript">

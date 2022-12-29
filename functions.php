@@ -330,7 +330,7 @@
     iframes GDPR
   -----------------------------------------------*/
 
-
+  //automatic trigger
   function createDynamicContent(string $content) {
     if (get_theme_mod('use_gdpr_iframes', true)) {
       $content = preg_replace('/(src)(?=[^<]*<\/iframe>)/', 'data-src', $content);
@@ -338,5 +338,22 @@
     return $content;
   }
   add_filter('the_content', 'createDynamicContent');
+
+  //shortcode for manual trigger
+  function gdpr_iframes_shorttag($atts, $content = null) {
+    $dest = 'none';
+    if (is_array($atts)) {
+      $dest = array_key_exists('destination', $atts) ? $atts['destination'] : 'none';
+    }
+
+    if (get_theme_mod('use_gdpr_iframes', true)) {
+      return '<div class="gdpr-frame" data-dest="' . $dest . '" id="gdpr-' . rand(100000, 999999) . '">
+          <template>' . do_shortcode($content) . '</template>
+        </div>';
+    } else {
+      return do_shortcode($content);
+    }
+  }
+  add_shortcode('dsgvo', 'gdpr_iframes_shorttag');
 
 ?>

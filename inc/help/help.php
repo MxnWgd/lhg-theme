@@ -17,6 +17,19 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.2.2</strong><br>
+            - Restyled bullet points and numbers (#169)<br>
+            - added shortcode for external embedding (#173)<br>
+            - updated cookie hint to explain not existing option to decline cookies (#182)<br>
+            - fixed bug where person tiles slide out arrow was visible (#37)<br>
+            - (hopefully) fixed issue with permanent cookie hint (#180)<br>
+            - fixed 404 page not working (#181)<br>
+            - fixed resolution archive loading all elements on first load (#183)<br>
+            - fixed buttons in editor styles wrong (#184)<br>
+            - fixed some images not enlargable (#188)<br>
+            - fixed multi-level-lists (#190)
+          </li>
+          <li>
             <strong>Ver 2.2.1</strong><br>
             - "real support for PHP 8.0... (#176)<br>
             - fixed events expanded in calendar cut off (#177)
@@ -67,7 +80,7 @@
             - added fallback to use first found category for front page news list if none set (#130)<br>
             - added dismiss-option to missing-logo-warning and data-protection-page-warning (#131)<br>
             - improved display of small menu in header (#132)<br>
-            - improved title behavior for no subtitle #133<br>
+            - improved title behavior for no subtitle (#133)<br>
             - improved default menu titles for events & resolutions (#138)<br>
             - removed taxonomies from menu options (#137)<br>
             - fixed links event tiles front page (#139)

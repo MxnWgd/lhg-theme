@@ -3,7 +3,7 @@
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
 	License: Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.
-  Version: 2.2.1
+  Version: 2.2.2
 	Requires at least: 6.0
 	Tested up to: 6.1.1
 	Requires PHP: 7.4
@@ -210,11 +210,53 @@ a:focus {
 
 ul {
 	list-style-position: inside;
-	list-style-type: disc;
+	list-style-type: none;
 }
 
 ol {
 	list-style-position: inside;
+	list-style-type: none;
+	counter-reset: ol-list-counter;
+}
+
+ol > li {
+	counter-increment: ol-list-counter;
+}
+
+li > ul,
+li > ol {
+	margin-left: 15px;
+	font-size: 0.9em;
+}
+
+ul > li::before {
+	content: '';
+  position: relative;
+  display: inline-block;
+  left: 0;
+  top: 4px;
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  background-color: var(--element-accent-color);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+}
+
+ol > li::before {
+	content: counter(ol-list-counter);
+  position: relative;
+  display: inline-block;
+  left: 0;
+  top: -2px;
+  height: 20px;
+  min-width: 20px;
+  margin-right: 8px;
+  background-color: var(--element-accent-color);
+  color: var(--element-text-color);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+  text-align: center;
+  line-height: 20px;
+  font-size: 13px;
 }
 
 
@@ -1113,10 +1155,18 @@ body.bw-mode .header-image-wrapper {
 	position: relative;
 }
 
+.primary-nav ul li::before{
+	display: none;
+}
+
 .secondary-nav ul li {
 	display: inline-block;
 	margin: 0 10px;
 	position: relative;
+}
+
+.secondary-nav ul li::before {
+	display: none;
 }
 
 .primary-nav ul li a,
@@ -1347,6 +1397,16 @@ body.bw-mode .header-image-wrapper {
 	margin: 20px 0;
 }
 
+.post-content > p,
+.post-content > ol,
+.post-content > ul,
+.page-content > p,
+.page-content > ol,
+.page-content > ul {
+	margin: 10px 0;
+	font-size: 1.1em;
+}
+
 .post-title {
 	margin: 0 auto 30px auto;
 }
@@ -1406,15 +1466,6 @@ body.bw-mode .header-image-wrapper {
 	border-radius: 0;
 }
 
-.page p,
-.page ul,
-.page ol,
-.post p,
-.post ul,
-.post ol {
-	margin: 10px 0;
-	font-size: 1.1em;
-}
 
 
 .posts-list-wrapper {
@@ -2254,6 +2305,10 @@ body.bw-mode .footer-branding img {
 	padding: 0 10px;
 }
 
+.footer-nav ul li::before {
+	display: none;
+}
+
 .footer-nav ul li a {
 	color: var(--bright-text-color);
 	background: transparent;
@@ -2461,6 +2516,9 @@ p.persons-wrapper-subtitle {
 	bottom: 5px;
 	left: 0;
 	width: 95%;
+	background-image: none;
+	-webkit-appearance: none;
+	list-style: none;
 }
 
 .persons-wrapper-description[open] summary ~ * {
@@ -2969,6 +3027,33 @@ details.event-wrapper-description summary::-webkit-details-marker {
 	margin: 0;
 }
 
+.cookie-banner-footer details summary {
+	cursor: pointer;
+	background-image: none;
+	-webkit-appearance: none;
+	list-style: none;
+	display: inline-block;
+	color: var(--element-text-color);
+	background-image: linear-gradient(var(--element-text-color) 0%, var(--element-text-color) 100%);
+	background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+	transition: background-size 0.3s ease, color 0.3s ease;
+}
+.cookie-banner-footer details summary:hover,
+.cookie-banner-footer details summary:focus {
+	color: var(--element-accent-color);
+	background-size: 2px 100%;
+}
+.cookie-banner-footer details summary::-webkit-details-marker {
+  display:none;
+}
+
+.cookie-banner-footer details p {
+	text-align: left;
+}
+
+
 .cookie-banner-icon {
 	margin: 0 auto 50px auto;
 	width: 150px;
@@ -3100,6 +3185,8 @@ details.event-wrapper-description summary::-webkit-details-marker {
 	transition: opacity 0.3s ease;
 }
 
+.page-content :not(.wp-block-image) > img:hover,
+.page-content :not(.wp-block-image) > img:focus,
 .wp-block-image img:hover,
 .wp-block-image img:focus {
 	opacity: 0.8;
@@ -3275,6 +3362,10 @@ footer:not(.invisible) {
 .extra-page-footer-nav ul li {
 	display: inline-block;
 	padding: 0 10px;
+}
+
+.extra-page-footer-nav ul li::before{
+	display: none;
 }
 
 .extra-page-footer-nav ul li a,
