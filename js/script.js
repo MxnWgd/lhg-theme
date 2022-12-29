@@ -62,6 +62,11 @@ jQuery(document).ready(function() {
     jQuery('.cookie-banner').addClass('hidden');
     jQuery('html').removeClass('scroll-blocked');
   });
+  if (cookies.cookies == 'accepted') {
+    jQuery('.cookie-banner-blur').addClass('hidden');
+    jQuery('.cookie-banner').addClass('hidden');
+    jQuery('html').removeClass('scroll-blocked');
+  }
 
 
 
@@ -93,6 +98,19 @@ jQuery(document).ready(function() {
     var srcset = jQuery(this).children('img').attr('srcset').split(',');
     var lastImg = srcset[srcset.length - 1].split(' ')[1];
     var subtitle = jQuery(this).children('figcaption').text();
+
+    if (lastImg != null && lastImg != '') {
+      jQuery('#imageViewImg').attr('src', lastImg);
+      jQuery('.image-view-subtitle').text(subtitle);
+      jQuery('.image-view').addClass('visible');
+    }
+  });
+  jQuery('.page-content :not(.wp-block-image) > img').click(function() {
+    event.stopPropagation();
+
+    var srcset = jQuery(this).attr('srcset').split(',');
+    var lastImg = srcset[srcset.length - 1].split(' ')[1];
+    var subtitle = '';
 
     if (lastImg != null && lastImg != '') {
       jQuery('#imageViewImg').attr('src', lastImg);
@@ -222,6 +240,31 @@ jQuery(window).on("load", function (e) {
       jQuery(this).attr('src', jQuery(this).attr('data-src'));
     }
   });
+
+  //manual gdpr shorttag
+  jQuery('.gdpr-frame').each(function() {
+    if (cookies.iframes != 'accepted') {
+      var data_dest = jQuery(this).attr('data-dest');
+      var destination_string = data_dest == 'none' ? 'einer unbekannten Seite' : '<span class="iframe-dest">' + data_dest + '</span>';
+      var id = jQuery(this).attr('id');
+
+      jQuery(this).append(`
+        <div class="iframe-hint">
+          <h2 class="iframe-hint-title">Externer Inhalt</h2>
+          Dieser externe Inhalt stellt eine Verbindung zu ${destination_string} her. Dabei können persönliche Daten, wie bspw. die IP-Adresse, an den Inhaltsanbieter übertragen und Cookies in deinem Browser gesetzt werden.
+
+          <button type="button" class="iframe-accept-button" onclick="loadIframeManual(this)" data-id="${id}">Diesmal einverstanden</button>
+          <button type="button" class="iframe-all-accept-button" onclick="allIframeManualAccept()" data-id="${id}">Immer einverstanden</button>
+
+          <span class="small">Weitere Informationen entnimm bitte unserer und der Datenschutzerklärung des externen Anbieters.</span>
+        </div>`
+      );
+    } else {
+      var template = jQuery(this).children('template');
+      var clone = template.html();
+      jQuery(this).after(clone);
+    }
+  });
 })
 
 
@@ -247,4 +290,27 @@ function allIframeAccept() {
   });
 
   jQuery('.iframe-hint').hide();
+}
+
+function loadIframeManual(el) {
+  var template = jQuery('#' + jQuery(el).attr('data-id') + '> template');
+  var clone = template.html();
+
+  jQuery('#' + jQuery(el).attr('data-id')).after(clone);
+  jQuery(el).parent('.iframe-hint').hide();
+}
+
+function allIframeManualAccept() {
+  let date = new Date();
+  date.setTime(date.getTime() + (90 * 24 * 60 * 60 * 1000)); //expiring time to 90 days
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = 'iframes=accepted;expires=' + expires;
+
+  jQuery('.gdpr-frame').each(function() {
+    var template = jQuery(this).children('template');
+    var clone = template.html();
+
+    jQuery(this).after(clone);
+    jQuery(this).children('.iframe-hint').hide();
+  });
 }
