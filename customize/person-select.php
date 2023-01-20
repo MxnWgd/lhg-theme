@@ -51,7 +51,10 @@ class Person_Selector extends WP_Customize_Control {
           ?>
         </ul>
       </div>
+
+      <button type="button" name="button" id="resetPersons" onclick="deleteAllPersons()">Alle Personen entfernen/zurücksetzen</button>
     </div>
+
 
     <input class="wp-editor-area" id="personsInput" type="hidden" <?php $this->link(); ?> >
     <?php

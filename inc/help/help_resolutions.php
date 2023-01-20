@@ -30,6 +30,15 @@
     <p>Schlagworte (bspw. <em>"Innerverbandliches"</em>, <em>"Satzungsänderungen"</em>, <em>"Freiheit"</em>, etc.) dienen der schnelleren inhaltlichen Einordnung von Anträgen.</p>
     <p>Insbesondere bei besonders umfangreichen Beschlusssammlungen empfiehlt es sich, diese sinnvoll einzusetzen.</p>
   </li>
+  <li>
+    <h3>Beschlussstatus</h3>
+    <p>Über diese Option kann der Beschlussstatus auf <em>Automatisch</em>, <em>Gültig</em> und <em>Abgelaufen</em> gesetzt werden. </p>
+    <p>In der Einstellung <em>Abgelaufen</em> wird der Beschluss in der Sammlung grau und mit dem Wort "abgelaufen" gekennzeichnet angezeigt. In der Einstellung <em>Automatisch</em> wird der Beschluss automatisch als abgelaufen angezeigt, sobald die angegebene Gültigkeitsdauer bezogen auf das eingestellte Veröffentlichungsdatum verstrichen ist.</p>
+  </li>
+  <li>
+    <h3>Gültigkeitsdauer</h3>
+    <p>Hier kann eine Gültigkeitsdauer für den Antrag festlegt werden, diese wird dann über dem Antragstext angezeigt.</p>
+  </li>
 </ul>
 
 

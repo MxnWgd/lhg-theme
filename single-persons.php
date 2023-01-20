@@ -34,11 +34,15 @@
           <?php } ?>
 
           <?php if (get_post_meta(get_the_ID(), 'instagram', true) != null) { ?>
-            <a title="Instragram-Account" class="persons-contact-meta-icon" target="_blank" href="<?php echo get_post_meta(get_the_ID(), 'instagram', true) ?>" rel="noreferrer"><i class="fab fa-instagram"></i></a>
+            <a title="Instagram-Account" class="persons-contact-meta-icon" target="_blank" href="<?php echo get_post_meta(get_the_ID(), 'instagram', true) ?>" rel="noreferrer"><i class="fab fa-instagram"></i></a>
           <?php } ?>
 
           <?php if (get_post_meta(get_the_ID(), 'twitter', true) != null) { ?>
             <a title="Twitter-Profil" class="persons-contact-meta-icon" target="_blank" href="<?php echo get_post_meta(get_the_ID(), 'twitter', true) ?>" rel="noreferrer"><i class="fab fa-twitter"></i></a>
+          <?php } ?>
+
+          <?php if (get_post_meta(get_the_ID(), 'linkedin', true) != null) { ?>
+            <a title="LinkedIn-Profil" class="persons-contact-meta-icon" target="_blank" href="<?php echo get_post_meta(get_the_ID(), 'linkedin', true) ?>" rel="noreferrer"><i class="fab fa-linkedin"></i></a>
           <?php } ?>
         </div>
 

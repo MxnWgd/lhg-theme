@@ -131,6 +131,58 @@
 	list-style-position: inside;
   font-family: var(--primary-font);
   color: var(--dark-text-color);
+	list-style-type: none;
+}
+
+.editor-styles-wrapper ol {
+	list-style-position: inside;
+	list-style-type: none;
+	counter-reset: ol-list-counter;
+}
+
+.editor-styles-wrapper ol > li {
+	counter-increment: ol-list-counter;
+}
+
+.editor-styles-wrapper li > ul,
+.editor-styles-wrapper li > ol {
+	margin-left: 15px;
+	font-size: 0.9em;
+}
+
+.editor-styles-wrapper ul > li::before {
+	content: '';
+  position: relative;
+  display: inline-block;
+  left: 0;
+  top: 4px;
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  background-color: var(--dark-accent-color);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+}
+
+.editor-styles-wrapper ol > li::before {
+	content: counter(ol-list-counter);
+  position: relative;
+  display: inline-block;
+  left: 0;
+  top: -2px;
+  height: 20px;
+  min-width: 20px;
+  margin-right: 8px;
+  background-color: var(--dark-accent-color);
+  color: var(--bright-text-color);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+  text-align: center;
+  line-height: 20px;
+  font-size: 13px;
+}
+
+.editor-styles-wrapper ul > li div,
+.editor-styles-wrapper ol > li div {
+	display: inline-block;
 }
 
 
@@ -182,6 +234,16 @@
 .editor-styles-wrapper .wp-block-pullquote blockquote p {
 	margin-top: 0;
 	color: var(--bright-text-color);
+}
+
+.editor-styles-wrapper .wp-block-pullquote blockquote a {
+	background-image: linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+	color: var(--bright-text-color);
+}
+
+.editor-styles-wrapper .wp-block-pullquote blockquote a:hover,
+.editor-styles-wrapper .wp-block-pullquote blockquote a:focus {
+	color: var(--dark-accent-color);
 }
 
 .editor-styles-wrapper .wp-block-pullquote blockquote::before {
