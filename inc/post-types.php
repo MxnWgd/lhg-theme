@@ -54,6 +54,7 @@ function person_form_render() {
 
   ?>
   <div style="display: grid; grid-template-columns: 150px auto; grid-gap: 10px;">
+
     <label for="metaInputPersonPositon" style="width: 100%; margin: 10px 5px;"><strong>Funktion/Position</strong></label>
     <input type="text" id="metaInputPersonPositon" name="position" value="<?php echo isset($post_meta['position'][0]) ? $post_meta['position'][0] : ''; ?>"/>
 
@@ -61,7 +62,14 @@ function person_form_render() {
     <input type="text" id="metaInputPersonSubtitle" name="subtitle" value="<?php echo isset($post_meta['subtitle'][0]) ? $post_meta['subtitle'][0] : ''; ?>"/>
 
     <label for="metaInputPersonDescription" style="width: 100%; margin: 10px 5px;"><strong>Beschreibung</strong></label>
-    <?php wp_editor(isset($post_meta['description'][0]) ? $post_meta['description'][0] : '', 'description', array('textarea_rows' => '8')); ?>
+    <?php wp_editor(isset($post_meta['description'][0]) ? $post_meta['description'][0] : '', 'description', array(
+      'textarea_rows' => '8',
+      'media_buttons' => false,
+      'wpautop' => false
+    )); ?>
+
+    <h1 style="grid-column: 1 / span 2;">Social-Media</h1>
+    <span style="grid-column: 1 / span 2;"><em>Bitte nicht mehr als 5 Social-Media-Einträge gleichzeitig verwenden.</em></span>
 
     <label for="metaInputPersonMail" style="width: 100%; margin: 10px 5px;"><strong>E-Mail-Adresse</strong></label>
     <input type="email" id="metaInputPersonMail" name="mail" value="<?php echo isset($post_meta['mail'][0]) ? $post_meta['mail'][0] : ''; ?>"/>
@@ -77,6 +85,9 @@ function person_form_render() {
 
     <label for="metaInputPersonTwitter" style="width: 100%; margin: 10px 5px;"><strong>Twitter-Account</strong></label>
     <input type="url" id="metaInputPersonTwitter" name="twitter" value="<?php echo isset($post_meta['twitter'][0]) ? $post_meta['twitter'][0] : ''; ?>"/>
+
+    <label for="metaInputPersonLinkedin" style="width: 100%; margin: 10px 5px;"><strong>LinkedIn-Account</strong></label>
+    <input type="url" id="metaInputPersonLinkedin" name="linkedin" value="<?php echo isset($post_meta['linkedin'][0]) ? $post_meta['linkedin'][0] : ''; ?>"/>
   </div>
   <?php
 }
@@ -316,6 +327,13 @@ add_action('created_calendar', 'calendar_save_color_select');
 add_action('edited_calendar', 'calendar_save_color_select');
 
 
+function calendar_shorttag_func() {
+  include('calendar/calendar.php');
+  getCalendar();
+}
+add_shortcode('calendar', 'calendar_shorttag_func');
+
+
 /* AJAX responder */
 
 function calendar_switch(){
@@ -457,11 +475,16 @@ function resolutions_meta_render() {
   $post_meta = get_post_meta($post->ID);
 
   ?>
-  <label style="margin-bottom: 10px; display: inline-block;">Beschlussstatus</label>
+  <label style="margin-bottom: 10px; display: inline-block; font-weight: bold;">Beschlussstatus</label>
   <select name="resolution_status" id="metaResolutionStatus" style="display: block; width: 100%; box-sizing: border-box;">
-    <option value="normal" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'normal' ? 'selected' : ''; ?>>Standard</option>
+    <option value="auto" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'auto' ? 'selected' : ''; ?>>Automatisch</option>
+    <option value="normal" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'normal' ? 'selected' : ''; ?>>Gültig</option>
     <option value="expired" <?php echo isset($post_meta['resolution_status']) && $post_meta['resolution_status'][0] == 'expired' ? 'selected' : ''; ?>>Abgelaufen</option>
   </select>
+  <p>In der Einstellung "Automatisch" wird der Beschluss automatisch als abgelaufen angezeigt, wenn die Gültigkeitsdauer (bezogen auf das Veröffentlichungsdatum) verstrichen ist.</p>
+  <br>
+  <label style="margin-bottom: 10px; display: inline-block; font-weight: bold;">Gültigkeitsdauer (Sunset)</label><br>
+  <input value="<?php echo isset($post_meta['resolution_sunset']) ? $post_meta['resolution_sunset'][0] : '' ?>" name="resolution_sunset" type="number" min="1" id="metaResolutionSunset" style="display: inline-block; width: 50px; box-sizing: border-box;"> Jahr(e)
   <?php
 }
 add_action('add_meta_boxes_' . 'resolutions', 'add_resolutions_meta');

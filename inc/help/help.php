@@ -17,6 +17,25 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.3</strong><br>
+            - added shortcode for calendar to insert in pages (#148)<br>
+            - added sunset for resolutions (#207)<br>
+            - added automatic expiration display when sunset has expired<br>
+            - added LinkedIn as social media option (#206)<br>
+            - added option to remove all persons from front page<br>
+            - improved persons edit page<br>
+            - fixed pinned posts do not work on front page (#192)<br>
+            - fixed links in pullquotes (#193)<br>
+            - fixed titles in tiles in dark mode not visible (#194)<br>
+            - fixed displaying "related posts" even if none existing (#196)<br>
+            - fixed cookie hint when data protection page settings are not defined (#197)<br>
+            - fixed text in header blocking slideshow controls (#198)<br>
+            - fixed current page is displayed in footer menu (#200)<br>
+            - fixed paragraphs not working on board pages (#203)<br>
+            - fixed assembly pages only showing some resolutions without pagination (#205)<br>
+            - fixed styled bullet points and list numbers not visible in editor
+          </li>
+          <li>
             <strong>Ver 2.2.2</strong><br>
             - Restyled bullet points and numbers (#169)<br>
             - added shortcode for external embedding (#173)<br>

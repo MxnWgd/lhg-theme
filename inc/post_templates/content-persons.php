@@ -21,8 +21,9 @@
     $result .= get_post_meta($person->ID, 'mail', true) != null ? '<a title="E-Mail schreiben" class="persons-wrapper-sm-icon mail-encrypted" data-enc-email="' . str_rot13(get_post_meta($person->ID, 'mail', true)) . '" href="javascript:;" rel="noreferrer"><i class="fas fa-envelope"></i></a>' : '';
     $result .= get_post_meta($person->ID, 'phone', true) != null ? '<a title="Anrufen" class="persons-wrapper-sm-icon" href="tel:' . get_post_meta($person->ID, 'phone', true) . '" rel="noreferrer"><i class="fas fa-phone-alt"></i></a>' : '';
     $result .= get_post_meta($person->ID, 'facebook', true) != null ? '<a title="Facebook-Profil" class="persons-wrapper-sm-icon" target="_blank" href="' . get_post_meta($person->ID, 'facebook', true) . '" rel="noreferrer"><i class="fab fa-facebook-square"></i></a>' : '';
-    $result .= get_post_meta($person->ID, 'instagram', true) != null ? '<a title="Instragram-Account" class="persons-wrapper-sm-icon" target="_blank" href="' . get_post_meta($person->ID, 'instagram', true) . '" rel="noreferrer"><i class="fab fa-instagram"></i></a>' : '';
+    $result .= get_post_meta($person->ID, 'instagram', true) != null ? '<a title="Instagram-Account" class="persons-wrapper-sm-icon" target="_blank" href="' . get_post_meta($person->ID, 'instagram', true) . '" rel="noreferrer"><i class="fab fa-instagram"></i></a>' : '';
     $result .= get_post_meta($person->ID, 'twitter', true) != null ? '<a title="Twitter-Profil" class="persons-wrapper-sm-icon" target="_blank" href="' . get_post_meta($person->ID, 'twitter', true) . '" rel="noreferrer"><i class="fab fa-twitter"></i></a>' : '';
+    $result .= get_post_meta($person->ID, 'linkedin', true) != null ? '<a title="LinkedIn-Profil" class="persons-wrapper-sm-icon" target="_blank" href="' . get_post_meta($person->ID, 'linkedin', true) . '" rel="noreferrer"><i class="fab fa-linkedin"></i></a>' : '';
     $result .= '</div>';
   $result .= '</article>';
 

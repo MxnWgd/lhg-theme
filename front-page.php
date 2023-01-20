@@ -8,35 +8,40 @@
 
       <div class="front-page-list">
         <?php
-        $news_posts = get_posts(array(
-            'numberposts' => 8,
-            'category' => get_cat_ID($cat_id),
-            'no_found_rows'  => true
+        $total_number_posts = 8;
+
+        $sticky_posts = get_posts(array(
+          'post__in' => get_option('sticky_posts'),
+          'ignore_sticky_posts' => 1,
+          'posts_per_page' => $total_number_posts,
+          'category' => get_cat_ID($cat_id),
+          'no_found_rows'  => true
         ));
 
-        $sticky_posts = [];
-        $non_sticky_posts = [];
-        for ($i = 0; $i < sizeof($news_posts); $i++) {
-          if (is_sticky($news_posts[$i]->ID)) {
-            array_push($sticky_posts, $news_posts[$i]);
-          } else {
-            array_push($non_sticky_posts, $news_posts[$i]);
-          }
+        $non_sticky_posts = array();
+        if ($total_number_posts - sizeof($sticky_posts) > 0) {
+          $non_sticky_posts = get_posts(array(
+            'post__not_in' => get_option('sticky_posts'),
+            'ignore_sticky_posts' => 1,
+            'posts_per_page' => $total_number_posts - sizeof($sticky_posts),
+            'category' => get_cat_ID($cat_id),
+            'no_found_rows'  => true,
+          ));
         }
 
         $iterate_list = array_merge($sticky_posts, $non_sticky_posts);
 
         foreach ($iterate_list as $key => $value) {
-          	?>
-            <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
-              <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
-                <div class="post-tile-info">
-                  <span class="post-tile-date"><?php if (is_sticky($value->ID)) { ?><span class="post-tile-sticky"><i class="fas fa-thumbtack"></i></span><?php } ?><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
-                  <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
-                </div>
-              </article>
-            </a>
-          <?php } ?>
+        	?>
+          <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
+            <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
+              <div class="post-tile-info">
+                <span class="post-tile-date"><?php if (is_sticky($value->ID)) { ?><span class="post-tile-sticky"><i class="fas fa-thumbtack"></i></span><?php } ?><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
+                <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
+              </div>
+            </article>
+          </a>
+        <?php } ?>
       </div>
 
       <a href="<?php echo get_category_link(get_cat_ID($cat_id)) ?>" title="Alle Neuigkeiten" class="front-page-large-link">Alle Neuigkeiten &gt;</a>

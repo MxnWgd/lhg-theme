@@ -19,7 +19,7 @@
   <button id="cookieBannerCloseButton" type="button" name="Verstanden!" class="cookie-banner-close-button">Ok, einverstanden!</button>
 
   <div class="cookie-banner-footer">
-    <p>Weitere Informationen zur Datenverarbeitung und wofür diese Seite Cookies verwendet, findest du in unserer <?php if (get_theme_mod('data_protection_page') !== '0') { ?><a href="<?php echo get_page_link(get_theme_mod('data_protection_page')) ?>" title="Datenschutzerklärung">Datenschutzerklärung.</a><?php } else { ?>Datenschutzerklärung <?php } ?></p>
+    <p>Weitere Informationen zur Datenverarbeitung und wofür diese Seite Cookies verwendet findest du in unserer <?php if (get_theme_mod('data_protection_page', '0') !== '0') { ?><a href="<?php echo get_page_link(get_theme_mod('data_protection_page')) ?>" title="Datenschutzerklärung">Datenschutzerklärung.</a><?php } else { ?>Datenschutzerklärung <?php } ?></p>
 
     <details>
       <summary>Warum kann ich keine Cookies ablehnen?</summary>

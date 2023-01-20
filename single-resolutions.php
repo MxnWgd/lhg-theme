@@ -2,11 +2,24 @@
 
 <div class="content-wrapper">
   <div class="post">
+    <?php
+      $expired = false;
+
+      if (get_post_meta(get_the_ID(), 'resolution_status', true) == 'expired') {
+        $expired = true;
+      } else if (get_post_meta(get_the_ID(), 'resolution_status', true) == 'auto') { // if status is set to auto and sunset has expired
+        if (get_post_meta(get_the_ID(), 'resolution_sunset', true) != '') {
+          if (date('Y-m-d') > date('Y-m-d', strtotime(get_the_date('Y-m-d') . ' + ' . get_post_meta(get_the_ID(), 'resolution_sunset', true) . ' years'))) {
+            $expired = true;
+          }
+        }
+      }
+    ?>
     <?php while (have_posts()) { the_post(); ?>
       <article class="single-wrapper">
           <div class="resolutions-meta">
             <span class="resolutions-date">
-              <?php if (get_post_meta(get_the_ID(), 'resolution_status', true) == 'expired') {
+              <?php if ($expired) {
                 echo 'abgelaufen';
               } else {
                 the_date('d.m.Y');
@@ -19,12 +32,14 @@
 
             <h1 class="resolutions-title"><?php the_title(); ?></h1>
 
-            <?php if (get_post_meta(get_the_ID(), 'resolution_status', true) == 'expired') {
+            <?php if (get_the_terms(get_the_ID(), 'applicants') != null) {
+              ?><h3 class="resolutions-subtitle">Antragsteller:&nbsp;<?php the_terms(get_the_ID(), 'applicants'); ?></h3><?php
+            } ?>
+
+            <?php if ($expired) {
               ?><h3 class="resolutions-subtitle">Dieser Beschluss ist abgelaufen.</h3><?php
-            } else {
-              if (get_the_terms(get_the_ID(), 'applicants') != null) {
-                ?><h3 class="resolutions-subtitle">Antragsteller:&nbsp;<?php the_terms(get_the_ID(), 'applicants'); ?></h3><?php
-              }
+            } else if (get_post_meta(get_the_ID(), 'resolution_sunset', true) != '') {
+              ?><h3 class="resolutions-subtitle">Gültigkeitsdauer: <?php echo get_post_meta(get_the_ID(), 'resolution_sunset', true); echo get_post_meta(get_the_ID(), 'resolution_sunset', true) == 1 ? ' Jahr' : ' Jahre'; ?></h3><?php
             } ?>
           </div>
 

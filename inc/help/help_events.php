@@ -34,3 +34,7 @@
 
 <h4>Anzeigen auf der Startseite</h4>
 <p>Bis zu drei anstehende Veranstaltungen können auch auf der Startseite angezeigt werden. Weitere Informationen hierzu findest du in der <a href="<?php menu_page_url('help_settings'); ?>" title="Hilfeseite zu den Themeeinstellungen">Hilfe zu den Themeeinstellungen</a>.</p>
+
+<h3>Kalender einbetten</h3>
+<p>Der Kalender kann über einen Shortcode auf jeder beliebigen Seite eingebettet werden.</p>
+<p>Hierzu muss an der entsprechenden Stelle der Shortcode <code>[calendar]</code> eingefügt werden.</p>

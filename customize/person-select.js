@@ -92,6 +92,19 @@ function deletePerson(e, id) {
   return false;
 }
 
+function deleteAllPersons() {
+  if (confirm('Möchtest du wirklich alle Personen von der Startseite entfernen und die Liste zurücksetzen?')) {
+    persons.forEach((item, i) => {
+      addAvailablePersonElement(item);
+    });
+
+    jQuery('.persons-element').remove();
+
+    persons = [];
+    jQuery('#personsInput').val('').trigger('change');
+  }
+}
+
 function addPerson(e, id) {
   i = id.toString();
 

@@ -9,6 +9,7 @@
 
       $args = array(
         'post_type' => 'resolutions',
+        'nopaging' => true,
         'tax_query' => array(
             array(
               'taxonomy' => 'assembly',
@@ -29,12 +30,6 @@
         ?><h2>Keine Beschlüsse gefunden.</h2><?php
       }
       ?>
-    </div>
-
-    <div class="pagination-nav">
-      <?php next_posts_link('< Ältere Beiträge'); ?>
-      <div>&nbsp;</div>
-      <?php previous_posts_link('Neuere Beiträge >') ?>
     </div>
   </div>
 </div>

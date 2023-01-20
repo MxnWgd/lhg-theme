@@ -3,7 +3,7 @@
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
 	License: Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.
-  Version: 2.2.2
+  Version: 2.3
 	Requires at least: 6.0
 	Tested up to: 6.1.1
 	Requires PHP: 7.4
@@ -315,6 +315,16 @@ blockquote cite {
 .wp-block-pullquote blockquote p {
 	margin-top: 0;
 	color: var(--bright-text-color);
+}
+
+.wp-block-pullquote blockquote a {
+	background-image: linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+	color: var(--bright-text-color);
+}
+
+.wp-block-pullquote blockquote a:hover,
+.wp-block-pullquote blockquote a:focus {
+	color: var(--dark-accent-color);
 }
 
 .wp-block-pullquote blockquote::before {
@@ -1626,10 +1636,12 @@ body.bw-mode .header-image-wrapper {
 	right: 0;
 	bottom: 0;
 	background-color: var(--element-accent-color);
+	color: var(--element-text-color);
 	padding: 20px 30px;
 }
 
-.compact-image-wrapper-title {
+.compact-image-wrapper-title,
+.dark-background .compact-image-wrapper-title {
 	font-size: 2em;
   color: var(--element-text-color);
   margin: 0;
@@ -1640,6 +1652,7 @@ body.bw-mode .header-image-wrapper {
 	max-height: 0;
 	height: auto;
 	overflow: hidden;
+	color: var(--element-text-color);
 	transition: max-height 0.7s ease;
 }
 
@@ -3422,6 +3435,12 @@ footer:not(.invisible) {
 		padding-top: 0;
 	}
 
+	.header-title,
+	.dark-background .header-title {
+		top: 40%;
+		font-size: 4em;
+	}
+
 	#header.no-image,
 	#header.no-image .header-image-wrapper {
 		height: 200px;
@@ -3769,7 +3788,7 @@ footer:not(.invisible) {
 		height: 80px;
 		top: -8px;
 		left: -40px;
-	  line-height: 136%;
+	  line-height: 125%;
 	}
 
 	#header,
@@ -3791,6 +3810,7 @@ footer:not(.invisible) {
 	.header-title,
 	.dark-background .header-title {
     top: 35%;
+		font-size: 3em;
 	}
 
 	.header-top-bar,
@@ -3806,10 +3826,6 @@ footer:not(.invisible) {
 
 	.header-navigation-area {
 		padding-right: 10px;
-	}
-
-	.header-title {
-		font-size: 3em;
 	}
 
 	.header-image-slider-control {
@@ -4184,7 +4200,8 @@ footer:not(.invisible) {
 }
 
 @media only screen and (max-width: 500px) {
-	.header-title {
+	.header-title,
+	.dark-background .header-title {
 		font-size: 2.2em;
 		top: 30%;
 	}
