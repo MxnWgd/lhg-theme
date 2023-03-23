@@ -63,7 +63,10 @@
           ?>
         </p>
 
-        <h1 class="post-title"><?php the_title(); ?></h1>
+        <h1 class="post-title">
+          <?php the_title(); ?>
+          <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Veranstaltung bearbeiten" href="' . get_edit_post_link(get_the_ID()) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+        </h1>
 
         <div class="post-content">
           <?php echo str_replace('<!--more-->', '<br>', get_post_meta(get_the_ID(), 'event_desc', true)); ?>

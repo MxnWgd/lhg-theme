@@ -6,7 +6,10 @@
       <?php } ?>
     </p>
 
-    <h1 class="post-title"><?php the_title(); ?></h1>
+    <h1 class="post-title">
+      <?php the_title(); ?>
+      <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Beitrag bearbeiten" href="' . get_edit_post_link(get_the_ID()) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+    </h1>
 
     <div class="post-content">
       <?php the_content(); ?>

@@ -1,12 +1,12 @@
 <?php
   $result = '<article id="person-' . $person->ID . '" class="persons-wrapper">';
-    $result .= '<div ';
+    $result .= '<a class="post-wrapper-thumbnail-link" href="' . get_page_link($person->ID) . '"><div ';
     $result .= !empty(get_the_post_thumbnail_url($person->ID, 'large')) ? 'style="background-image: url(' . get_the_post_thumbnail_url($person->ID, 'large') . '); background-size: cover;"' : '';
-    $result .= ' class="persons-wrapper-thumbnail"></div>';
+    $result .= ' class="persons-wrapper-thumbnail"></div></a>';
 
     $result .= '<div class="persons-wrapper-background"></div>';
     $result .= '<div class="persons-wrapper-floater"></div>';
-    $result .= '<h1 class="persons-wrapper-title">' . $person->post_title . '</h1>';
+    $result .= '<h1 class="persons-wrapper-title">' . $person->post_title . (is_user_logged_in() ? '&nbsp;&nbsp;<a class="edit-post-link" title="Person bearbeiten" href="' . get_edit_post_link($person->ID) . '"><i class="fas fa-pen-square"></i></a>' : '') . '</h1>';
     $result .= '<p class="persons-wrapper-position">' . get_post_meta($person->ID, 'position', true) . '</p>';
     $result .= '<p class="persons-wrapper-subtitle">' . get_post_meta($person->ID, 'subtitle', true) . '</p>';
 

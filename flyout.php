@@ -34,4 +34,6 @@
       <a class="flyout-button" type="button" title="Kontaktiere uns" href="<?php echo get_page_link(get_theme_mod('flyout_contact_page')); ?>">Kontaktiere uns</a>
     <?php } ?>
   </div>
+
+  <?php $query['autofocus[section]'] = 'flyout_options'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Flyout bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
 </div>

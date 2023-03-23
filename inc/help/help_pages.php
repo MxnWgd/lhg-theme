@@ -7,6 +7,12 @@
 <h4>Position des Beitragsbildes</h4>
 <p>Es kann für jede Seite/jeden Beitrag einzeln konfiguriert werden, wie das Beitragsbild im Header positioniert werden soll. Dies kann über das Auswahlmenü rechts in der Eigenschaftenleiste für die Seiteneinstellungen im Bearbeitungsmodus eingestellt werden.</p>
 
+<h4>Zusätzliches Kachelbild</h4>
+<p>Für Beiträge kann zusätzlich eine Kachelbild festgelegt werden. Dieses wird dann anstatt des Beitragsbilds in der Beitragskachel (bspw. auf der Startseite) angezeigt. Wird hier kein Bild festgelegt, wird das Beitragsbild verwendet.</p>
+
+<h4>Zusatzbereich unten</h4>
+<p>Für Seiten kann zusätzlich eine weitere, unten eingebettete Seite angezeigt werden. Diese wird - ähnlich den Zusatzbereichen auf der Startseite - farblich hervorgehoben dargestellt. Auch dynamische Inhalte - wie Formulare - sind hier möglich.</p>
+
 <h3>Einbettungen</h3>
 <p>Da Einbettungen zu externen Seiten oft Cookies im Browser des Nutzers anlegen und Daten zu den externen Diensten übertragen, dürfen diese i.d.R. erst nach Zustimmung des Nutzers geladen werden. Ist die DSGVO-konforme Einbettung in den Einstellungen aktiviert, geschieht dies bei den meisten iFrames automatisch. Da jedoch je nach Implementierung externe Einbetttungen möglicherweise nicht immer erkannt werden, gibt es den Shortcode <code>[dsgvo]</code>, um Inhalte manuell als externe Inhalte zu kennzeichnen und automatisch eine Nutzerabfrage einzufügen.</p>
 

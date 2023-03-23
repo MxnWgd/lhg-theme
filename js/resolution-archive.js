@@ -2,6 +2,10 @@ let date = new Date();
 date.setTime(date.getTime() + (90 * 24 * 60 * 60 * 1000)); //expiring time to 90 days
 const expires = "expires=" + date.toUTCString();
 
+let nextPage = 2;
+var scrollFromTop = document.documentElement.scrollTop;
+let blockInfiniteScrollLoad = false;
+
 jQuery(document).ready(function() {
   //get cookies
   if (cookies.resolutionfilter == 'search') {
@@ -42,7 +46,7 @@ jQuery('#filter').submit(function(){
 
     beforeSend:function(xhr){
       jQuery('#response').html('<div class="resolution-search-loading"></div><div class="resolution-search-loading"></div>');
-      jQuery('#paginationNav').hide();
+      jQuery('#resolutionLoadPosts').hide();
     },
 
     success:function(data){
@@ -64,7 +68,7 @@ jQuery('#resolutionsearch').submit(function(){
 
     beforeSend:function(xhr){
       jQuery('#response').html('<div class="resolution-search-loading"></div><div class="resolution-search-loading"></div>');
-      jQuery('#paginationNav').hide();
+      jQuery('#resolutionLoadPosts').hide();
     },
 
     success:function(data){
@@ -72,6 +76,48 @@ jQuery('#resolutionsearch').submit(function(){
     }
   });
   return false;
+});
+
+// load more posts
+jQuery('#resolutionLoadPosts').submit(function(){
+  var filter = jQuery('#resolutionLoadPosts');
+
+  jQuery.ajax({
+    url:filter.attr('action'),
+    data: "action=resolutions&page_number=" + nextPage,
+    type:filter.attr('method'),
+
+    beforeSend:function(xhr){
+      jQuery('#response').append('<div class="resolution-search-loading"></div><div class="resolution-search-loading"></div>');
+      jQuery('#resolutionLoadPosts').hide();
+      blockInfiniteScrollLoad = true;
+    },
+
+    success:function(data){
+      jQuery('.resolution-search-loading').remove();
+      jQuery('#resolutionLoadPosts').show();
+
+      if (data != 'endOfPosts') {
+        jQuery('#response').append(data);
+        nextPage++;
+      } else {
+        jQuery('#resolutionLoadPosts').remove();
+      }
+
+      blockInfiniteScrollLoad = false;
+    }
+  });
+  return false;
+});
+
+jQuery(document).scroll(function(){
+  scrollFromTop = document.documentElement.scrollTop;
+  var scrolldistancebottom = scrollFromTop + jQuery(window).height();
+
+  if (jQuery('#resolutionLoadPosts').offset()?.top < scrolldistancebottom + 30
+      && !blockInfiniteScrollLoad) {
+    jQuery('#resolutionLoadPosts').submit();
+  }
 });
 
 function switchToFilter() {

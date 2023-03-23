@@ -1,7 +1,12 @@
 <?php get_header(); ?>
 
 <div class="content-wrapper">
-  <?php $cat_id = get_theme_mod('front_page_news_category') != null ? get_theme_mod('front_page_news_category') : get_categories(array( 'fields' => 'ids'))[0]; ?>
+  <?php
+    $cat_id = get_theme_mod('front_page_news_category') != null ? get_theme_mod('front_page_news_category') : get_categories(array( 'fields' => 'ids'))[0];
+    if (!Is_numeric($cat_id)) { //backwards compatibility to pre-2.3.1
+      $cat_id = get_cat_ID($cat_id);
+    }
+  ?>
   <?php if ($cat_id != null) { ?>
     <div class="front-page-news-wrapper">
       <h1 class="front-page-title"><?php echo get_theme_mod('front_page_news_title') != null ? get_theme_mod('front_page_news_title') : 'Neuigkeiten'; ?></h1>
@@ -14,7 +19,6 @@
           'post__in' => get_option('sticky_posts'),
           'ignore_sticky_posts' => 1,
           'posts_per_page' => $total_number_posts,
-          'category' => get_cat_ID($cat_id),
           'no_found_rows'  => true
         ));
 
@@ -24,7 +28,7 @@
             'post__not_in' => get_option('sticky_posts'),
             'ignore_sticky_posts' => 1,
             'posts_per_page' => $total_number_posts - sizeof($sticky_posts),
-            'category' => get_cat_ID($cat_id),
+            'category' => $cat_id,
             'no_found_rows'  => true,
           ));
         }
@@ -34,10 +38,18 @@
         foreach ($iterate_list as $key => $value) {
         	?>
           <a class="post-tile-link" href="<?php echo get_post_permalink($value->ID); ?>" rel="bookmark" title="<?php echo $value->post_title ?>">
-            <article class="post-tile" <?php if (has_post_thumbnail($value->ID)) { ?>style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)" <?php } ?>>
+            <article class="post-tile"
+              <?php if (get_post_meta($value->ID, 'post_tile_image') != null && get_post_meta($value->ID, 'post_tile_image')[0] != '') { ?>
+                style="background-image: url(<?php echo wp_get_attachment_url(get_post_meta($value->ID, 'post_tile_image')[0], 'large') ?>)"
+              <?php } else if (has_post_thumbnail($value->ID)) { ?>
+                style="background-image: url(<?php echo get_the_post_thumbnail_url($value->ID, 'large') ?>)"
+              <?php } ?>
+            >
               <div class="post-tile-info">
                 <span class="post-tile-date"><?php if (is_sticky($value->ID)) { ?><span class="post-tile-sticky"><i class="fas fa-thumbtack"></i></span><?php } ?><?php echo date_format(date_create($value->post_date), 'd.m.Y') ?></span>
-                <h1 class="post-tile-title"><?php echo $value->post_title ?></h1>
+                <h1 class="post-tile-title">
+                  <?php echo $value->post_title; ?>
+                </h1>
               </div>
             </article>
           </a>
@@ -53,7 +65,10 @@
     $content_area_page = get_post(get_theme_mod('front_page_additional_area_page')); ?>
     <div class="front-page-content-area" style="background-image: url(<?php echo has_post_thumbnail($content_area_page->ID) ? get_the_post_thumbnail_url($content_area_page->ID, 'original') : (get_theme_mod('header_slider_mode') === '2' ? wp_get_attachment_image_src(explode(',', get_theme_mod('header_slider_carousel'))[0], 'full')[0] : wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0]); ?>);">
       <div class="front-page-content-area-box <?php echo get_theme_mod('front_page_additional_area_page_lr') !== '' ? get_theme_mod('front_page_additional_area_page_lr') : 'left'; ?>">
-        <h1 class="front-page-content-area-title"><?php echo $content_area_page->post_title; ?></h1>
+        <h1 class="front-page-content-area-title">
+          <?php echo $content_area_page->post_title; ?>
+          <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Seite bearbeiten" href="' . get_edit_post_link($content_area_page->ID) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+        </h1>
         <?php echo $content_area_page->post_content; ?>
       </div>
     </div>
@@ -132,6 +147,18 @@
       <?php } ?>
     </div>
   <?php } ?>
+
+  <?php if (get_theme_mod('front_page_second_additional_area_page') != 0) {
+    $second_content_area_page = get_post(get_theme_mod('front_page_second_additional_area_page')); ?>
+    <div class="front-page-second-content-area">
+      <h1 class="front-page-second-content-area-title">
+        <?php echo $second_content_area_page->post_title; ?>
+        <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Seite bearbeiten" href="' . get_edit_post_link($second_content_area_page->ID) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+      </h1>
+      <?php echo do_shortcode($second_content_area_page->post_content); ?>
+    </div>
+  <?php } ?>
 </div>
+
 
 <?php get_footer(); ?>

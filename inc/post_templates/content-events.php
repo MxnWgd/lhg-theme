@@ -63,7 +63,10 @@
 <article class="event-wrapper <?php echo $color == '' ? 'default' : $color; ?>">
   <div class="event-wrapper-floater"></div>
 
-  <h1 class="event-wrapper-title"><?php the_title(); ?></h1>
+  <h1 class="event-wrapper-title">
+    <?php the_title(); ?>
+    <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Veranstaltung bearbeiten" href="' . get_edit_post_link(get_the_ID()) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+  </h1>
 
   <div class="event-wrapper-date <?php echo str_contains(get_theme_mod('theme_color_option'), 'gelb') ? 'dark-text' : '' ?>">
     <?php

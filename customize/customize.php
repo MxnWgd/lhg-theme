@@ -7,7 +7,7 @@ class LHG_Theme_Customize {
     $category_choices = [];
 
     foreach($full_categories_list as $single_cat) {
-      $category_choices[$single_cat->slug] = $single_cat->name;
+      $category_choices[$single_cat->cat_ID] = $single_cat->name;
     }
 
     //get pages
@@ -178,7 +178,7 @@ class LHG_Theme_Customize {
     $wp_customize->add_control('front_page_news_category_control', array(
       'settings' => 'front_page_news_category',
       'section' => 'front_page_options',
-      'description' => 'Lege fest, welche Beitragskategorie im Neuigkeiten-Abschnitt angezeigt werden soll.',
+      'description' => 'Lege fest, welche Beitragskategorie im Neuigkeiten-Abschnitt angezeigt werden soll. "Auf der Startseite gehaltene" Beiträge werden unabhängig von ihrer Kategorie angezeigt.',
       'type' => 'select',
       'choices' => $category_choices
     ));
@@ -279,6 +279,21 @@ class LHG_Theme_Customize {
       'section' => 'front_page_options',
       'description' => 'Titel des Links:',
       'active_callback' => function() { return '0' !== get_theme_mod('front_page_board_page'); },
+    ));
+
+    $wp_customize->add_setting('front_page_second_additional_area_page', array(
+      'default' => '0',
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('front_page_second_additional_area_page_control', array(
+      'settings' => 'front_page_second_additional_area_page',
+      'section' => 'front_page_options',
+      'label' => 'Weiterer Contentbereich',
+      'description' => 'Wenn gewünscht, kann hier eine weitere Seite für den Bereich unten auf der Startseite angezeigt werden.',
+      'type' => 'select',
+      'choices' => $page_choices
     ));
 
 
@@ -512,6 +527,20 @@ class LHG_Theme_Customize {
       'section' => 'more_options',
       'label' => 'DSGVO-konforme Einbettungen verwenden',
       'description' => 'Diese Einstellung sorgt dafür, dass in Posts eingebettete, externe Inhalte (bspw. YouTube-Videos oder Google-Maps-Karten) nicht automatisch geladen werden, um den Anforderungen der DSGVO zu entsprechen.',
+      'type' => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('hide_expired_resolutions', array(
+      'default' => false,
+      'capability' => 'edit_theme_options',
+      'type' => 'theme_mod',
+    ));
+
+    $wp_customize->add_control('hide_expired_resolutions_control', array(
+      'settings' => 'hide_expired_resolutions',
+      'section' => 'more_options',
+      'label' => 'Abgelaufene Beschlüsse vor nicht-eingeloggten Besuchern verstecken',
+      'description' => 'Hinweis: diese Option funktioniert NICHT bei automatisch abgelaufenen Anträgen (Sunset-Funktion)',
       'type' => 'checkbox',
     ));
 
