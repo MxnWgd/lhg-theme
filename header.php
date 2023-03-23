@@ -30,12 +30,12 @@
     <meta name="description" content="<?php echo is_front_page() ? bloginfo('description') : get_the_excerpt(get_the_ID()); ?>">
 
     <title>
-      <?php bloginfo('name'); ?>
       <?php if (is_front_page()) {
-        echo get_bloginfo('description') != '' ? ' | ' . get_bloginfo('description') : '';
+        echo get_bloginfo('description') != '' ? get_bloginfo('description') . ' | ' : '';
       } else {
-        ?> | <?php wp_title('');
+        wp_title(''); ?> | <?php
       } ?>
+      <?php bloginfo('name'); ?>
     </title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="
@@ -47,7 +47,7 @@
       }
       ?>
     ">
-    
+
     <?php if (has_site_icon()) { ?>
         <link rel="icon" type="image/x-icon" href="<?php echo get_site_icon_url(); ?>">
         <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(); ?>">
@@ -171,10 +171,13 @@
            } else {
             ?><a href="<?php echo get_home_url(); ?>"><?php bloginfo('name'); ?></a><?php
           } ?>
+
+          <?php $query['autofocus[section]'] = 'title_tagline'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Logo bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
         </div>
         <div class="header-navigation-area">
           <?php if (has_nav_menu('secondary')) { ?>
             <nav class="secondary-nav">
+              <?php $query['autofocus[panel]'] = 'nav_menus'; $query['autofocus[section]'] = ''; echo is_user_logged_in() ? '<a class="edit-post-link" title="Menü bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
               <?php
                 wp_nav_menu(array(
                   'menu_class' => 'header-menu',
@@ -190,6 +193,7 @@
 
           <?php if (has_nav_menu('primary')) { ?>
             <nav class="primary-nav" id="primaryNav">
+              <?php $query['autofocus[panel]'] = 'nav_menus'; $query['autofocus[section]'] = ''; echo is_user_logged_in() ? '<a class="edit-post-link" title="Menü bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
               <?php
                 wp_nav_menu(array(
                   'menu_class' => 'header-menu',
@@ -221,12 +225,14 @@
           case '0': //Bild
             ?><div class="header-image-slider">
               <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>)">&nbsp;</div>
+              <?php $query['autofocus[section]'] = 'header_slider_section'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Header bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
             </div><?php
             break;
 
           case '1': //Video
             ?><div class="header-image-slider">
               <video class="header-image-video" src="<?php echo wp_get_attachment_url(get_theme_mod('header_slider_video')); ?>" autoplay loop muted></video>
+              <?php $query['autofocus[section]'] = 'header_slider_section'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Header bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
             </div><?php
             break;
 
@@ -244,12 +250,14 @@
                   ?><button class="header-image-slider-control-dot" title="Zu Slide <?php echo $i + 1; ?> springen" id="<?php echo $i; ?>" type="button">&nbsp;</button><?php
                 } ?>
               </div>
+              <?php $query['autofocus[section]'] = 'header_slider_section'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Header bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
             </div><?php
             break;
 
           default:
             ?><div class="header-image-slider">
               <div class="header-image-slide" style="background-image: url(<?php echo get_template_directory_uri() ?>/img/default.jpg)">&nbsp;</div>
+              <?php $query['autofocus[section]'] = 'header_slider_section'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Header bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
             </div><?php
         }
       } else if (has_post_thumbnail()

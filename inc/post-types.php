@@ -531,6 +531,21 @@ function resolution_filter() {
     ));
   }
 
+  if (get_theme_mod('hide_expired_resolutions', false) && !is_user_logged_in()) {
+    $args['meta_query'] = array(
+      'relation' => 'OR',
+      array(
+        'key' => 'resolution_status',
+        'value' => 'expired',
+        'compare' => '!=',
+      ),
+      array(
+        'key' => 'resolution_status',
+        'compare' => 'NOT EXISTS'
+      ),
+    );
+  }
+
   $query = new WP_Query($args);
 
   if ($query->have_posts()) {
@@ -556,6 +571,21 @@ function resolution_search(){
     's' => $_POST['search'],
   );
 
+  if (get_theme_mod('hide_expired_resolutions', false) && !is_user_logged_in()) {
+    $args['meta_query'] = array(
+      'relation' => 'OR',
+      array(
+        'key' => 'resolution_status',
+        'value' => 'expired',
+        'compare' => '!=',
+      ),
+      array(
+        'key' => 'resolution_status',
+        'compare' => 'NOT EXISTS'
+      ),
+    );
+  }
+
   $query = new WP_Query($args);
 
   if ($query->have_posts()) {
@@ -573,7 +603,50 @@ function resolution_search(){
 add_action('wp_ajax_resolutionsearch', 'resolution_search');
 add_action('wp_ajax_nopriv_resolutionsearch', 'resolution_search');
 
+function resolution_scroll() {
+  if (get_theme_mod('hide_expired_resolutions', false) && !is_user_logged_in()) {
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => 'resolutions',
+      'paged' => $_POST['page_number'] ?? 0,
+      'meta_query' => array(
+        'relation' => 'OR',
+        array(
+          'key' => 'resolution_status',
+          'value' => 'expired',
+          'compare' => '!=',
+        ),
+        array(
+          'key' => 'resolution_status',
+          'compare' => 'NOT EXISTS'
+        ),
+      ),
+      'suppress_filters' => false
+    );
+  } else {
+    $args = array(
+      'orderby' => 'date',
+      'post_type' => 'resolutions',
+      'paged' => $_POST['page_number'] ?? 0,
+    );
+  }
 
+  $query = new WP_Query($args);
+
+  if ($query->have_posts()) {
+    while ($query->have_posts()) {
+      $query->the_post();
+
+      get_template_part('inc/post_templates/content-resolutions');
+    }
+  } else {
+    echo "endOfPosts";
+  }
+
+  die();
+}
+add_action('wp_ajax_resolutions', 'resolution_scroll');
+add_action('wp_ajax_nopriv_resolutions', 'resolution_scroll');
 
 /*-----------------------------------------------
   Post type save function

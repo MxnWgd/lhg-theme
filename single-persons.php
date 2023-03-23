@@ -13,7 +13,10 @@
             <h3 class="persons-subtitle"><?php echo get_post_meta(get_the_ID(), 'position', true); ?></h3>
           <?php } ?>
 
-          <h1 class="persons-title"><?php the_title(); ?></h1>
+          <h1 class="persons-title">
+            <?php the_title(); ?>
+            <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Person bearbeiten" href="' . get_edit_post_link(get_the_ID()) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+          </h1>
 
           <?php if (get_post_meta(get_the_ID(), 'subtitle', true) != null) { ?>
             <h3 class="persons-subtitle"><?php echo get_post_meta(get_the_ID(), 'subtitle', true); ?></h3>

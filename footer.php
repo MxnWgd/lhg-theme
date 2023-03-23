@@ -60,6 +60,7 @@
               ?>
               <?php if (get_theme_mod('data_protection_page_in_menu', true) && get_theme_mod('data_protection_page', '0') !== '0') { ?><a title="Datenschutzerklärung" class="footer-menu-button" type="button" href="<?php echo get_page_link(get_theme_mod('data_protection_page')); ?>"><?php echo get_the_title(get_theme_mod('data_protection_page')); ?></a><?php } ?>
               <?php if (get_theme_mod('show_sos_icon')) { ?><a title="SOS" class="footer-menu-button" id="sosButton" type="button" target="_blank" href="https://sos.bundes-lhg.de/">🆘</a><?php } ?>
+              <?php $query['autofocus[panel]'] = 'nav_menus'; $query['autofocus[section]'] = ''; echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Menü bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
             </nav>
           <?php } ?>
 

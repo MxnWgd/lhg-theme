@@ -17,6 +17,23 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.4</strong><br>
+            - added second content area to front page<br>
+            - added additional areas for pages (#87)<br>
+            - added infinite scrolling for resolutions page (#117)<br>
+            - added automatic hiding of expired resolutions on public page (not for auto-sunset) (#204)<br>
+            - added easier editing for many components with edit buttons (#213)<br>
+            - added separate tile image for posts (#214)<br>
+            - added links to persons pages on person tiles<br>
+            - improved page title (#210)<br>
+            - fixed reset update mechanism on theme install (#179)<br>
+            - fixed submenus not centered properly (#211)<br>
+            - fixed low resolution for enlarged images (#212)<br>
+            - fixed header image showing background (#215)<br>
+            - fixed front page displaying wrong posts and not showing sticky posts if not of same category (#217)<br>
+            - fixed bug with font loading in editor<br>
+            - lots of minor style improvements
+          </li>
             <strong>Ver 2.3</strong><br>
             - added shortcode for calendar to insert in pages (#148)<br>
             - added sunset for resolutions (#207)<br>

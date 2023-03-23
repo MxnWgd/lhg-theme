@@ -54,7 +54,7 @@
 
   /* Help page */
   function help_page_menu() {
-    add_menu_page('Hilfe', 'Hilfe', 'read', 'help', 'help_page', 'dashicons-editor-help', 35);
+    add_menu_page('Hilfe & Info', 'Hilfe & Info', 'read', 'help', 'help_page', 'dashicons-editor-help', 35);
     add_submenu_page('help', 'Beiträge & Seiten', 'Beiträge & Seiten', 'read', 'help_pages', 'help_pages_page');
     add_submenu_page('help', 'Personen', 'Personen', 'read', 'help_persons', 'help_persons_page');
     add_submenu_page('help', 'Veranstaltungen', 'Veranstaltungen', 'read', 'help_events', 'help_events_page');
@@ -150,6 +150,77 @@
   }
   add_action('add_meta_boxes_' . 'post', 'add_featured_image_position_post');
   add_action('add_meta_boxes_' . 'page', 'add_featured_image_position_page');
+
+
+  /* Add tile image feature */
+  function add_post_tile_image() {
+    add_meta_box(
+        'post_tile_image',
+        'Zusätzliches Kachelbild',
+        'post_tile_image_render',
+        'post',
+        'side',
+        'high'
+    );
+  }
+  function post_tile_image_render() {
+    global $post;
+
+    $post_meta = get_post_meta($post->ID);
+
+    wp_enqueue_media();
+
+    ?>
+    <label style="margin-bottom: 10px; display: inline-block;">Hier kannst du ein zusätzliches Bild für die Postkacheln auf der Startseite festlegen. Wird hier kein Bild festgelegt, wird das Beitragsbild verwendet.</label>
+    <img id="postTileImageObj" style="width: 100%; height: 100%; <?php echo isset($post_meta['post_tile_image']) && $post_meta['post_tile_image'][0] != '' ? 'display: block;' : 'display: none;' ?>" src="<?php echo isset($post_meta['post_tile_image']) && $post_meta['post_tile_image'][0] != '' ? wp_get_attachment_image_url($post_meta['post_tile_image'][0], 'small') : '' ?>">
+    <button id="addPostTileImageBtn" type="button" name="Bild auswählen" style="display: block; box-sizing: border-box;" class="components-button is-secondary">Bild auswählen</button>
+    <button id="removePostTileImageBtn" type="button" name="Bild entfernen" style="display: block; margin-top: 1em; <?php echo isset($post_meta['post_tile_image']) && $post_meta['post_tile_image'][0] != '' ? 'display: block;' : 'display: none;' ?>" class="components-button is-link is-destructive">Bild entfernen</button>
+
+    <input id="postTileImageInput" name="post_tile_image" type="hidden" value="<?php echo $post_meta['post_tile_image'][0];  ?>">
+
+    <script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/js/post-tile-image.js"></script>
+    <?php
+  }
+  add_action('add_meta_boxes_' . 'post', 'add_post_tile_image');
+
+
+  /* Add page additonal area feature */
+  function add_page_additonal_area() {
+    add_meta_box(
+        'page_additional_area',
+        'Zusatzbereich unten',
+        'page_additional_area_render',
+        'page',
+        'side',
+        'high'
+    );
+  }
+  function page_additional_area_render() {
+    global $post;
+    $post_meta = get_post_meta($post->ID);
+
+    //get pages
+    $full_pages_list = get_pages();
+    $page_choices = [];
+    $page_choices[0] = '- Nicht anzeigen -';
+    foreach ($full_pages_list as $single_page) {
+      if (get_the_ID() != $single_page->ID) {
+        $page_choices[$single_page->ID] = $single_page->post_title;
+      }
+    }
+
+    ?>
+    <label style="margin-bottom: 10px; display: inline-block;">Hier kann eine Seite für den zusätzlichen Bereich unten auf dieser Seite ausgewählt werden. Diese wird - ähnlich den Zusatzbereichen auf der Startseite - farblich hervorgehoben dargestellt.</label>
+    <select style="display: block; width: 100%; box-sizing: border-box;" name="page_additional_area">
+      <?php foreach ($page_choices as $key => $value) { ?>
+        <option value="<?php echo $key; ?>" <?php echo isset($post_meta['page_additional_area']) && $post_meta['page_additional_area'][0] == $key ? 'selected' : ''; ?>>
+          <?php echo $value; ?>
+        </option>
+      <?php } ?>
+    </select>
+    <?php
+  }
+  add_action('add_meta_boxes_' . 'page', 'add_page_additonal_area');
 
 
   /*-----------------------------------------------
@@ -324,6 +395,10 @@
   }
   add_action('admin_notices', 'update_notice');
 
+  function lhg_theme_after_switch () {
+    set_theme_mod('update_available', false);
+  }
+  add_action('after_switch_theme', 'lhg_theme_after_switch');
 
 
   /*-----------------------------------------------

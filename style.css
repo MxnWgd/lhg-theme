@@ -3,7 +3,7 @@
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
 	License: Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.
-  Version: 2.3
+  Version: 2.4
 	Requires at least: 6.0
 	Tested up to: 6.1.1
 	Requires PHP: 7.4
@@ -344,6 +344,15 @@ blockquote cite {
 	text-align: center;
 }
 
+.wp-block-columns {
+	gap: 50px;
+}
+
+
+.grecaptcha-badge {
+    display: none !important;
+}
+
 
 strong {
 	font-weight: bold;
@@ -543,6 +552,110 @@ hr,
   font-size: 1.4em;
 }
 
+
+/* Edit post buttons */
+
+.edit-post-link,
+.dark-background .edit-post-link {
+	background: none;
+	display: inline-block;
+	color: inherit;
+	font-size: 0.8em;
+	opacity: 0.7;
+	padding: 0;
+	margin: 0;
+	transition: opacity 0.3s ease;
+}
+
+.edit-post-link:hover,
+.edit-post-link:focus,
+.dark-background .edit-post-link:hover,
+.dark-background .edit-post-link:focus {
+	opacity: 1;
+	color: inherit;
+	transform: scale(1);
+	background: none;
+}
+
+.persons-wrapper .edit-post-link,
+.event-wrapper .edit-post-link,
+.post-tile .edit-post-link,
+.footer-nav .edit-post-link,
+.primary-nav .edit-post-link,
+.secondary-nav .edit-post-link {
+	visibility: hidden;
+}
+.persons-wrapper:hover .edit-post-link,
+.persons-wrapper:focus .edit-post-link,
+.event-wrapper:hover .edit-post-link,
+.event-wrapper:focus .edit-post-link,
+.post-tile:hover .edit-post-link,
+.post-tile:focus .edit-post-link,
+.flyout:hover .edit-post-link,
+.flyout:focus .edit-post-link,
+.header-top-branding:hover .edit-post-link,
+.header-top-branding:focus .edit-post-link,
+.footer-nav:hover .edit-post-link,
+.footer-nav:focus .edit-post-link,
+.primary-nav:hover .edit-post-link,
+.primary-nav:focus .edit-post-link,
+.secondary-nav:hover .edit-post-link,
+.secondary-nav:focus .edit-post-link {
+	visibility: visible;
+}
+
+.footer-nav .edit-post-link {
+	font-size: 1em;
+}
+
+.flyout .edit-post-link {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	font-size: 24px;
+	visibility: hidden;
+}
+
+.header-top-branding .edit-post-link {
+	font-size: 0.5em;
+	margin-left: 10px;
+	margin-bottom: 5px;
+	visibility: hidden;
+}
+
+.primary-nav .edit-post-link {
+	margin-right: 10px;
+}
+
+.header-image-slider .edit-post-link {
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+	z-index: 10;
+	color: #FFFFFF;
+	font-size: 1.5em;
+}
+
+.front-page-content-area-box .edit-post-link,
+.front-page-content-area-box:hover .edit-post-link,
+.front-page-content-area-box:focus .edit-post-link,
+.page-additional-area .edit-post-link,
+.page-additional-area :hover .edit-post-link,
+.page-additional-area :focus .edit-post-link,
+.front-page-second-content-area .edit-post-link,
+.front-page-second-content-area:hover .edit-post-link,
+.front-page-second-content-area:focus .edit-post-link,
+.dark-background .page-additional-area .edit-post-link,
+.dark-background .page-additional-area:hover .edit-post-link,
+.dark-background .page-additional-area:focus .edit-post-link,
+.dark-background .front-page-second-content-area .edit-post-link,
+.dark-background .front-page-second-content-area:hover .edit-post-link,
+.dark-background .front-page-second-content-area:focus .edit-post-link {
+	background: none;
+	color: inherit;
+}
+
+
 /*-----------------------------------------------
   Input stuff
 -----------------------------------------------*/
@@ -661,8 +774,8 @@ input[type="checkbox"]:checked ~ span.checkbox {
 
 input[type="checkbox"] ~ span.checkbox::after {
 	content: '';
-	top: 3px;
-  left: 2px;
+	top: 3.5px;
+  left: 2.5px;
 	width: 0;
 	height: 0;
 	border: 0px solid var(--bright-text-color);
@@ -696,7 +809,7 @@ input[type="radio"]:checked ~ span.radio {
 
 input[type="radio"] ~ span.radio::after {
 	content: '';
-	top: 3px;
+	top: 3.5px;
   left: 3.2px;
 	width: 0;
 	height: 0;
@@ -784,6 +897,7 @@ select {
 	transition: background-size 0.3s ease;
 	-webkit-appearance: none;
 	position: relative;
+	min-height: 40px;
 }
 
 .dark-background select {
@@ -926,7 +1040,7 @@ body.bw-mode .header-image-slider {
 
 .header-image-slide.align-center {
 	background-position: center;
-  padding-top: 100px;
+	padding-top: 50px;
 }
 .header-image-slide.align-top {
 	background-position: top center;
@@ -1133,6 +1247,7 @@ body.bw-mode .header-image-wrapper {
 	width: 100%;
 	display: flex;
   align-content: center;
+	align-items: center;
   justify-content: flex-end;
 }
 
@@ -1203,7 +1318,7 @@ body.bw-mode .header-image-wrapper {
 	display: none;
 	position: absolute;
 	top: calc(100% + 15px);
-	left: calc(-150px + 50%);
+	left: calc(-165px + 50%);
 	background-color: #FFFFFF;
 	font-size: 0.8em;
 	text-align: left;
@@ -1347,6 +1462,7 @@ body.bw-mode .header-image-wrapper {
   bottom: -60px;
   left: 0;
   z-index: 102;
+	pointer-events: none;
 	filter: drop-shadow(0px 10px 40px #000000AA);
 }
 
@@ -1407,14 +1523,18 @@ body.bw-mode .header-image-wrapper {
 	margin: 20px 0;
 }
 
-.post-content > p,
+.post-content p,
+.page-content p {
+	font-size: 1.1em;
+	margin: 10px 0;
+}
+
 .post-content > ol,
 .post-content > ul,
-.page-content > p,
 .page-content > ol,
 .page-content > ul {
-	margin: 10px 0;
 	font-size: 1.1em;
+	margin: 10px 0;
 }
 
 .post-title {
@@ -1781,7 +1901,7 @@ body.bw-mode .post-tile {
 	padding: 40px 0;
 	color: var(--element-text-color);
 	text-align: center;
-	margin-top: 100px;
+	margin: 100px 0 -100px 0;
 }
 
 .related-posts-title,
@@ -2103,6 +2223,236 @@ body.bw-mode .front-page-content-area {
 	border-top-color: var(--element-text-color);
 }
 
+.front-page-second-content-area,
+.page-additional-area {
+	padding: 10px 150px 50px 150px;
+	margin: 100px 0 -100px 0;
+	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
+	color: var(--bright-text-color);
+	box-shadow: 0px 0px 40px #000000AA;
+	font-size: 18px;
+}
+
+.front-page-second-content-area ::selection,
+.page-additional-area ::selection {
+	color: var(--dark-accent-color);
+	background: var(--bright-text-color);
+}
+
+.front-page-second-content-area-title,
+.page-additional-area-title {
+	color: var(--bright-text-color);
+	text-align: center;
+  margin: 50px auto;
+  font-size: 3.5em;
+}
+
+.front-page-second-content-area h1,
+.front-page-second-content-area blockquote p,
+.front-page-second-content-area .wp-block-quote p,
+.page-additional-area h1,
+.page-additional-area blockquote p,
+.page-additional-area .wp-block-quote p {
+	color: var(--bright-text-color);
+}
+
+.front-page-second-content-area ul > li::before,
+.front-page-second-content-area ol > li::before,
+.page-additional-area ul > li::before,
+.page-additional-area ol > li::before {
+  background-color: var(--bright-text-color);
+	color: var(--dark-accent-color);
+}
+
+.front-page-second-content-area a,
+.dark-background .front-page-second-content-area a,
+.page-additional-area a,
+.dark-background .page-additional-area a {
+	background-image: linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+	color: var(--bright-text-color);
+}
+
+.front-page-second-content-area a:hover,
+.front-page-second-content-area a:focus,
+.dark-background .front-page-second-content-area a:hover,
+.dark-background .front-page-second-content-area a:focus,
+.page-additional-area a:hover,
+.page-additional-area a:focus,
+.dark-background .page-additional-area a:hover,
+.dark-background .page-additional-area a:focus {
+	color: var(--dark-accent-color);
+}
+
+.front-page-second-content-area p,
+.page-additional-area p {
+	margin: 10px 0;
+}
+
+.front-page-second-content-area .wp-block-pullquote blockquote,
+.page-additional-area .wp-block-pullquote blockquote {
+  color: var(--dark-text-color);
+  background: #FFFFFF;
+}
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote,
+.dark-background .page-additional-area .wp-block-pullquote blockquote {
+	color: var(--bright-text-color);
+	background: var(--dark-background-color);
+}
+
+.front-page-second-content-area .wp-block-pullquote blockquote::before,
+.page-additional-area .wp-block-pullquote blockquote::before {
+	color: var(--dark-accent-color);
+	background-color: #FFFFFF;
+}
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote::before,
+.dark-background .page-additional-area .wp-block-pullquote blockquote::before {
+	color: var(--light-accent-color);
+	background: var(--dark-background-color);
+}
+
+.front-page-second-content-area .wp-block-pullquote blockquote p,
+.page-additional-area .wp-block-pullquote blockquote p {
+  color: var(--dark-accent-color);
+}
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote p,
+.dark-background .page-additional-area .wp-block-pullquote blockquote p {
+  color: var(--light-accent-color);
+}
+
+.front-page-second-content-area .wp-block-pullquote blockquote a,
+.page-additional-area .wp-block-pullquote blockquote a {
+  background-image: linear-gradient(var(--dark-accent-color) 0%, var(--dark-accent-color) 100%);
+  color: var(--dark-accent-color);
+}
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote a,
+.dark-background .page-additional-area .wp-block-pullquote blockquote a {
+  background-image: linear-gradient(var(--light-accent-color) 0%, var(--light-accent-color) 100%);
+  color: var(--light-accent-color);
+}
+.front-page-second-content-area .wp-block-pullquote blockquote a:hover,
+.front-page-second-content-area .wp-block-pullquote blockquote a:focus,
+.page-additional-area .wp-block-pullquote blockquote a:hover,
+.page-additional-area .wp-block-pullquote blockquote a:focus {
+  color: var(--bright-text-color);
+}
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote a:hover,
+.dark-background .front-page-second-content-area .wp-block-pullquote blockquote a:focus,
+.dark-background .page-additional-area .wp-block-pullquote blockquote a:hover,
+.dark-background .page-additional-area .wp-block-pullquote blockquote a:focus {
+  color: var(--dark-text-color);
+}
+
+.dark-background .front-page-second-content-area table td,
+.dark-background .front-page-second-content-area table th,
+.dark-background .page-additional-area table td,
+.dark-background .page-additional-area table th {
+  border: 1px solid #CCCCCC;
+}
+
+.front-page-second-content-area button,
+.front-page-second-content-area input[type="submit"],
+.front-page-second-content-area .wp-block-button__link,
+.front-page-second-content-area .wp-block-file a.wp-block-file__button,
+.page-additional-area button,
+.page-additional-area input[type="submit"],
+.page-additional-area .wp-block-button__link,
+.page-additional-area .wp-block-file a.wp-block-file__button,
+.dark-background .front-page-second-content-area .wp-block-button__link,
+.dark-background .front-page-second-content-area .wp-block-file a.wp-block-file__button,
+.dark-background .page-additional-area .wp-block-button__link,
+.dark-background .page-additional-area .wp-block-file a.wp-block-file__button {
+	color: var(--element-accent-color);
+	background-color: var(--element-text-color);
+	background-image: none;
+	transition: transform 0.3s ease;
+}
+.front-page-second-content-area button:hover,
+.front-page-second-content-area button:focus,
+.front-page-second-content-area input[type="submit"]:hover,
+.front-page-second-content-area input[type="submit"]:focus,
+.front-page-second-content-area .wp-block-button__link:hover,
+.front-page-second-content-area .wp-block-button__link:focus,
+.front-page-second-content-area .wp-block-file a.wp-block-file__button:hover,
+.front-page-second-content-area .wp-block-file a.wp-block-file__button:focus,
+.page-additional-area button:hover,
+.page-additional-area button:focus,
+.page-additional-area input[type="submit"]:hover,
+.page-additional-area input[type="submit"]:focus,
+.page-additional-area .wp-block-button__link:hover,
+.page-additional-area .wp-block-button__link:focus,
+.page-additional-area .wp-block-file a.wp-block-file__button:hover,
+.page-additional-area .wp-block-file a.wp-block-file__button:focus,
+.dark-background .front-page-second-content-area .wp-block-button__link:hover,
+.dark-background .front-page-second-content-area .wp-block-button__link:focus,
+.dark-background .front-page-second-content-area .wp-block-file a.wp-block-file__button:hover,
+.dark-background .front-page-second-content-area .wp-block-file a.wp-block-file__button:focus,
+.dark-background .page-additional-area .wp-block-button__link:hover,
+.dark-background .page-additional-area .wp-block-button__link:focus,
+.dark-background .page-additional-area .wp-block-file a.wp-block-file__button:hover,
+.dark-background .page-additional-area .wp-block-file a.wp-block-file__button:focus {
+	color: var(--element-accent-color);
+	background-color: var(--element-text-color);
+	background-image: none;
+	transform: scale(1.1);
+}
+
+.front-page-second-content-area hr,
+.front-page-second-content-area .wp-block-separator,
+.page-additional-area hr,
+.page-additional-area .wp-block-separator {
+  border-top: 5px solid var(--bright-text-color);
+}
+.dark-background .front-page-second-content-area hr,
+.dark-background .front-page-second-content-area .wp-block-separator,
+.dark-background .page-additional-area hr,
+.dark-background .page-additional-area .wp-block-separator {
+  border-top: 5px solid var(--dark-background-color);
+}
+
+.front-page-second-content-area input:not(.adminbar-input):not([type="submit"]),
+.front-page-second-content-area textarea,
+.page-additional-area input:not(.adminbar-input):not([type="submit"]),
+.page-additional-area textarea {
+  color: var(--bright-text-color);
+  background-image: linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+}
+
+.front-page-second-content-area select,
+.page-additional-area select {
+  color: var(--bright-text-color);
+  background-image: url(img/sort-down-solid-light.svg), linear-gradient(var(--bright-text-color) 0%, var(--bright-text-color) 100%);
+}
+
+.front-page-second-content-area span.checkbox,
+.front-page-second-content-area span.radio,
+.page-additional-area span.checkbox,
+.page-additional-area span.radio {
+  border: 2px solid var(--bright-text-color);
+}
+.front-page-second-content-area input[type="checkbox"]:checked ~ span.checkbox,
+.front-page-second-content-area input[type="radio"]:checked ~ span.radio,
+.page-additional-area input[type="checkbox"]:checked ~ span.checkbox,
+.page-additional-area input[type="radio"]:checked ~ span.radio {
+  background-color: transparent;
+	border-color: var(--bright-text-color);
+}
+.front-page-second-content-area input[type="checkbox"] ~ span.checkbox::after,
+.front-page-second-content-area input[type="radio"] ~ span.radio::after,
+.page-additional-area input[type="checkbox"] ~ span.checkbox::after,
+.page-additional-area input[type="radio"] ~ span.radio::after {
+  border-color: var(--bright-text-color);
+}
+
+.front-page-second-content-area .page-content :not(.wp-block-image) > img,
+.front-page-second-content-area .wp-block-image img,
+.page-additional-area .page-content :not(.wp-block-image) > img,
+.page-additional-area .wp-block-image img {
+	opacity: 1;
+	cursor: default;
+	pointer-events: none;
+}
+
+
 .front-page-event-wrapper {
 	background: linear-gradient(90deg, var(--dark-accent-color), var(--light-accent-color));
 	color: var(--bright-text-color);
@@ -2111,7 +2461,9 @@ body.bw-mode .front-page-content-area {
 }
 
 .front-page-event-wrapper .front-page-title,
-.front-page-event-wrapper .front-page-large-link {
+.front-page-event-wrapper .front-page-large-link,
+.dark-background .front-page-event-wrapper .front-page-title,
+.dark-background .front-page-event-wrapper .front-page-large-link {
 	color: var(--bright-text-color);
 }
 
@@ -2446,6 +2798,7 @@ p.persons-wrapper-subtitle {
 	background-image: url('img/lhg-logo-weiß.png');
 	border-radius: 50%;
 	box-shadow: 0px 0px 30px #00000077;
+	z-index: 1;
 }
 
 .dark-background .persons-wrapper-thumbnail {
@@ -3413,6 +3766,11 @@ footer:not(.invisible) {
 	  width: 250px;
 	  height: 250px;
 	}
+
+	.front-page-second-content-area,
+	.page-additional-area {
+		padding: 10px 100px 50px 100px;
+	}
 }
 
 @media only screen and (max-width: 1250px) {
@@ -3460,6 +3818,11 @@ footer:not(.invisible) {
 
 	.header-navigation-button {
 		display: block;
+	}
+
+	.primary-nav .edit-post-link,
+	.secondary-nav .edit-post-link {
+		display: none;
 	}
 
 	.primary-nav {
@@ -3619,6 +3982,11 @@ footer:not(.invisible) {
 		font-size: 16px;
 	}
 
+	.front-page-second-content-area,
+	.page-additional-area {
+		font-size: 16px;
+	}
+
 	.compact-wrapper-link {
 		clip-path: polygon(
 			calc(0% + 30px) 0%,
@@ -3725,6 +4093,10 @@ footer:not(.invisible) {
 }
 
 @media only screen and (max-width: 1000px) {
+	.header-image-slide.align-center {
+		padding-top: 0;
+	}
+
 	.persons-wrapper {
 		min-height: 180px;
 		margin: 50px 0 50px 90px;
@@ -3770,6 +4142,18 @@ footer:not(.invisible) {
 
 	.extra-page-footer {
 		padding: 20px 0;
+	}
+
+	.front-page-second-content-area,
+	.page-additional-area {
+		padding: 10px 50px 50px 50px;
+		margin: 80px 0 -100px 0;
+	}
+}
+
+@media (max-width: 782px) {
+	.wp-block-columns {
+	  gap: 0;
 	}
 }
 
@@ -3874,6 +4258,20 @@ footer:not(.invisible) {
 	.front-page-content-area {
 		padding: 50px 20px;
 		min-height: 400px;
+	}
+
+	.front-page-second-content-area {
+		padding: 10px 20px 20px 20px;
+		font-size: 14px;
+	}
+
+	.page-additional-area {
+		padding: 10px 20px 20px 20px;
+	}
+
+	.front-page-second-content-area-title,
+	.page-additional-area-title {
+		margin: 20px auto;
 	}
 
 	.content-wrapper,
@@ -4132,6 +4530,12 @@ footer:not(.invisible) {
 	.cookie-banner-icon {
 		width: 100px;
 		height: 100px;
+	}
+
+	.front-page-second-content-area,
+	.page-additional-area,
+	.related-posts-wrapper {
+		margin-bottom: -50px;
 	}
 
 	.flyout {

@@ -30,7 +30,10 @@
               <h3 class="resolutions-subtitle"><?php the_terms(get_the_ID(), 'assembly'); ?></h3>
             <?php } ?>
 
-            <h1 class="resolutions-title"><?php the_title(); ?></h1>
+            <h1 class="resolutions-title">
+              <?php the_title(); ?>
+              <?php echo is_user_logged_in() ? '&nbsp;<a class="edit-post-link" title="Beschluss bearbeiten" href="' . get_edit_post_link(get_the_ID()) . '"><i class="fas fa-pen-square"></i></a>' : ''?>
+            </h1>
 
             <?php if (get_the_terms(get_the_ID(), 'applicants') != null) {
               ?><h3 class="resolutions-subtitle">Antragsteller:&nbsp;<?php the_terms(get_the_ID(), 'applicants'); ?></h3><?php

@@ -95,12 +95,18 @@ jQuery(document).ready(function() {
   jQuery('.wp-block-image').click(function() {
     event.stopPropagation();
 
-    var srcset = jQuery(this).children('img').attr('srcset').split(',');
-    var lastImg = srcset[srcset.length - 1].split(' ')[1];
+    var srcset = jQuery(this).children('img').attr('srcset')?.split(', ');
+    var imageSet = {};
+    srcset.forEach((item, i) => {
+      var arr = item.split(' ');
+      imageSet[arr[1].slice(0, -1)] = arr[0];
+    });
+    var largestImg = imageSet[Math.max.apply(Math, Object.keys(imageSet))] ?? '';
+
     var subtitle = jQuery(this).children('figcaption').text();
 
-    if (lastImg != null && lastImg != '') {
-      jQuery('#imageViewImg').attr('src', lastImg);
+    if (largestImg != null && largestImg != '') {
+      jQuery('#imageViewImg').attr('src', largestImg);
       jQuery('.image-view-subtitle').text(subtitle);
       jQuery('.image-view').addClass('visible');
     }
@@ -108,12 +114,18 @@ jQuery(document).ready(function() {
   jQuery('.page-content :not(.wp-block-image) > img').click(function() {
     event.stopPropagation();
 
-    var srcset = jQuery(this).attr('srcset').split(',');
-    var lastImg = srcset[srcset.length - 1].split(' ')[1];
+    var srcset = jQuery(this).children('img').attr('srcset')?.split(', ');
+    var imageSet = {};
+    srcset.forEach((item, i) => {
+      var arr = item.split(' ');
+      imageSet[arr[1].slice(0, -1)] = arr[0];
+    });
+    var largestImg = imageSet[Math.max.apply(Math, Object.keys(imageSet))] ?? '';
+
     var subtitle = '';
 
-    if (lastImg != null && lastImg != '') {
-      jQuery('#imageViewImg').attr('src', lastImg);
+    if (largestImg != null && largestImg != '') {
+      jQuery('#imageViewImg').attr('src', largestImg);
       jQuery('.image-view-subtitle').text(subtitle);
       jQuery('.image-view').addClass('visible');
     }

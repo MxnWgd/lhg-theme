@@ -100,6 +100,10 @@
 		<p>Hier kann eine Auswahl von Personen (bspw. Vorstandsmitglieder oder Mandatsträger) angezeigt werden. </p>
 		<p>Zudem kann festgelegt werden, wie der Abschnitt betitelt werden soll sowie auf welche Seite der Link unterhalb des Abschnitts verlinken soll (bspw. eine Seite mit allen Vorstandsmitgliedern). Dieser Link kann zudem individuell benannt werden.</p>
   </li>
+  <li>
+    <h3>Weiterer Contentbereich</h3>
+		<p>Wenn gewünscht, kann hier eine weitere Seite für den Bereich unten auf der Startseite - ähnlich dem zusätzlichen Contentbereich unterhalb der Neuigkeiten - angezeigt werden.</p>
+  </li>
 </ul>
 
 
@@ -178,5 +182,6 @@
 		<div class="notice-warning notice">
 			<p>Die Abschaltung der DSGVO-konformen Einbettung sorgt u.U. für nicht berechtigte Datenweiterleitungen und damit datenschutzrechtliche Probleme. Sie sollte nur bei technischen Problemen und vorhandenen, alternativen Lösungen vorgenommen werden.</p>
 		</div>
+		<p>Zudem kann konfiguriert werden, ob abgelaufene Posts vor nicht eingeloggten Benutzern in der Beschlusssammlung verborgen werden sollen. Diese Option funktioniert nicht bei aufgrund einer abgelaufenen Sunset-Klausel automatisch als abgelaufen markierten Beschlüssen, hier muss der Status manuell umgestellt werden.</p>
 	</li>
 </ul>
