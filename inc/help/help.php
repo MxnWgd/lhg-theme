@@ -17,6 +17,10 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.4.1</strong><br>
+            - fixing bug with resolution archive loading
+          </li>
+          <li>
             <strong>Ver 2.4</strong><br>
             - added second content area to front page<br>
             - added additional areas for pages (#87)<br>

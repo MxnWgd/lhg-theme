@@ -3,7 +3,7 @@
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
 	License: Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.
-  Version: 2.4
+  Version: 2.4.1
 	Requires at least: 6.0
 	Tested up to: 6.1.1
 	Requires PHP: 7.4
@@ -3059,6 +3059,7 @@ details.persons-wrapper-description summary::-webkit-details-marker {
 	opacity: 0.8;
 	font-weight: bold;
 	margin: 10px 0;
+	min-height: auto;
 }
 
 .dark-background .resolution-filter-select {
