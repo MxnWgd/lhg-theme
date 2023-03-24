@@ -104,50 +104,11 @@
     </div>
 
     <div class="posts-list-wrapper" id="response">
-      <?php
-        if (get_theme_mod('hide_expired_resolutions', false) && !is_user_logged_in()) {
-          $args = array(
-            'orderby' => 'date',
-            'post_type' => 'resolutions',
-            'paged' => 1,
-            'meta_query' => array(
-              'relation' => 'OR',
-              array(
-                'key' => 'resolution_status',
-                'value' => 'expired',
-                'compare' => '!=',
-              ),
-              array(
-                'key' => 'resolution_status',
-                'compare' => 'NOT EXISTS'
-              ),
-            ),
-            'suppress_filters' => false
-          );
-        } else {
-          $args = array(
-            'orderby' => 'date',
-            'post_type' => 'resolutions',
-            'paged' => 1,
-          );
-        }
-
-        $query = new WP_Query($args);
-
-        if ($query->have_posts()) {
-          while ($query->have_posts()) {
-            $query->the_post();
-
-            get_template_part('inc/post_templates/content-resolutions');
-          }
-        } else {
-          ?><h2>Keine Beschlüsse gefunden.</h2><?php
-        }
-      ?>
+      
     </div>
 
     <form class="load-more-posts" action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="post" id="resolutionLoadPosts">
-      <button type="submit" name="Weitere Posts laden" title="Weitere Posts laden">Weitere Posts laden</button>
+      <!-- <button type="submit" name="Weitere Posts laden" title="Weitere Posts laden">Weitere Posts laden</button> -->
       <input type="hidden" name="action" value="resolutions">
     </form>
   </div>
