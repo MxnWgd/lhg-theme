@@ -1,3 +1,48 @@
+<?php
+  $color_options_data = array(
+    'magenta' => array(
+      'themeColor' => '#52002E',
+      'colorVars' => '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);',
+      'favicon' => '/img/lhg-logo-magenta.png',
+    ), 
+    'blau'=> array(
+      'themeColor' => '#003852',
+      'colorVars' => '--light-accent-color: #0071A4; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);',
+      'favicon' => '/img/lhg-logo-blau.png',
+    ),
+    'türkis'=> array(
+      'themeColor' => '#00ABAE',
+      'colorVars' => '--light-accent-color: #00ABAE; --dark-accent-color: #003852; --element-accent-color: #00ABAE; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);',
+      'favicon' => '/img/lhg-logo-türkis.png',
+    ),
+    'blau-magenta' => array(
+      'themeColor' => '#003852',
+      'colorVars' => '--light-accent-color: #E5007D; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);',
+      'favicon' => '/img/lhg-logo-magenta.png',
+    ),
+    'gelb*-pink' => array(
+      'themeColor' => '#FFED00',
+      'colorVars' => '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #FFED00; --element-text-color: #232323; --light-accent-text-color: var(--element-text-color);',
+      'favicon' => '/img/lhg-logo-gelb.png',
+    ),
+    'gelb-pink*' => array(
+      'themeColor' => '#E5007D',
+      'colorVars' => '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #E5007D; --element-text-color: #FFFFFF; --light-accent-text-color: #232323;',
+      'favicon' => '/img/lhg-logo-gelb.png',
+    ),
+    'gelb-pink-dark' => array(
+      'themeColor' => '#FFED00',
+      'colorVars' => '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #FFED00; --element-text-color: #232323; --light-accent-text-color: var(--element-text-color);',
+      'favicon' => '/img/lhg-logo-gelb.png',
+    ),
+    'default' => array(
+      'themeColor' => '#52002E',
+      'colorVars' => '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF; --light-accent-text-color: var(--element-text-color);',
+      'favicon' => '/img/lhg-logo-gelb.png',
+    )
+  )
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
   <head>
@@ -51,110 +96,18 @@
     <?php if (has_site_icon()) { ?>
         <link rel="icon" type="image/x-icon" href="<?php echo get_site_icon_url(); ?>">
         <link rel="apple-touch-icon" href="<?php echo get_site_icon_url(); ?>">
-    <?php } else {
-      switch (get_theme_mod('theme_color_option')) {
-        case 'magenta':
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png"><?php
-          break;
+    <?php } else { ?>
+        <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri() . $color_options_data[get_theme_mod('theme_color_option')]['favicon'] ?? $color_options_data['default']['favicon']; ?>">
+        <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri() . $color_options_data[get_theme_mod('theme_color_option')]['favicon'] ?? $color_options_data['default']['favicon']; ?>">
+    <?php } ?>
 
-        case 'blau':
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-blau.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-blau.png"><?php
-          break;
-
-        case 'türkis':
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-türkis.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-türkis.png"><?php
-          break;
-
-        case 'blau-magenta':
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-magenta.png"><?php
-          break;
-
-        case 'gelb*-pink':
-        case 'gelb-pink-dark':
-        case 'gelb-pink*':
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png"><?php
-          break;
-
-        default:
-          ?><link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png">
-            <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/lhg-logo-gelb.png"><?php
-          break;
-      }
-    } ?>
-
-    <?php
-      switch (get_theme_mod('theme_color_option')) {
-        case 'magenta':
-          ?><meta name="theme-color" content="#52002E"/><?php
-          break;
-
-        case 'blau':
-          ?><meta name="theme-color" content="#003852"/><?php
-          break;
-
-        case 'türkis':
-          ?><meta name="theme-color" content="#00ABAE"/><?php
-          break;
-
-        case 'blau-magenta':
-          ?><meta name="theme-color" content="#003852"/><?php
-          break;
-
-        case 'gelb*-pink':
-        case 'gelb-pink-dark':
-          ?><meta name="theme-color" content="#FFED00"/><?php
-          break;
-
-        case 'gelb-pink*':
-          ?><meta name="theme-color" content="#E5007D"/><?php
-          break;
-
-        default:
-          ?><meta name="theme-color" content="#52002E"/><?php
-          break;
-    } ?>
-
+    <meta name="theme-color" content="<?php echo $color_options_data[get_theme_mod('theme_color_option')]['themeColor'] ?? $color_options_data['default']['themeColor'] ?>"/>
 
     <?php wp_head(); ?>
 
     <style media="screen">
       :root {
-        <?php
-        switch (get_theme_mod('theme_color_option')) {
-          case 'magenta':
-            echo '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);';
-            break;
-
-          case 'blau':
-            echo '--light-accent-color: #0071A4; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);';
-            break;
-
-          case 'türkis':
-            echo '--light-accent-color: #00ABAE; --dark-accent-color: #003852; --element-accent-color: #00ABAE; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);';
-            break;
-
-          case 'blau-magenta':
-            echo '--light-accent-color: #E5007D; --dark-accent-color: #003852; --element-accent-color: #003852; --element-text-color: #FFFFFF; --light-accent-text-color: var(--bright-text-color);';
-            break;
-
-          case 'gelb*-pink':
-          case 'gelb-pink-dark':
-            echo '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #FFED00; --element-text-color: #232323; --light-accent-text-color: var(--element-text-color);';
-            break;
-
-          case 'gelb-pink*':
-            echo '--light-accent-color: #FFED00; --dark-accent-color: #E5007D; --element-accent-color: #E5007D; --element-text-color: #FFFFFF; --light-accent-text-color: #232323;';
-            break;
-
-          default:
-            echo '--light-accent-color: #A4005A; --dark-accent-color: #52002E; --element-accent-color: #52002E; --element-text-color: #FFFFFF; --light-accent-text-color: var(--element-text-color);';
-            break;
-        } ?>
+        <?php echo $color_options_data[get_theme_mod('theme_color_option')]['colorVars'] ?? $color_options_data['default']['colorVars'] ?>
       }
     </style>
   </head>
@@ -222,7 +175,7 @@
 
       <?php if (is_front_page()) {
         switch (get_theme_mod('header_slider_mode')) {
-          case '0': //Bild
+          case '0': //Image
             ?><div class="header-image-slider">
               <div class="header-image-slide" style="background-image: url(<?php echo get_theme_mod('header_slider_image') != null ? wp_get_attachment_image_src(get_theme_mod('header_slider_image'), 'full')[0] : get_template_directory_uri() . '/img/default.jpg'; ?>)">&nbsp;</div>
               <?php $query['autofocus[section]'] = 'header_slider_section'; echo is_user_logged_in() ? '<a class="edit-post-link" title="Header bearbeiten" href="' . esc_url(add_query_arg($query, admin_url('customize.php'))) . '"><i class="fas fa-pen-square"></i></a>' : ''?>

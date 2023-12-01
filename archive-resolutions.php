@@ -97,7 +97,7 @@
 
         <button type="button" name="Suche schließen" id="closeSearchButton">&lt;</button>
         <input type="search" name="search" value="" placeholder="Suche nach Beschlussinhalten..." id="resolutionSearchForm">
-        <button type="submit" name="Suchen">Suchen</button>
+        <button type="submit" name="Suchen" id="searchSubmitButton">Suchen</button>
 
         <input type="hidden" name="action" value="resolutionsearch">
       </form>

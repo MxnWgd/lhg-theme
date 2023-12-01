@@ -3,10 +3,10 @@
   Author: Katharina Lauterbach & Maxi Wiegand
   Description: <strong>Das offizielle Theme für die Liberalen Hochschulgruppen.</strong> Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. <em>Für Bugs oder Verbesserungen:</em> <a href="https://github.com/MxnWgd/lhg-theme/issues" title="Github">Github</a>.
 	License: Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.
-  Version: 2.4.1
+  Version: 2.5
 	Requires at least: 6.0
-	Tested up to: 6.1.1
-	Requires PHP: 7.4
+	Tested up to: 6.4.1
+	Requires PHP: 8.0
   Text Domain: lhg
 */
 
@@ -225,7 +225,7 @@ ol > li {
 
 li > ul,
 li > ol {
-	margin-left: 15px;
+	margin-left: 30px;
 	font-size: 0.9em;
 }
 
@@ -692,6 +692,11 @@ input::placeholder {
 	opacity: 0.7;
 }
 
+input[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 input[type="submit"] {
 	display: inline-block;
 	padding: 10px 15px;
@@ -911,8 +916,18 @@ select:focus-within {
 	outline: none;
 }
 
+select[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 option {
 	color: var(--dark-text-color);
+}
+
+button[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 
@@ -3094,11 +3109,19 @@ details.persons-wrapper-description summary::-webkit-details-marker {
 	opacity: 0.8;
 }
 
+.resolution-filter button[disabled] {
+  opacity: 0.5;
+}
+
 #resolutionSearchForm {
 	height: 100%;
   padding: 10px 0;
 	background-image: linear-gradient(#232323 0%, #232323 100%);
 	opacity: 0.8;
+}
+
+#resolutionSearchForm[disabled] {
+  opacity: 0.5;
 }
 
 .dark-background #resolutionSearchForm {
