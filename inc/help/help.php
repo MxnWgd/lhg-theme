@@ -17,7 +17,7 @@
       <code>
         <ul>
           <li>
-            <strong>Ver 2.5</strong><br>
+            <strong>Ver 2.5 </strong><br>
             - improved indent on sublists (#227)<br>
             - generalized default link for newsletter btn in flyout (#232)<br>
             - made event page be turned on by default (#231)<br>
