@@ -97,6 +97,7 @@ function requestPosts() {
   if (blockInfiniteScrollLoad) {
     return false;
   }
+  blockFilters();
 
   var filter;
   switch (mode) {
@@ -138,6 +139,25 @@ function requestPosts() {
       }
 
       blockInfiniteScrollLoad = false;
+      releaseFilters();
     }
   });
+}
+
+function blockFilters() {
+  jQuery('#assemblySelect').prop('disabled', true);
+  jQuery('#tagsSelect').prop('disabled', true);
+  jQuery('#openSearchButton').prop('disabled', true);
+  jQuery('#resolutionSearchForm').prop('disabled', true);
+  jQuery('#closeSearchButton').prop('disabled', true);
+  jQuery('#searchSubmitButton').prop('disabled', true);
+}
+
+function releaseFilters() {
+  jQuery('#assemblySelect').prop('disabled', false);
+  jQuery('#tagsSelect').prop('disabled', false);
+  jQuery('#openSearchButton').prop('disabled', false);
+  jQuery('#resolutionSearchForm').prop('disabled', false);
+  jQuery('#closeSearchButton').prop('disabled', false);
+  jQuery('#searchSubmitButton').prop('disabled', false);
 }

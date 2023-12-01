@@ -212,7 +212,7 @@ function event_form_render() {
     <div>&nbsp;</div><div>&nbsp;</div>
 
     <label for="metaInputEventLarge" style="width: 100%; margin: 10px 5px;">
-      <input type="checkbox" value="1" id="metaInputEventLarge" name="large_event" <?php if (isset($post_meta['large_event']) && $post_meta['large_event'][0] === '1') { echo 'checked'; } ?>/>
+      <input type="checkbox" value="1" id="metaInputEventLarge" name="large_event" <?php if ((isset($post_meta['large_event']) && $post_meta['large_event'][0] === '1') || !isset($post_meta['large_event'])) { echo 'checked'; } ?>/>
       <strong>Veranstaltungsseite erstellen</strong>
     </label>
     <p>

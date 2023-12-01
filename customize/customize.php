@@ -424,7 +424,7 @@ class LHG_Theme_Customize {
     ));
 
     $wp_customize->add_setting('flyout_newsletter_external_page', array(
-      'default' => 'https://news.liberale-hochschulgruppen.de/lists/?p=subscribe&id=1',
+      'default' => 'http://newsletter.bundes-lhg.de/',
       'capability' => 'edit_theme_options',
       'type' => 'theme_mod',
     ));

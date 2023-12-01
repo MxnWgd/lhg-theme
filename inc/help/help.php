@@ -17,6 +17,17 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.5</strong><br>
+            - improved indent on sublists (#227)<br>
+            - generalized default link for newsletter btn in flyout (#232)<br>
+            - made event page be turned on by default (#231)<br>
+            - blocked filter change on load of posts (#226)<br>
+            - fixed link to news category on front page not working (#229)<br>
+            - fixed layout on no news (#222)<br>
+            - fixed editor List bug (#225)<br>
+            - code improvements
+          </li>
+          <li>
             <strong>Ver 2.4.1</strong><br>
             - fixing bug with resolution archive loading
           </li>
@@ -241,7 +252,7 @@
 </p>
 <p>Lizenz: <em> Das Theme darf frei auf den Webseiten aller Mitgliedsgruppen im Bundesverband Liberaler Hochschulgruppen verwendet werden. Jede Verwendung außerhalb der vorgesehenen Webseiten bedarf der vorherigen Einwilligung durch den Bundesverband Liberaler Hochschulgruppen sowie den Autoren. Änderungen am Theme sind nur mit Zustimmung des Bundesverbands Liberaler Hochschulgruppen sowie den Autoren zulässig.</em></p>
 
-<p><em>&copy; 2022 Bundesverband Liberaler Hochschulgruppen</em></p>
+<p><em>&copy; 2023 Bundesverband Liberaler Hochschulgruppen</em></p>
 
 <script type="text/javascript">
   jQuery('#checkForUpdate').click(function() {

@@ -153,8 +153,8 @@
 	font-size: 0.9em;
 }
 
-.editor-styles-wrapper ul.wp-block-list > li::before,
-.editor-styles-wrapper .wp-block-list ul > li::before {
+.editor-styles-wrapper ul.wp-block-list > li > div::before,
+.editor-styles-wrapper .wp-block-list ul > li > div::before {
 	content: '';
   position: relative;
   display: inline-block;
@@ -167,8 +167,8 @@
   clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
 }
 
-.editor-styles-wrapper ol.wp-block-list  > li::before,
-.editor-styles-wrapper .wp-block-list ol > li::before {
+.editor-styles-wrapper ol.wp-block-list  > li > div::before,
+.editor-styles-wrapper .wp-block-list ol > li > div::before {
 	content: counter(ol-list-counter);
   position: relative;
   display: inline-block;
