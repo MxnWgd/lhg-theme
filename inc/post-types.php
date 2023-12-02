@@ -546,6 +546,8 @@ function resolution_filter() {
     );
   }
 
+  // print_r($_POST);
+
   $query = new WP_Query($args);
 
   if ($query->have_posts()) {

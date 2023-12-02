@@ -117,7 +117,6 @@ function requestPosts() {
     type:filter.attr('method'),
 
     beforeSend:function(xhr){
-      console.log(filter.serialize() + "&page_number=" + nextPage);
       jQuery('#response').append('<div class="resolution-search-loading"></div><div class="resolution-search-loading"></div>');
       jQuery('#resolutionLoadPosts').hide();
       blockInfiniteScrollLoad = true;
@@ -135,6 +134,7 @@ function requestPosts() {
           jQuery('#response').html('<h2>Keine Beschlüsse gefunden.</h2>');
         }
         blockInfiniteScrollLoad = true;
+        releaseFilters();
         return;
       }
 
@@ -145,19 +145,11 @@ function requestPosts() {
 }
 
 function blockFilters() {
-  jQuery('#assemblySelect').prop('disabled', true);
-  jQuery('#tagsSelect').prop('disabled', true);
-  jQuery('#openSearchButton').prop('disabled', true);
-  jQuery('#resolutionSearchForm').prop('disabled', true);
-  jQuery('#closeSearchButton').prop('disabled', true);
-  jQuery('#searchSubmitButton').prop('disabled', true);
+  jQuery('.resolution-filter-form').addClass('disabled');
+  jQuery('.resolution-search-form').addClass('disabled');
 }
 
 function releaseFilters() {
-  jQuery('#assemblySelect').prop('disabled', false);
-  jQuery('#tagsSelect').prop('disabled', false);
-  jQuery('#openSearchButton').prop('disabled', false);
-  jQuery('#resolutionSearchForm').prop('disabled', false);
-  jQuery('#closeSearchButton').prop('disabled', false);
-  jQuery('#searchSubmitButton').prop('disabled', false);
+  jQuery('.resolution-filter-form').removeClass('disabled');
+  jQuery('.resolution-search-form').removeClass('disabled');
 }
