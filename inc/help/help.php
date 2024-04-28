@@ -17,6 +17,10 @@
       <code>
         <ul>
           <li>
+            <strong>Ver 2.5.2</strong><br>
+            - fixed buggy front page news query (#238)
+          </li>
+          <li>
             <strong>Ver 2.5.1</strong><br>
             - fixed search not working (#235)<br>
             - fixed end of loading resolutions does not release filters (#236)

@@ -14,22 +14,21 @@
       <div class="front-page-list">
         <?php
         $total_number_posts = 8;
+        $get_posts = new WP_Query();
 
-        $sticky_posts = get_posts(array(
+        $sticky_posts = $get_posts->query(array(
           'post__in' => get_option('sticky_posts'),
-          'ignore_sticky_posts' => 1,
           'posts_per_page' => $total_number_posts,
-          'no_found_rows'  => true
+          'ignore_sticky_posts' => true
         ));
 
         $non_sticky_posts = array();
         if ($total_number_posts - sizeof($sticky_posts) > 0) {
-          $non_sticky_posts = get_posts(array(
+          $non_sticky_posts = $get_posts->query(array(
             'post__not_in' => get_option('sticky_posts'),
-            'ignore_sticky_posts' => 1,
             'posts_per_page' => $total_number_posts - sizeof($sticky_posts),
-            'category' => $cat_id,
-            'no_found_rows'  => true,
+            'cat' => $cat_id,
+            'ignore_sticky_posts' => true
           ));
         }
 
